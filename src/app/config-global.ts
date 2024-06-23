@@ -13,7 +13,7 @@ export type ConfigValue = {
         version: string;
     };
     auth: {
-        method: 'jwt' | 'amplify' | 'firebase' | 'supabase' | 'auth0';
+        method: 'jwt' | 'auth0';
         skip: boolean;
         redirectPath: string;
     };
@@ -24,7 +24,7 @@ export type ConfigValue = {
 
 export const CONFIG: ConfigValue = {
     site: {
-        name: 'Sample',
+        name: 'Travik Dev',
         serverUrl: import.meta.env.VITE_SERVER_URL ?? '',
         assetURL: import.meta.env.VITE_ASSET_URL ?? '',
         basePath: import.meta.env.VITE_BASE_PATH ?? '',

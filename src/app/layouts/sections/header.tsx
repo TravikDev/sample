@@ -20,8 +20,10 @@ export const Header = () => {
         <div>
             {
                 user &&
-                <h1>{user[0].id}: {user[0].name}</h1>
+                <p>{user[0].id}: {user[0].name}</p>
             }
+            <h2>Header</h2>
+
         </div>
     );
 }
