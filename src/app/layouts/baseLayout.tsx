@@ -1,10 +1,14 @@
 import { Footer, Header, Main } from "./sections"
 
-export const BaseLayout = () => {
+type PropsChildrenOnly = {
+    children: React.ReactNode;
+}
+
+export const BaseLayout = ({ children }: PropsChildrenOnly) => {
     return (
         <>
             <Header />
-            <Main />
+            <Main>{children}</Main>
             <Footer />
         </>
     )

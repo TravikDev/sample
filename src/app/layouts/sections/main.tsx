@@ -1,12 +1,11 @@
-import { Counter } from "../../../features/counter/counter"
-import { PostsList } from "../../../features/posts/PostsList"
+type PropsChildrenOnly = {
+    children: React.ReactNode;
+}
 
-export const Main = () => {
+export const Main = ({ children }: PropsChildrenOnly) => {
     return (
         <main>
-            main
-            <Counter />
-            <PostsList />
+            {children}
         </main>
     )
 }
