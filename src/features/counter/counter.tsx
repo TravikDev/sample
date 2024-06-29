@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { increment, decrement, reset, incrementByAmount } from '../../entities/counter/counterSlice'
 import { useState } from 'react'
-import { useAppDispatch, useAppSelector } from '../../shared/hooks/storeActions'
+import { useNewDispatch, useNewSelector } from '../../shared/hooks/storeActions'
 
 
 
@@ -18,8 +18,8 @@ export const Counter = () => {
 
 
     // The `state` arg is correctly typed as `RootState` already
-    const count = useAppSelector((state) => state.posts)
-    const dispatch = useAppDispatch()
+    const count = useNewSelector((state) => state.posts)
+    const dispatch = useNewDispatch()
 
     // /* @ts-ignore */
     // const count = useSelector((state) => state.counter.count)

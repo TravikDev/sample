@@ -1,17 +1,22 @@
 import { selectAllPosts } from "@/entities/posts"
-import { useAppDispatch, useAppSelector } from "@/shared/hooks/storeActions"
+import { useNewDispatch, useNewSelector } from "@/shared/hooks/storeActions"
 import type { PostsState } from "@/entities/posts"
+import { PostAdd } from "@/features/posts/postAdd"
+import { PostsList } from "@/features/posts"
 
 export const PostsView = () => {
 
-  
-    // The `state` arg is correctly typed as `RootState` already
-    const count = useAppSelector(selectAllPosts)
-    // const dispatch = useAppDispatch()
 
-    // console.log(count[1])
+  // The `state` arg is correctly typed as `RootState` already
+  const posts = useNewSelector(selectAllPosts)
+  // const dispatch = useNewDispatch()
+
+  // console.log(count[1])
 
   return (
-    <div>PostsView</div>
+    <>
+      <PostAdd />
+      <PostsList />
+    </>
   )
 }

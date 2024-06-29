@@ -1,13 +1,17 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import counterSlice from "../entities/counter/counterSlice";
-import postsSlice from "../entities/posts/postsSlice";
+import counter from "../entities/counter/counterSlice";
+import posts from "../entities/posts/postsSlice";
+import users from "@/entities/users/usersSlice";
+
 import type { Store } from "@reduxjs/toolkit";
+
 const rootReducer = combineReducers({})
 
 export const store: Store = configureStore({
     reducer: {
-        counter: counterSlice,
-        posts: postsSlice,
+        counter,
+        posts,
+        users,
     }
 })
 
@@ -20,4 +24,4 @@ export type RootState = ReturnType<typeof rootReducer>
 export type AppDispatch = typeof store.dispatch
 
 // hooks > useDispatch / useSelector
-// export const useAppDispatch = useDispatch.withTypes<AppDispatch>() // Export a hook that can be reused to resolve types
+// export const useNewDispatch = useDispatch.withTypes<AppDispatch>() // Export a hook that can be reused to resolve types
