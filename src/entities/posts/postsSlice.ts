@@ -1,6 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = [
+
+// Define a type for the slice state
+export interface PostsState {
+    id: number,
+    title: string,
+    content: string,
+}
+
+const initialState: PostsState[] = [
     {
         id: 1,
         title: "New Title",
@@ -22,8 +30,10 @@ const postsSlice = createSlice({
     name: "Posts",
     initialState,
     reducers: {
-
+        // actions
     }
 })
+
+export const selectAllPosts = (state: PostsState[]) => state;
 
 export default postsSlice.reducer

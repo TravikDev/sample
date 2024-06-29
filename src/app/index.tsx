@@ -5,8 +5,8 @@ import { Provider } from 'react-redux'
 import { store } from './store.ts'
 import { BrowserRouter } from 'react-router-dom'
 import { CONFIG } from './config-global.ts'
-import { Router } from '../routes/sections/index.tsx'
 import { HelmetProvider } from 'react-helmet-async'
+import { Router } from './routes/sections/index.tsx'
 // import './index.css'
 
 async function enableMocking() {

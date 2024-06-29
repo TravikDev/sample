@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async';
-import HomeView from '../view/homeView';
+import HomeView from '@/pages/home/view/homeView';
+import { TodoView } from '../view/todoView';
 
 // import HomeView from '../view/homeView';
 
@@ -18,7 +19,7 @@ export default function Page() {
         <meta name="description" content={metadata.description} />
       </Helmet>
 
-      <HomeView />
+      <TodoView />
     </>
   );
 }

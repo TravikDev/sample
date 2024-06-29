@@ -1,5 +1,5 @@
 import { Counter } from "../../../features/counter/counter";
-import { PostsList } from "../../../features/posts/PostsList";
+import { PostsList } from "@/features/posts/postsList";
 
 export default function HomeView() {
     return (

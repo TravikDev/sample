@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Navigate, useRoutes } from 'react-router-dom';
 
-import { BaseLayout } from '../../app/layouts/baseLayout';
+import { BaseLayout } from '@/app/layouts/baseLayout';
 
 // import { SplashScreen } from 'src/components/loading-screen';
 
@@ -13,7 +13,9 @@ import { mainRoutes } from './main';
 
 // ----------------------------------------------------------------------
 
-const HomePage = lazy(() => import('../../pages/home/helmet'));
+const HomePage = lazy(() => import('@/pages/home/helmet'));
+
+
 
 export function Router() {
     return useRoutes([
