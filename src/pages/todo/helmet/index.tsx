@@ -1,5 +1,4 @@
 import { Helmet } from 'react-helmet-async';
-import HomeView from '@/pages/home/view/homeView';
 import { TodoView } from '../view/todoView';
 
 // import HomeView from '../view/homeView';

@@ -1,4 +1,6 @@
+import { RootState } from "@/app/store";
 import { createSlice } from "@reduxjs/toolkit";
+import { TypedUseSelectorHook } from "react-redux";
 
 
 // Define a type for the slice state
@@ -34,6 +36,6 @@ const postsSlice = createSlice({
     }
 })
 
-export const selectAllPosts = (state: PostsState[]) => state;
+export const selectAllPosts = (state: RootState) => state.posts;
 
 export default postsSlice.reducer

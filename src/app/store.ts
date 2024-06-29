@@ -1,7 +1,8 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import counterSlice from "../entities/counter/counterSlice";
 import postsSlice from "../entities/posts/postsSlice";
 import type { Store } from "@reduxjs/toolkit";
+const rootReducer = combineReducers({})
 
 export const store: Store = configureStore({
     reducer: {
@@ -12,8 +13,8 @@ export const store: Store = configureStore({
 
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof store.getState>
-// export type RootState = ReturnType<typeof rootReducer>
+// export type RootState = ReturnType<typeof store.getState>
+export type RootState = ReturnType<typeof rootReducer>
 
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch
