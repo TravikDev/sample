@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent, FormEvent, useState } from "react"
 import { useNewDispatch } from "@/shared/hooks/storeActions"
 import { postAdded } from "@/entities/posts"
 import { useSelector } from "react-redux"
@@ -22,7 +22,8 @@ export const PostAdd = () => {
 	const onChangeContent = (e: ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)
 	const onChangeAuthor = (e: ChangeEvent<HTMLSelectElement>) => setUserId(e.target.value)
 
-	const onClickAddPost = () => {
+	const onSubmitAddPost = (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
 		console.log('clicked')
 		if (title && content) {
 			dispatch(postAdded(title, content, userId))
@@ -43,7 +44,7 @@ export const PostAdd = () => {
 	return (
 		<section>
 			<h2>Add a New Post</h2>
-			<form>
+			<form onSubmit={onSubmitAddPost}>
 				<label htmlFor="postTitle">Post Title:</label>
 				<input
 					type="text"
@@ -64,7 +65,7 @@ export const PostAdd = () => {
 					value={content}
 					onChange={onChangeContent}
 				/>
-				<button type="button" onClick={onClickAddPost} disabled={!canSave}>Add</button>
+				<button type="submit" disabled={!canSave}>Add</button>
 			</form>
 		</section>
 	)
