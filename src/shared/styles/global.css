@@ -1,0 +1,132 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex: 1;
+    /* width: 100%; */
+    /* height: 100vh;
+    display: flex;
+    flex-direction: column; */
+    font-family: Arial, sans-serif;
+    background-color: #140030;
+    color: '#ffffff'
+  }
+  
+  /* root {
+    height: 100vh;
+  } */
+    
+  .main {
+    display: flex;
+    flex-grow: 1;
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* height: 100%; */
+    /* position: relative; */
+    /* background-color: #3f00a5; */
+    user-select: none; /* Prevent text selection */
+  }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* position: relative; */
+    /* background-color: #3f00a5; */
+    /* user-select: none;
+    overflow-y: auto;
+    overflow-x: hidden; */
+  }
+
+
+  .round-button {
+    margin: auto;
+    background-color: #6200ea;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    width: 256px;
+    height: 256px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    /* align-self: center; */
+  }
+  
+  .round-button:hover {
+    background-color: #ffaa00;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+  }
+  
+  .round-button:active {
+    background-color: #dcd900;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transform: scale(0.95);
+  }
+  
+  .float-number {
+    position: absolute;
+    font-size: 20px;
+    color: #fff8dd;
+    opacity: 1;
+    animation: float-up 2s ease-out forwards;
+    user-select: none; /* Prevent text selection */
+  }
+  
+
+  .container {
+    position: relative;
+  }
+  
+  .round-button {
+    position: relative;
+    z-index: 5; /* Кнопка ниже всплывающих чисел */
+  }
+  
+  .float-number {
+    position: absolute;
+    z-index: 10; /* Всплывающие числа выше кнопки */
+    pointer-events: none; /* Отключить обработку кликов для всплывающих чисел */
+    /* Добавьте дополнительные стили для всплывающих чисел */
+  }
+  
+
+  @keyframes float-up {
+    0% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-50px);
+      opacity: 0;
+    }
+  }
+  
+
+  .App {
+    /* min-height: 100vh; */
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer {
+    position: absolute;
+    /* /* bottom: 0px; */
+    /* display: flex; */
+    /* flex-direction: row;
+    height: 16vh;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px;
+    padding-inline: 36px; */
+  }
+  

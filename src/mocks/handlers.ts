@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw'
 
-const allPosts = new Map()
+// const allPosts = new Map()
 
 // export const handlers = [
 //   // Intercept "GET http://example.com/user" requests...
@@ -37,7 +37,15 @@ const allPosts = new Map()
 
 export const handlers = [
   http.get('/api/user', () => {
-    console.log('Handling GET /api/user');
+    // console.log('Handling GET /api/user');
     return HttpResponse.json([{ id: 1, name: "John" }])
+  }),
+  http.get('/api/todos', () => {
+    console.log('Handling GET /api/user');
+    return HttpResponse.json([
+      { id: "1", userId: "1", title: "Title 1", completed: true },
+      { id: "2", userId: "2", title: "Title 2", completed: true },
+      { id: "3", userId: "3", title: "Title 3", completed: true },
+    ])
   }),
 ];

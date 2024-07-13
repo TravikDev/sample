@@ -1,4 +1,4 @@
-import { RootState } from "@/app/store"
+// import { RootState } from "@/app/store"
 import { createSlice } from "@reduxjs/toolkit"
 
 export interface User {
@@ -23,15 +23,15 @@ const usersSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
-    setOne(state, action) {
-      // state.action
-    },
-    update(state, action) {
-      // state.action
-    },
-    delete(state, action) {
-      // state.action
-    }
+    // setOne(state, action) {
+    //   // state.action
+    // },
+    // update(state, action) {
+    //   // state.action
+    // },
+    // delete(state, action) {
+    //   // state.action
+    // }
   }
 })
 

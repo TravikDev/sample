@@ -13,7 +13,7 @@ import { mainRoutes } from './main';
 
 // ----------------------------------------------------------------------
 
-const HomePage = lazy(() => import('@/pages/home/helmet'));
+const HomePage = lazy(() => import('@/pages/home/view/homeView'));
 
 
 

@@ -9,7 +9,7 @@ export const PostsList = () => {
     // const posts = useSelector(state => state.posts)
     const posts = useNewSelector(selectAllPosts)
 
-    // console.log(posts)
+    console.log(posts)
 
     const orderedPosts = posts.slice().sort((a, b) => b.date.localeCompare(a.date))
 

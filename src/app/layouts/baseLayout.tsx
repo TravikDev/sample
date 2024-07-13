@@ -7,9 +7,11 @@ type PropsChildrenOnly = {
 export const BaseLayout = ({ children }: PropsChildrenOnly) => {
     return (
         <>
-            <Header />
+        {/* // <div style={{ display: "flex", flexDirection: 'column' }}> */}
+            {/* <Header /> */}
             <Main>{children}</Main>
-            <Footer />
+            {/* <Footer /> */}
+        {/* // </div> */}
         </>
     )
 }
