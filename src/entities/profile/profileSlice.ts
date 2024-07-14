@@ -5,6 +5,8 @@ export interface Profile {
     userId: string,
     username: string,
     clicks: number,
+    rank: number,
+    moneyPerHour: number,
 }
 
 export interface ProfileState {
@@ -16,7 +18,9 @@ export interface ProfileState {
 const initialState: Profile = {
     userId: '1',
     username: 'Name',
-    clicks: 0
+    clicks: 1243,
+    rank: 4283,
+    moneyPerHour: 0.12
 }
 
 export const profileSlice = createSlice({

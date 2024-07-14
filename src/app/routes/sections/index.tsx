@@ -10,6 +10,10 @@ import { mainRoutes } from './main';
 // import { authDemoRoutes } from './auth-demo';
 // import { dashboardRoutes } from './dashboard';
 // import { componentsRoutes } from './components';
+import {
+    TransitionGroup,
+    CSSTransition
+} from "react-transition-group";
 
 // ----------------------------------------------------------------------
 
@@ -28,9 +32,18 @@ export function Router() {
             element: (
                 // <Suspense fallback={<SplashScreen />}>
                 <Suspense fallback={<div>Loading...</div>}>
-                    <BaseLayout>
-                        <HomePage />
-                    </BaseLayout>
+                    {/* <TransitionGroup> */}
+
+                        {/* <CSSTransition
+                            key={location.pathname}
+                            classNames="fade"
+                            timeout={300}
+                        > */}
+                            <BaseLayout>
+                                <HomePage />
+                            </BaseLayout>
+                        {/* </CSSTransition> */}
+                    {/* </TransitionGroup> */}
                 </Suspense>
             ),
         },
