@@ -8,30 +8,33 @@ interface FloatNumber {
   id: number;
   x: number;
   y: number;
+  value: number;
 }
 
 const App: React.FC = () => {
 
-    const dispatch = useDispatch()
-    const profile = useNewSelector(selectProfile)
+  const dispatch = useDispatch();
+  const profile = useNewSelector(selectProfile);
 
-    console.log(profile.clicks)
+  console.log(profile.clicks);
 
   const [clicks, setClicks] = useState(0);
   const [floatNumbers, setFloatNumbers] = useState<FloatNumber[]>([]);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    setClicks(clicks + 1);
+    const newClicks = clicks + 1;
+    setClicks(newClicks);
     const x = e.clientX;
     const y = e.clientY;
     const newFloatNumber: FloatNumber = {
-      id: clicks,
+      id: newClicks,
       x: x,
       y: y,
+      value: newClicks, // Сохраняем текущее количество кликов
     };
     setFloatNumbers([...floatNumbers, newFloatNumber]);
-    dispatch(addOneClick())
+    dispatch(addOneClick());
 
     setTimeout(() => {
       setFloatNumbers((current) =>
@@ -41,7 +44,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="container">
+    <>
       <button className="round-button" onClick={handleClick}>+</button>
       {floatNumbers.map((floatNumber) => (
         <div
@@ -49,10 +52,10 @@ const App: React.FC = () => {
           className="float-number"
           style={{ left: floatNumber.x, top: floatNumber.y }}
         >
-          {profile.clicks}
+          {floatNumber.value} {/* Отображаем сохранённое значение кликов */}
         </div>
       ))}
-    </div>
+    </>
   );
 };
 

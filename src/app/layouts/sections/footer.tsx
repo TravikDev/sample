@@ -31,7 +31,7 @@ export const Footer = () => {
     }
 
     return (
-        <div className="footer">
+        <footer>
             {/* {
                 user &&
                 <p>{user[0].id}: {user[0].name}</p>
@@ -51,6 +51,6 @@ export const Footer = () => {
                 ))}
             </div>
 
-        </div>
+        </footer>
     );
 };

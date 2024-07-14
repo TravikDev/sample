@@ -37,7 +37,9 @@ function CardsView() {
 
             <div className="container" style={{ padding: '24px', display: 'flex', gap: '24px', flexDirection: 'column' }}>
                 {listCards.map((item) =>
-                    <div style={{
+                    <div
+                        key={item.id}
+                    style={{
                         width: '100%',
                         // overflow: 'scroll',
                         color: 'white',
