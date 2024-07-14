@@ -8,7 +8,7 @@ export const BaseLayout = ({ children }: PropsChildrenOnly) => {
     return (
         <>
         {/* // <div style={{ display: "flex", flexDirection: 'column' }}> */}
-            {/* <Header /> */}
+            <Header />
             <Main>{children}</Main>
             <Footer />
         {/* // </div> */}

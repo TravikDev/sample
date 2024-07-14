@@ -31,7 +31,7 @@ export const Header = () => {
     }
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center', paddingInline: '20px' }}>
+        <header style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center', paddingInline: '20px' }}>
             {/* {
                 user &&
                 <p>{user[0].id}: {user[0].name}</p>
@@ -51,6 +51,6 @@ export const Header = () => {
                 ))}
             </div>
 
-        </div>
+        </header>
     );
 };
