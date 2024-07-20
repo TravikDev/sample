@@ -114,6 +114,49 @@ header {
   border-width: 2px;
   border-radius: 100%;
   border-color: #fff8dd;
+  transform: rotateX(60deg);
+  transform-style: preserve-3d;
+
+}
+
+.icon-container {
+  transform: rotateX(-60deg); /* Отменяем поворот для контейнера с иконкой */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+}
+
+.icon {
+  transform: rotateX(60deg); /* Отменяем поворот для иконки */
+  position: absolute;
+}
+
+.round-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 20%;
+  transition: transform 0.3s;
+}
+
+.icon {
+  position: absolute;
+  width: 128px;
+  height: 128px;
+  color: white;
+  z-index: 10;
+  bottom: 36px;
+  transition: transform 0.3s;
+}
+
+.round-button:active {
+  transform: rotateX(60deg);
+}
+
+.round-button:active .icon {
+  transform: rotateX(60deg);
 }
 
 @keyframes colorChange {
@@ -157,12 +200,12 @@ header {
 
 .round-button:hover {
   background-color: #006700;
-  transform: scale(1.05);
+  transform: scale(1.05) rotateX(60deg);
 }
 
 .round-button:active {
   background-color: #008f1f;
-  transform: scale(0.95);
+  transform: scale(0.95) rotateX(60deg);
 }
 
 

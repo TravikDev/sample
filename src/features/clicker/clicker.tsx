@@ -33,6 +33,18 @@ interface FloatNumber {
   value: number;
 }
 
+const StyledButton = styled(Button)({
+  '&:focus': {
+    animation: 'none',
+  },
+  '&:active': {
+    animation: 'none',
+  },
+  '&:hover': {
+    animation: 'none',
+  }
+});
+
 const App: React.FC = () => {
 
   const [progress, setProgress] = React.useState(10);
@@ -103,6 +115,12 @@ const App: React.FC = () => {
     // Добавьте другие карточки по мере необходимости
   ];
 
+  const [animate, setAnimate] = useState(false);
+
+  const handleClick2 = () => {
+    setAnimate(!animate);
+  };
+
   return (
     <Container sx={{ display: 'flex', flexDirection: 'column', gap: '36px', height: '100%' }}>
 
@@ -140,9 +158,28 @@ const App: React.FC = () => {
 
       </Container>
 
-      <button className="round-button" style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }} onClick={handleClick}>
-        <Person sx={{ position: 'absolute', width: '50%', height: '50%', color: 'white' }} />
+      {/* <button className="round-button" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', top: '20%' }} onClick={handleClick}>
       </button>
+
+      <StyledButton onClick={handleClick} disableRipple>
+      <Person className="round-button" sx={{ position: 'absolute', width: '128px', height: '128px', color: 'white', zIndex: 10, bottom: '36px', }} />
+        
+      </StyledButton> */}
+
+      <button
+        className={`round-button ${animate ? 'animate' : ''}`}
+        style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', top: '20%' }}
+        onClick={handleClick2}
+      >
+        Button 1
+      </button>
+
+      <StyledButton onClick={handleClick2} disableRipple>
+        <Person
+          className={`animated-icon ${animate ? 'animate' : ''}`}
+          sx={{ position: 'absolute', width: '128px', height: '128px', color: 'white', zIndex: 10, bottom: '36px' }}
+        />
+      </StyledButton>
       {floatNumbers.map((floatNumber) => (
         <div
           key={floatNumber.id}
