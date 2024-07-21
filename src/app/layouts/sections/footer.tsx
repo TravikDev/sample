@@ -6,7 +6,7 @@ import IconTrophy from "@/assets/icons/menu/trophy.png";
 import { useNewSelector } from "@/shared/hooks/storeActions";
 import { selectProfile } from "@/entities/profile/profileSlice";
 import { Link } from "react-router-dom";
-import { Box, Button, IconButton, Stack, SvgIcon, Typography } from "@mui/material";
+import { Box, Button, IconButton, List, Stack, SvgIcon, Typography } from "@mui/material";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ChecklistRoundedIcon from '@mui/icons-material/ChecklistRounded';
 import EmojiEventsRoundedIcon from '@mui/icons-material/EmojiEventsRounded';
@@ -25,7 +25,7 @@ const listMenu = [
                 {/* <Typography style={{ color: 'white', fontSize: '24px' }}>Quests</Typography> */}
                 {/* <EmojiEventsRoundedIcon sx={{ color: '#fff', width: '48px', height: '48px' }} />  */}
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <RocketLaunchRoundedIcon sx={{ color: '#fff', width: '48px', height: '48px' }} />
+                <RocketLaunchRoundedIcon sx={{ color: '#fff', width: '40px', height: '40px' }} />
             <Typography style={{ color: 'white', fontSize: '10px' }}>Quests</Typography>
             </Box>
             </Button>
@@ -35,7 +35,7 @@ const listMenu = [
             <Button >
                 {/* <Typography style={{ color: 'white', fontSize: '24px' }}>Quests</Typography> */}
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <InsightsRoundedIcon sx={{ color: '#fff', width: '48px', height: '48px' }} />
+            <InsightsRoundedIcon sx={{ color: '#fff', width: '40px', height: '40px' }} />
             <Typography style={{ color: 'white', fontSize: '10px' }}>Stats</Typography>
             </Box>
             </Button>
@@ -46,9 +46,9 @@ const listMenu = [
         isActive: false,
         url: '/referral',
         icon: <Button>
-            {/* <RocketLaunchRoundedIcon sx={{ color: '#fff', width: '48px', height: '48px' }} /> */}
+            {/* <RocketLaunchRoundedIcon sx={{ color: '#fff', width: '40px', height: '40px' }} /> */}
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <Diversity2RoundedIcon sx={{ color: '#fff', width: '48px', height: '48px' }} />
+            <Diversity2RoundedIcon sx={{ color: '#fff', width: '40px', height: '40px' }} />
             <Typography style={{ color: 'white', fontSize: '10px' }}>Referral</Typography>
             </Box>
         </Button>
@@ -61,7 +61,7 @@ const listMenu = [
         icon: <Button>
             {/* <Typography style={{ color: 'white', fontSize: '24px' }}>Quests</Typography> */}
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <DiamondRoundedIcon sx={{ color: 'gold', width: '48px', height: '48px' }} />
+            <DiamondRoundedIcon sx={{ color: 'gold', width: '40px', height: '40px' }} />
             <Typography style={{ color: 'gold', fontSize: '10px' }}>Diamonds</Typography>
             </Box>
         </Button>
@@ -81,21 +81,8 @@ const FontAwesomeSvgIcon = forwardRef<SVGSVGElement, FontAwesomeSvgIconProps>(
         } = icon;
 
         return (
-            <SvgIcon ref={ref} viewBox={`0 0 ${width} ${height}`}>
-                {typeof svgPathData === 'string' ? (
-                    <path d={svgPathData} />
-                ) : (
-                    /**
-                     * A multi-path Font Awesome icon seems to imply a duotune icon. The 0th path seems to
-                     * be the faded element (referred to as the "secondary" path in the Font Awesome docs)
-                     * of a duotone icon. 40% is the default opacity.
-                     *
-                     * @see https://fontawesome.com/how-to-use/on-the-web/styling/duotone-icons#changing-opacity
-                     */
-                    svgPathData.map((d: string, i: number) => (
-                        <path style={{ opacity: i === 0 ? 0.4 : 1 }} d={d} />
-                    ))
-                )}
+            <SvgIcon>
+
             </SvgIcon>
         );
     },
@@ -119,7 +106,7 @@ export const Footer = () => {
     }
 
     return (
-        <footer style={{ padding: '2px', paddingBottom: '12px', paddingInline: '12px' }}>
+        <footer style={{ width: '100%', paddingBlock: 2 }}>
             {/* {
                 user &&
                 <p>{user[0].id}: {user[0].name}</p>
@@ -145,14 +132,14 @@ export const Footer = () => {
                     </Button>
                 </Link>
             </div> */}
-            <Stack sx={{ display: 'flex', flexDirection: 'row', gap: '36px', justifyContent: 'space-evenly', width: '100%', paddingTop: '8px', paddingBottom: '8px' }}>
+            <List sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', }}>
                 {listMenu.map((item) => (
                     <Link style={{}} to={item.url} key={item.id}>
                         {/* <img height={36} width={36} src={item.icon} alt={item.title} /> */}
                         {item.icon}
                     </Link>
                 ))}
-            </Stack>
+            </List>
 
         </footer>
     );

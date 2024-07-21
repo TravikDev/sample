@@ -1,11 +1,11 @@
 import { addOneClick, selectProfile } from '@/entities/profile/profileSlice';
 import { useNewSelector } from '@/shared/hooks/storeActions';
-import { Box, Button, Container, Drawer, Card, CardActionArea, CardMedia, CardContent, Typography, CardActions, List } from '@mui/material'; // Импорт необходимых компонентов
+import { Box, Button, Container, Drawer, Card, CardActionArea, CardMedia, CardContent, Typography, CardActions, List, Paper, IconButton, Tabs } from '@mui/material'; // Импорт необходимых компонентов
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 // import './App.css';
 import CurrencyBitcoinRoundedIcon from '@mui/icons-material/CurrencyBitcoinRounded';
-import { Person } from '@mui/icons-material';
+import { Fingerprint, Person } from '@mui/icons-material';
 import LinearProgress, { LinearProgressProps, linearProgressClasses } from '@mui/material/LinearProgress';
 import styled from 'styled-components';
 import DateRangeRoundedIcon from '@mui/icons-material/DateRangeRounded';
@@ -14,7 +14,44 @@ import GradeRoundedIcon from '@mui/icons-material/GradeRounded';
 import Diversity1RoundedIcon from '@mui/icons-material/Diversity1Rounded';
 import ChecklistRoundedIcon from '@mui/icons-material/ChecklistRounded';
 import { SvgChar } from '@/assets/SvgChar';
+// import Box from '@mui/material/Box';
+import Tab from '@mui/material/Tab';
+// import TabContext from '@mui/lab/TabContext';
+// import TabList from '@mui/lab/TabList';
+// import TabPanel from '@mui/lab/TabPanel';
 // import { ReactComponent as CharSVG } from '../../assets/character.svg?react'
+
+
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
+
+function CustomTabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+    </div>
+  );
+}
+
+function a11yProps(index: number) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
+
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 10,
@@ -108,11 +145,18 @@ const App: React.FC = () => {
 
   // Пример списка карточек
   const cardsList = [
-    { id: 1, title: 'Lizard', description: 'Lizards are a widespread', image: 'https://images.vexels.com/content/199944/preview/girl-tablet-character-isometric-ddaf3e.png' },
-    { id: 2, title: 'Frog', description: 'Frogs are amphibians', image: 'https://images.vexels.com/content/199944/preview/girl-tablet-character-isometric-ddaf3e.png' },
-    { id: 3, title: 'Frog', description: 'Frogs are amphibians', image: 'https://images.vexels.com/content/199944/preview/girl-tablet-character-isometric-ddaf3e.png' },
-    { id: 4, title: 'Frog', description: 'Frogs are amphibians', image: 'https://images.vexels.com/content/199944/preview/girl-tablet-character-isometric-ddaf3e.png' },
-    { id: 5, title: 'Frog', description: 'Frogs are amphibians', image: 'https://images.vexels.com/content/199944/preview/girl-tablet-character-isometric-ddaf3e.png' },
+    { id: 1, title: 'Lizard', description: 'Lizards are a widespread', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVnlgnSfn_lCvpuKEc7Hc9FHr1Kw-yt0Yipw&s`', color: 'white' },
+    { id: 2, title: 'Frog', description: 'Frogs are amphibians', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVnlgnSfn_lCvpuKEc7Hc9FHr1Kw-yt0Yipw&s', color: 'white' },
+    { id: 3, title: 'Frog', description: 'Frogs are amphibians', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVnlgnSfn_lCvpuKEc7Hc9FHr1Kw-yt0Yipw&s`', color: 'white' },
+    { id: 4, title: 'Frog', description: 'Frogs are amphibians', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVnlgnSfn_lCvpuKEc7Hc9FHr1Kw-yt0Yipw&s`', color: 'gold' },
+    { id: 5, title: 'Frog', description: 'Frogs are amphibians', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVnlgnSfn_lCvpuKEc7Hc9FHr1Kw-yt0Yipw&s`', color: 'gold' },
+    { id: 6, title: 'Frog', description: 'Frogs are amphibians', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVnlgnSfn_lCvpuKEc7Hc9FHr1Kw-yt0Yipw&s`', color: 'gold' },
+    { id: 7, title: 'Frog', description: 'Frogs are amphibians', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVnlgnSfn_lCvpuKEc7Hc9FHr1Kw-yt0Yipw&s`', color: 'gold' },
+    { id: 8, title: 'Frog', description: 'Frogs are amphibians', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVnlgnSfn_lCvpuKEc7Hc9FHr1Kw-yt0Yipw&s`', color: 'gold' },
+    { id: 9, title: 'Frog', description: 'Frogs are amphibians', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVnlgnSfn_lCvpuKEc7Hc9FHr1Kw-yt0Yipw&s`', color: 'gold' },
+    { id: 10, title: 'Frog', description: 'Frogs are amphibians', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVnlgnSfn_lCvpuKEc7Hc9FHr1Kw-yt0Yipw&s`', color: 'gold' },
+    { id: 11, title: 'Frog', description: 'Frogs are amphibians', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVnlgnSfn_lCvpuKEc7Hc9FHr1Kw-yt0Yipw&s`', color: 'gold' },
+    { id: 12, title: 'Frog', description: 'Frogs are amphibians', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVnlgnSfn_lCvpuKEc7Hc9FHr1Kw-yt0Yipw&s`', color: 'gold' },
 
     // Добавьте другие карточки по мере необходимости
   ];
@@ -123,8 +167,17 @@ const App: React.FC = () => {
     setAnimate(!animate);
   };
 
+  // TABS
+
+  const [value, setValue] = useState(1);
+
+  const handleChange3 = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
+
+
   return (
-    <Container sx={{ display: 'flex', flexDirection: 'column', gap: '36px', height: '100%' }}>
+    <Container sx={{ display: 'flex', flexDirection: 'column', gap: '36px', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
 
 
       <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center', width: '100%', gap: '28px', flex: 1 }}>
@@ -161,7 +214,7 @@ const App: React.FC = () => {
 
         <List sx={{ display: 'flex', flexDirection: 'row', gap: '24px', justifyContent: 'space-between', width: '100%' }}>
 
-          <Button onClick={() => setDrawerQuestsOpen(!drawerQuestsOpen)} sx={{
+          <Button onClick={() => setDrawerTeamOpen(state => !state)} sx={{
             flexGrow: 1,
             // width: '50%',
             height: '64px',
@@ -181,7 +234,7 @@ const App: React.FC = () => {
             <Typography sx={{ fontSize: '10px' }}>PR TEAM</Typography>
           </Button>
 
-          <Button onClick={() => setDrawerQuestsOpen(!drawerQuestsOpen)} sx={{
+          <Button onClick={() => setDrawerBloggersOpen(state => !state)} sx={{
             flexGrow: 1,
             backgroundColor: '#131',
             width: '64px',
@@ -206,28 +259,23 @@ const App: React.FC = () => {
       </Container>
 
       {/* <button className="round-button" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', top: '20%' }} onClick={handleClick}>
-      </button>
+      </button> */}
 
-      <StyledButton onClick={handleClick} disableRipple>
-      <Person className="round-button" sx={{ position: 'absolute', width: '128px', height: '128px', color: 'white', zIndex: 10, bottom: '36px', }} />
-        
-      </StyledButton> */}
+      <StyledButton onClick={handleClick} disableRipple sx={{ width: '100%', height: '100%' }}>
+        <SvgChar style={{ zIndex: 10, height: '70%', position: 'absolute', bottom: '20%' }} />
+
+      </StyledButton>
+
 
       <button
         className="round-button"
-        style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', top: '40%' }}
+        style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', bottom: '15%', position: 'absolute' }}
         onClick={handleClick}
       >
 
       </button>
 
-      <StyledButton onClick={handleClick} disableRipple style={{ bottom: '15%'}}>
-        {/* <Person
-          className="animated-icon"
-          sx={{ position: 'absolute', width: '128px', height: '128px', color: 'white', zIndex: 10, bottom: '36px' }}
-        /> */}
-        <SvgChar width='200px' height='200px' style={{ zIndex: '10'}} />
-      </StyledButton>
+
       {floatNumbers.map((floatNumber) => (
         <div
           key={floatNumber.id}
@@ -276,34 +324,40 @@ const App: React.FC = () => {
           },
         }}
       >
-        <Box sx={{ width: '100%', height: '100%', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '20px', }}>
+
+        <Box sx={{
+          overflowY: 'auto',
+          // display: 'flex', flexDirection: 'column', gap: '20px', 
+          display: 'flex', flexDirection: 'row', gap: '18px', flexWrap: 'wrap'
+
+        }}>
           {cardsList.map((card) => (
-            <Card key={card.id} sx={{ display: 'flex', backgroundColor: '#fff', color: 'white', borderRadius: '10px', overflow: 'hidden', minHeight: 156 }}>
+            <Paper elevation={3} key={card.id} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center', backgroundColor: `${card.color}`, color: 'white', borderRadius: '10px', minHeight: 128, maxWidth: '42%', padding: 1, gap: '8px' }}>
               <CardMedia
                 component="img"
-                sx={{ width: 151 }}
+                sx={{ borderRadius: '10px' }}
                 image={card.image}
                 alt={card.title}
               />
               <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                <CardContent sx={{ flex: '1 0 auto' }}>
-                  <Typography component="div" variant="h5" sx={{ color: 'rgba(57, 255, 20, 0.8)' }}>
+                <CardContent sx={{ padding: '0px', display: 'flex', justifyContent: 'center' }}>
+                  {/* <Typography component="div" sx={{ color: 'rgba(57, 255, 20, 0.8)', fontSize: '16px', minWidth: '25vw' }}>
                     {card.title}
-                  </Typography>
-                  <Typography variant="subtitle1" color="text.secondary" component="div">
+                  </Typography> */}
+                  {/* <Typography variant="subtitle1" color="text.secondary" component="div">
                     {card.description}
-                  </Typography>
+                  </Typography> */}
                 </CardContent>
                 <CardActions>
-                  <Button size="small" color="primary" sx={{ color: 'rgba(57, 255, 20, 0.8)' }}>
-                    PR Team
+                  <Button size="small" color="primary" sx={{ color: '#111' }}>
+                    Mike Vazovskiy
                   </Button>
-                  <Button size="small" color="primary" sx={{ color: 'rgba(57, 255, 20, 0.8)' }}>
-                    Learn More
-                  </Button>
+                  <IconButton aria-label="fingerprint" color="success">
+                    <Fingerprint />
+                  </IconButton>
                 </CardActions>
               </Box>
-            </Card>
+            </Paper>
           ))}
 
         </Box>
@@ -315,6 +369,8 @@ const App: React.FC = () => {
             Close
           </Button>
         </Box>
+
+
       </Drawer>
 
       {/* Bloggers */}
@@ -325,46 +381,153 @@ const App: React.FC = () => {
         onClose={() => setDrawerBloggersOpen(false)}
         sx={{
           '& .MuiDrawer-paper': {
-            backgroundColor: '#191',
+            backgroundColor: '#10771A',
             color: 'white',
             borderTopLeftRadius: '10px',
             borderTopRightRadius: '10px',
             padding: '20px',
-            height: '60%', // Задаем высоту 60%
+            height: '80%', // Задаем высоту 60%
           },
         }}
       >
-        <Box sx={{ width: '100%', height: '100%', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '20px', }}>
-          {cardsList.map((card) => (
-            <Card key={card.id} sx={{ display: 'flex', backgroundColor: '#fff', color: 'white', borderRadius: '10px', overflow: 'hidden', minHeight: 156 }}>
-              <CardMedia
-                component="img"
-                sx={{ width: 151 }}
-                image={card.image}
-                alt={card.title}
-              />
-              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                <CardContent sx={{ flex: '1 0 auto' }}>
-                  <Typography component="div" variant="h5" sx={{ color: 'rgba(57, 255, 20, 0.8)' }}>
-                    {card.title}
-                  </Typography>
-                  <Typography variant="subtitle1" color="text.secondary" component="div">
-                    {card.description}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button size="small" color="primary" sx={{ color: 'rgba(57, 255, 20, 0.8)' }}>
-                    Bloggers
-                  </Button>
-                  <Button size="small" color="primary" sx={{ color: 'rgba(57, 255, 20, 0.8)' }}>
-                    Learn More
-                  </Button>
-                </CardActions>
-              </Box>
-            </Card>
-          ))}
-
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Tabs value={value} onChange={handleChange3} aria-label="basic tabs example" sx={{
+            '& .MuiTabs-indicator': {
+              backgroundColor: 'white',
+            },
+            '& .MuiTab-root': {
+              color: 'white',
+            },
+            '& .Mui-selected': {
+              color: 'white',
+            }
+          }}>
+            <Tab label="Featured" color='#fff' {...a11yProps(0)} />
+            <Tab label="Likely" {...a11yProps(1)} />
+            <Tab label="New" {...a11yProps(2)} />
+            {/* <Tab label="Others" {...a11yProps(3)} /> */}
+          </Tabs>
         </Box>
+        <Box sx={{ width: '100%', overflowY: 'auto' }}>
+
+          <CustomTabPanel value={value} index={0}>
+
+            <Box sx={{
+              // overflowY: 'auto',
+              display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: '12px',
+            }}>
+              {cardsList.map((card) => (
+                <Paper elevation={3} key={card.id} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center', backgroundColor: `${card.color}`, color: 'white', borderRadius: '10px', minHeight: 128, maxWidth: '42%', padding: 1, gap: '8px' }}>
+                  <CardMedia
+                    component="img"
+                    sx={{ borderRadius: '10px' }}
+                    image={card.image}
+                    alt={card.title}
+                  />
+                  <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                    <CardContent sx={{ padding: '0px', display: 'flex', justifyContent: 'center' }}>
+                      {/* <Typography component="div" sx={{ color: 'rgba(57, 255, 20, 0.8)', fontSize: '16px', minWidth: '25vw' }}>
+                    {card.title}
+                  </Typography> */}
+                      {/* <Typography variant="subtitle1" color="text.secondary" component="div">
+                    {card.description}
+                  </Typography> */}
+                    </CardContent>
+                    <CardActions>
+                      <Button size="small" color="primary" sx={{ color: '#111' }}>
+                        Mike Vazovskiy
+                      </Button>
+                      <IconButton aria-label="fingerprint" color="success">
+                        <Fingerprint />
+                      </IconButton>
+                    </CardActions>
+                  </Box>
+                </Paper>
+              ))}
+
+            </Box>
+
+
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={1}>
+            
+          <Box sx={{
+              // overflowY: 'auto',
+              display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: '12px',
+            }}>
+              {cardsList.map((card) => (
+                <Paper elevation={3} key={card.id} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center', backgroundColor: `${card.color}`, color: 'white', borderRadius: '10px', minHeight: 128, maxWidth: '42%', padding: 1, gap: '8px' }}>
+                  <CardMedia
+                    component="img"
+                    sx={{ borderRadius: '10px' }}
+                    image={card.image}
+                    alt={card.title}
+                  />
+                  <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                    <CardContent sx={{ padding: '0px', display: 'flex', justifyContent: 'center' }}>
+                      {/* <Typography component="div" sx={{ color: 'rgba(57, 255, 20, 0.8)', fontSize: '16px', minWidth: '25vw' }}>
+                    {card.title}
+                  </Typography> */}
+                      {/* <Typography variant="subtitle1" color="text.secondary" component="div">
+                    {card.description}
+                  </Typography> */}
+                    </CardContent>
+                    <CardActions>
+                      <Button size="small" color="primary" sx={{ color: '#111' }}>
+                        ЯЯЯЯЯ
+                      </Button>
+                      <IconButton aria-label="fingerprint" color="success">
+                        <Fingerprint />
+                      </IconButton>
+                    </CardActions>
+                  </Box>
+                </Paper>
+              ))}
+
+            </Box>
+
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={2}>
+            
+            
+          <Box sx={{
+              // overflowY: 'auto',
+              display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: '12px',
+            }}>
+              {cardsList.map((card) => (
+                <Paper elevation={3} key={card.id} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center', backgroundColor: `${card.color}`, color: 'white', borderRadius: '10px', minHeight: 128, maxWidth: '42%', padding: 1, gap: '8px' }}>
+                  <CardMedia
+                    component="img"
+                    sx={{ borderRadius: '10px' }}
+                    image={card.image}
+                    alt={card.title}
+                  />
+                  <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                    <CardContent sx={{ padding: '0px', display: 'flex', justifyContent: 'center' }}>
+                      {/* <Typography component="div" sx={{ color: 'rgba(57, 255, 20, 0.8)', fontSize: '16px', minWidth: '25vw' }}>
+                    {card.title}
+                  </Typography> */}
+                      {/* <Typography variant="subtitle1" color="text.secondary" component="div">
+                    {card.description}
+                  </Typography> */}
+                    </CardContent>
+                    <CardActions>
+                      <Button size="small" color="primary" sx={{ color: '#111' }}>
+                        ЫЫЫЫ
+                      </Button>
+                      <IconButton aria-label="fingerprint" color="success">
+                        <Fingerprint />
+                      </IconButton>
+                    </CardActions>
+                  </Box>
+                </Paper>
+              ))}
+
+            </Box>
+
+          </CustomTabPanel>
+        </Box>
+
         <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
           <Button sx={{ marginTop: '20px', color: 'white', borderColor: 'white' }} variant="outlined" onClick={() => setDrawerTeamOpen(false)}>
             Add me!
@@ -373,10 +536,11 @@ const App: React.FC = () => {
             Close
           </Button>
         </Box>
+
       </Drawer>
 
       {/* Quests */}
-
+      {/* 
       <Drawer
         anchor="bottom"
         open={drawerBloggersOpen}
@@ -431,7 +595,7 @@ const App: React.FC = () => {
             Close
           </Button>
         </Box>
-      </Drawer>
+      </Drawer> */}
 
     </Container>
   );
