@@ -115,40 +115,7 @@ header {
   border-radius: 100%;
   border-color: #fff8dd;
   transform: rotateX(60deg);
-  transform-style: preserve-3d;
-
-}
-
-.icon-container {
-  transform: rotateX(-60deg); /* Отменяем поворот для контейнера с иконкой */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-}
-
-.icon {
-  transform: rotateX(60deg); /* Отменяем поворот для иконки */
-  position: absolute;
-}
-
-.round-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  top: 20%;
-  transition: transform 0.3s;
-}
-
-.icon {
-  position: absolute;
-  width: 128px;
-  height: 128px;
-  color: white;
-  z-index: 10;
-  bottom: 36px;
-  transition: transform 0.3s;
+  /* transform-style: preserve-3d; */
 }
 
 .round-button:active {
@@ -156,8 +123,11 @@ header {
 }
 
 .round-button:active .icon {
-  transform: rotateX(60deg);
+  transform: rotateX(-60deg);
 }
+
+
+
 
 @keyframes colorChange {
   0% {
@@ -248,7 +218,7 @@ header {
   }
 
   100% {
-    transform: translateY(-50px);
+    transform: translateY(-150px);
     opacity: 0;
   }
 }

@@ -13,6 +13,8 @@ import ElectricBoltRoundedIcon from '@mui/icons-material/ElectricBoltRounded';
 import GradeRoundedIcon from '@mui/icons-material/GradeRounded';
 import Diversity1RoundedIcon from '@mui/icons-material/Diversity1Rounded';
 import ChecklistRoundedIcon from '@mui/icons-material/ChecklistRounded';
+import { SvgChar } from '@/assets/SvgChar';
+// import { ReactComponent as CharSVG } from '../../assets/character.svg?react'
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 10,
@@ -125,8 +127,8 @@ const App: React.FC = () => {
     <Container sx={{ display: 'flex', flexDirection: 'column', gap: '36px', height: '100%' }}>
 
 
-      <Container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '100%', gap: '28px' }}>
-        <Button onClick={() => setDrawerTeamOpen(!drawerTeamOpen)} sx={{
+      <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center', width: '100%', gap: '28px', flex: 1 }}>
+        {/* <Button onClick={() => setDrawerTeamOpen(!drawerTeamOpen)} sx={{
           flexGrow: 1,
           // minWidth: '150px',
           backgroundColor: '#131',
@@ -154,7 +156,52 @@ const App: React.FC = () => {
           minWidth: '186px'
         }}>
           <Typography style={{ color: 'white', fontSize: '20px' }}>Bloggers</Typography>
-        </Button>
+        </Button> */}
+
+
+        <List sx={{ display: 'flex', flexDirection: 'row', gap: '24px', justifyContent: 'space-between', width: '100%' }}>
+
+          <Button onClick={() => setDrawerQuestsOpen(!drawerQuestsOpen)} sx={{
+            flexGrow: 1,
+            // width: '50%',
+            height: '64px',
+            backgroundColor: '#131',
+            borderRadius: '10px',
+            border: '2px solid white', // Установка границы
+            color: 'white', // Цвет текста
+            // padding: '6px 6px', // Паддинг для лучшего вида 
+            boxShadow: '0px 0px 10px rgba(57, 255, 20, 0.8)',
+            // paddingInline: '20px',
+            // minWidth: '186px'
+            display: 'flex',
+            flexDirection: 'column'
+          }}>
+            {/* <Typography style={{ color: 'white', fontSize: '24px' }}>Quests</Typography> */}
+            <ChecklistRoundedIcon sx={{ color: '#fff', width: '36px', height: '36px' }} />
+            <Typography sx={{ fontSize: '10px' }}>PR TEAM</Typography>
+          </Button>
+
+          <Button onClick={() => setDrawerQuestsOpen(!drawerQuestsOpen)} sx={{
+            flexGrow: 1,
+            backgroundColor: '#131',
+            width: '64px',
+            height: '64px',
+            borderRadius: '10px',
+            border: '2px solid white', // Установка границы
+            color: 'white', // Цвет текста
+            // padding: '6px 6px', // Паддинг для лучшего вида 
+            boxShadow: '0px 0px 10px rgba(57, 255, 20, 0.8)',
+            // paddingInline: '20px',
+            // minWidth: '186px'
+            display: 'flex',
+            flexDirection: 'column'
+          }}>
+            {/* <Typography style={{ color: 'white', fontSize: '24px' }}>Quests</Typography> */}
+            <Diversity1RoundedIcon sx={{ color: '#fff', width: '48px', height: '36px' }} />
+            <Typography sx={{ fontSize: '10px' }}>BLOGGERS</Typography>
+
+          </Button>
+        </List>
 
       </Container>
 
@@ -167,18 +214,19 @@ const App: React.FC = () => {
       </StyledButton> */}
 
       <button
-        className={`round-button ${animate ? 'animate' : ''}`}
-        style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', top: '20%' }}
-        onClick={handleClick2}
+        className="round-button"
+        style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', top: '40%' }}
+        onClick={handleClick}
       >
-        Button 1
+
       </button>
 
-      <StyledButton onClick={handleClick2} disableRipple>
-        <Person
-          className={`animated-icon ${animate ? 'animate' : ''}`}
+      <StyledButton onClick={handleClick} disableRipple style={{ bottom: '15%'}}>
+        {/* <Person
+          className="animated-icon"
           sx={{ position: 'absolute', width: '128px', height: '128px', color: 'white', zIndex: 10, bottom: '36px' }}
-        />
+        /> */}
+        <SvgChar width='200px' height='200px' style={{ zIndex: '10'}} />
       </StyledButton>
       {floatNumbers.map((floatNumber) => (
         <div
@@ -194,39 +242,6 @@ const App: React.FC = () => {
         <p style={{ color: 'white', fontSize: '24px' }}>100%</p>
       </Box> */}
 
-      <List sx={{ display: 'flex', flexDirection: 'row', gap: '24px', justifyContent: 'space-between' }}>
-
-        <Button onClick={() => setDrawerQuestsOpen(!drawerQuestsOpen)} sx={{
-          // flexGrow: 1,
-          backgroundColor: '#131',
-          borderRadius: '10px',
-          border: '2px solid white', // Установка границы
-          color: 'white', // Цвет текста
-          padding: '6px 6px', // Паддинг для лучшего вида 
-          boxShadow: '0px 0px 10px rgba(57, 255, 20, 0.8)',
-          // paddingInline: '20px',
-          // minWidth: '186px'
-        }}>
-          {/* <Typography style={{ color: 'white', fontSize: '24px' }}>Quests</Typography> */}
-          <ChecklistRoundedIcon sx={{ color: '#fff', width: '48px', height: '48px' }} />
-
-        </Button>
-
-        <Button onClick={() => setDrawerQuestsOpen(!drawerQuestsOpen)} sx={{
-          // flexGrow: 1,
-          backgroundColor: '#131',
-          borderRadius: '10px',
-          border: '2px solid white', // Установка границы
-          color: 'white', // Цвет текста
-          padding: '6px 6px', // Паддинг для лучшего вида 
-          boxShadow: '0px 0px 10px rgba(57, 255, 20, 0.8)',
-          // paddingInline: '20px',
-          // minWidth: '186px'
-        }}>
-          {/* <Typography style={{ color: 'white', fontSize: '24px' }}>Quests</Typography> */}
-          <Diversity1RoundedIcon sx={{ color: '#fff', width: '48px', height: '48px' }} />
-        </Button>
-      </List>
 
       <Box sx={{ width: '100%' }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -257,7 +272,7 @@ const App: React.FC = () => {
             borderTopLeftRadius: '10px',
             borderTopRightRadius: '10px',
             padding: '20px',
-            height: '60%', // Задаем высоту 60%
+            height: '80%', // Задаем высоту 60%
           },
         }}
       >

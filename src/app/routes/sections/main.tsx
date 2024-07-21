@@ -8,6 +8,7 @@ import { BaseLayout } from '@/app/layouts/baseLayout';
 
 // ----------------------------------------------------------------------
 
+const QuestsPage = lazy(() => import('@/pages/quests/helmet'));
 
 const AboutPage = lazy(() => import('@/pages/about-us/helmet'));
 const TodoPage = lazy(() => import('@/pages/todo/helmet'));
@@ -40,6 +41,10 @@ export const mainRoutes = [
         ),
 
         children: [
+            {
+                path: 'quests',
+                element: <QuestsPage />,
+            },
             {
                 path: 'about-us',
                 element: <AboutPage />,

@@ -20,13 +20,13 @@ import InsightsRoundedIcon from '@mui/icons-material/InsightsRounded';
 const listMenu = [
     // { id: 1, title: 'Главная', isActive: false, url: '/', icon: IconCoins },
     {
-        id: 1, title: 'Главная', isActive: false, url: '/', icon:
+        id: 1, title: 'Главная', isActive: false, url: '/quests', icon:
             <Button >
                 {/* <Typography style={{ color: 'white', fontSize: '24px' }}>Quests</Typography> */}
                 {/* <EmojiEventsRoundedIcon sx={{ color: '#fff', width: '48px', height: '48px' }} />  */}
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <RocketLaunchRoundedIcon sx={{ color: '#fff', width: '48px', height: '48px' }} />
-            <Typography style={{ color: 'white', fontSize: '10px' }}>Boost</Typography>
+            <Typography style={{ color: 'white', fontSize: '10px' }}>Quests</Typography>
             </Box>
             </Button>
     },

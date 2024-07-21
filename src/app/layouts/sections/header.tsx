@@ -55,6 +55,31 @@ export const Header = () => {
 
       <Container sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center', maxHeight: 64 }}>
 
+      <Box style={{ display: 'flex', flexDirection: 'row', gap: '16px', alignItems: 'center' }}>
+            <Link to='/'>
+              {/* <img height={36} width={36} src={IconCoins} alt='coins' /> */}
+              {/* <Button sx={{
+              backgroundColor: '#131',
+              borderRadius: '10px',
+              border: '2px solid white', // Установка границы
+              color: 'white', // Цвет текста
+              padding: '6px 6px', // Паддинг для лучшего вида 
+              boxShadow: '0px 0px 10px rgba(57, 255, 20, 0.8)',
+            }}>
+              <GradeRoundedIcon sx={{ color: '#fff', width: '48px', height: '48px' }} />
+            </Button> */}
+
+              <Button>
+                {/* <RocketLaunchRoundedIcon sx={{ color: '#fff', width: '48px', height: '48px' }} /> */}
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  <GradeRoundedIcon sx={{ color: '#fff', width: '48px', height: '48px' }} />
+                  <Typography style={{ color: 'white', fontSize: '18px' }}>{profile.rank}</Typography>
+                </Box>
+              </Button>
+            </Link>
+            {/* <p style={{ fontStyle: 'normal', fontSize: 48, color: 'rgba(57, 255, 20, 0.8)' }}>{profile.rank}</p> */}
+          </Box>
+
         <Box style={{ display: 'flex', flexDirection: 'row', gap: '16px', alignItems: 'center' }}>
 
 
@@ -72,9 +97,9 @@ export const Header = () => {
 
             <Button>
               {/* <RocketLaunchRoundedIcon sx={{ color: '#fff', width: '48px', height: '48px' }} /> */}
-              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                 <CurrencyBitcoinRoundedIcon sx={{ color: '#fff', width: '48px', height: '48px' }} />
-                <Typography style={{ color: 'white', fontSize: '18px' }}>{profile.clicks}</Typography>
+                <Typography style={{ color: 'white', fontSize: '32px' }}>{profile.clicks}</Typography>
               </Box>
             </Button>
           </Link>
@@ -112,30 +137,7 @@ export const Header = () => {
             </Link>
           </Box>
 
-          <Box style={{ display: 'flex', flexDirection: 'row', gap: '16px', alignItems: 'center' }}>
-            <Link to='/'>
-              {/* <img height={36} width={36} src={IconCoins} alt='coins' /> */}
-              {/* <Button sx={{
-              backgroundColor: '#131',
-              borderRadius: '10px',
-              border: '2px solid white', // Установка границы
-              color: 'white', // Цвет текста
-              padding: '6px 6px', // Паддинг для лучшего вида 
-              boxShadow: '0px 0px 10px rgba(57, 255, 20, 0.8)',
-            }}>
-              <GradeRoundedIcon sx={{ color: '#fff', width: '48px', height: '48px' }} />
-            </Button> */}
-
-              <Button>
-                {/* <RocketLaunchRoundedIcon sx={{ color: '#fff', width: '48px', height: '48px' }} /> */}
-                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                  <GradeRoundedIcon sx={{ color: '#fff', width: '48px', height: '48px' }} />
-                  <Typography style={{ color: 'white', fontSize: '18px' }}>{profile.rank}</Typography>
-                </Box>
-              </Button>
-            </Link>
-            {/* <p style={{ fontStyle: 'normal', fontSize: 48, color: 'rgba(57, 255, 20, 0.8)' }}>{profile.rank}</p> */}
-          </Box>
+     
 
         </Box>
 
