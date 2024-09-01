@@ -14,6 +14,7 @@ const AboutPage = lazy(() => import('@/pages/about-us/helmet'));
 const TodoPage = lazy(() => import('@/pages/todo/helmet'));
 const PostsPage = lazy(() => import('@/pages/posts/helmet'));
 const CardsPage = lazy(() => import('@/pages/cards/view/cardsView'));
+const FriendsPage = lazy(() => import('@/pages/friends/helmet'));
 
 // Posts
 // const PostListPage = lazy(() => import('src/pages/post/list'));
@@ -60,6 +61,10 @@ export const mainRoutes = [
             {
                 path: 'cards',
                 element: <CardsPage />,
+            },
+            {
+                path: 'friends',
+                element: <FriendsPage />,
             },
             // {
             //     path: 'post',

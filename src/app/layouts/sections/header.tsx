@@ -5,7 +5,7 @@ import IconRocket from "@/assets/icons/menu/rocket.png";
 import IconTrophy from "@/assets/icons/menu/trophy.png";
 import { useNewSelector } from "@/shared/hooks/storeActions";
 import { selectProfile } from "@/entities/profile/profileSlice";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import SavingsIcon from '@mui/icons-material/Savings';
 import CurrencyBitcoinOutlinedIcon from '@mui/icons-material/CurrencyBitcoinOutlined';
 import MilitaryTechRoundedIcon from '@mui/icons-material/MilitaryTechRounded';
@@ -14,6 +14,8 @@ import { Box, Button, Container, Icon, IconButton, Typography } from "@mui/mater
 import GradeRoundedIcon from '@mui/icons-material/GradeRounded';
 import SpeedRoundedIcon from '@mui/icons-material/SpeedRounded';
 import CurrencyBitcoinRoundedIcon from '@mui/icons-material/CurrencyBitcoinRounded';
+
+
 
 
 const listMenu = [
@@ -31,6 +33,7 @@ const listMenu = [
 ];
 
 export const Header = () => {
+
 
   const profile = useNewSelector(selectProfile)
 
@@ -53,12 +56,12 @@ export const Header = () => {
                 <p>{user[0].id}: {user[0].name}</p>
             } */}
 
-      <Container sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center', maxHeight: 64 }}>
+      <Container sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center', maxHeight: 48 }}>
 
-      <Box style={{ display: 'flex', flexDirection: 'row', gap: '16px', alignItems: 'center' }}>
-            <Link to='/'>
-              {/* <img height={36} width={36} src={IconCoins} alt='coins' /> */}
-              {/* <Button sx={{
+        <Box style={{ display: 'flex', flexDirection: 'row', gap: '16px', alignItems: 'center' }}>
+          <Link to='/'>
+            {/* <img height={36} width={36} src={IconCoins} alt='coins' /> */}
+            {/* <Button sx={{
               backgroundColor: '#131',
               borderRadius: '10px',
               border: '2px solid white', // Установка границы
@@ -69,54 +72,34 @@ export const Header = () => {
               <GradeRoundedIcon sx={{ color: '#fff', width: '48px', height: '48px' }} />
             </Button> */}
 
-              <Button>
-                {/* <RocketLaunchRoundedIcon sx={{ color: '#fff', width: '48px', height: '48px' }} /> */}
-                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                  <GradeRoundedIcon sx={{ color: '#fff', width: '48px', height: '48px' }} />
-                  <Typography style={{ color: 'white', fontSize: '18px' }}>{profile.rank}</Typography>
-                </Box>
-              </Button>
-            </Link>
-            {/* <p style={{ fontStyle: 'normal', fontSize: 48, color: 'rgba(57, 255, 20, 0.8)' }}>{profile.rank}</p> */}
-          </Box>
-
-        <Box style={{ display: 'flex', flexDirection: 'row', gap: '16px', alignItems: 'center' }}>
-
-
-          <Link to='/'>
-            {/* <Button sx={{
-    backgroundColor: '#131',
-    borderRadius: '10px',
-    border: '2px solid white', // Установка границы
-    color: 'white', // Цвет текста
-    padding: '6px 6px', // Паддинг для лучшего вида 
-    boxShadow: '0px 0px 10px rgba(57, 255, 20, 0.8)',
-  }}>
-    <SpeedRoundedIcon sx={{ color: '#fff', width: '48px', height: '48px' }} />
-  </Button> */}
-
             <Button>
               {/* <RocketLaunchRoundedIcon sx={{ color: '#fff', width: '48px', height: '48px' }} /> */}
-              <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                <CurrencyBitcoinRoundedIcon sx={{ color: '#fff', width: '48px', height: '48px' }} />
-                <Typography style={{ color: 'white', fontSize: '32px' }}>{profile.clicks}</Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '8px' }}>
+                <img src={ImgAvatar} style={{ width: 40, height: 40 }} />
+                {/* <ImgAvatar /> */}
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <img src={ImgStar} style={{ width: 28, height: 28 }} />
+                  <Typography style={{ color: 'white', fontSize: '18px' }}>{profile?.rank}123</Typography>
+                </Box>
               </Box>
             </Button>
           </Link>
+          {/* <p style={{ fontStyle: 'normal', fontSize: 48, color: 'rgba(57, 255, 20, 0.8)' }}>{profile.rank}</p> */}
+        </Box>
 
-
+        <Box style={{ display: 'flex', flexDirection: 'row', gap: '16px', alignItems: 'center' }}>
 
           {/* <p style={{ fontStyle: 'normal', fontSize: 48, color: 'rgba(57, 255, 20, 0.8)' }}>{profile.moneyPerHour}$</p> */}
 
         </Box>
 
-        <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
 
-        <Box style={{ display: 'flex', flexDirection: 'row', gap: '16px', alignItems: 'center' }}>
-          
+          <Box style={{ display: 'flex', flexDirection: 'row', gap: '16px', alignItems: 'center' }}>
 
-            <Link to='/'>
-              {/* <Button sx={{
+
+            {/* <Link to='/'> */}
+            {/* <Button sx={{
               backgroundColor: '#131',
               borderRadius: '10px',
               border: '2px solid white', // Установка границы
@@ -127,17 +110,25 @@ export const Header = () => {
               <SpeedRoundedIcon sx={{ color: '#fff', width: '48px', height: '48px' }} />
             </Button> */}
 
-              <Button>
-                {/* <RocketLaunchRoundedIcon sx={{ color: '#fff', width: '48px', height: '48px' }} /> */}
-                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                  <SpeedRoundedIcon sx={{ color: '#fff', width: '48px', height: '48px' }} />
-                  <Typography style={{ color: 'white', fontSize: '18px' }}>{profile.moneyPerHour}$/h</Typography>
+            {/* <Button> */}
+            {/* <RocketLaunchRoundedIcon sx={{ color: '#fff', width: '48px', height: '48px' }} /> */}
+            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+              <img src={ImgStopwatch} style={{ width: 28, height: 28 }} />
+              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                <span style={{ color: 'white', fontSize: '9px', opacity: 0.6 }}>Прибыль в час</span>
+                <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                  <span style={{ color: 'white', fontSize: '14px', fontWeight: '700', lineHeight: '15.4px', letterSpacing: '0.3%', alignContent: 'flex-end' }}>+{profile?.moneyPerHour}123</span>
+                  <IconCoin
+                  //  width={14} height={14} 
+                  />
                 </Box>
-              </Button>
-            </Link>
+              </Box>
+            </Box>
+            {/* </Button> */}
+            {/* </Link> */}
           </Box>
 
-     
+
 
         </Box>
 

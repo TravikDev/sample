@@ -9,7 +9,10 @@ import { HelmetProvider } from 'react-helmet-async'
 import { Router } from './routes/sections/index.tsx'
 // import { ApiProvider } from '@reduxjs/toolkit/query/react'
 // import { apiSlice } from '@/entities/api/apiSlice.ts'
-import '@/shared/styles/global.css'
+import '@/shared/styles/global.scss'
+import { ApiProvider } from '@reduxjs/toolkit/query/react'
+import { apiSlice } from '@/entities/api/apiSlice.ts'
+import { usersApiSlice } from '@/entities/users/usersSlice.ts'
 // import './index.css'
 
 async function enableMocking() {
@@ -23,6 +26,10 @@ async function enableMocking() {
         onUnhandledRequest: 'bypass'
     })
 }
+
+// store.dispatch(extendedApiSlice.endpoints.getPosts.initiate());
+/* @ts-ignore */
+store.dispatch(usersApiSlice.endpoints.getUsers.initiate());
 
 enableMocking().then(() => {
     ReactDOM.createRoot(document.getElementById('root')!).render(

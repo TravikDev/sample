@@ -1,2 +1,2 @@
 export * from "./postInfo"
-export * from "./postsList"
+// export * from "./postsList"

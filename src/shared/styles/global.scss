@@ -1,0 +1,381 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+html {
+  /* margin: 0; */
+  /* padding: 0; */
+  /* display: flex;
+    flex-grow: 1; */
+  /* flex: 1; */
+  /* width: 100%; */
+  height: 100%;
+  /* display: flex;
+    flex-direction: column; 
+    justify-content: space-between; */
+  /* font-family: Arial, sans-serif; */
+  /* background-color: #140030; */
+  /* color: '#ffffff' */
+  /* overflow-y: hidden; */
+  font-family: 'Inter', sans-serif;
+
+}
+
+body {
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-items: stretch; */
+  /* width: 100%; */
+  height: 100%;
+  /* background: #ccc; */
+  margin: 0;
+  /* background-color: #3f00a5; */
+
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  /* align-items: stretch; */
+  width: 100%;
+  height: 100%;
+  /* background: #ccc; */
+  background-color: #000000;
+
+}
+
+main {
+  /* display: flex; */
+  /* flex-direction: column; */
+  flex-grow: 1;
+  /* justify-content: space-between; */
+  /* align-items: center; */
+  /* height: 64%; */
+  /* width: 100%; */
+  /* min-height: 100vh; */
+  /* overflow: hidden; */
+  /* position: relative; */
+  /* background-color: #3f00a5; */
+  /* user-select: none; */
+  /* Prevent text selection */
+  overflow-y: auto;
+}
+
+
+
+footer {
+  /* position: absolute; */
+  bottom: 0px;
+  // background-color: #000000;
+  /* flex-grow: 1; */
+  /* /* bottom: 0px; */
+  /* display: flex; */
+  /* flex-direction: row; */
+  /* height: 16vh; */
+  /* width: 100%; */
+  /* align-items: center; */
+  /* justify-content: space-between; */
+  /* padding: 0px; */
+  /* padding-inline: 24px; */
+  /* height: 150px; */
+  /* max-height: 64px; */
+}
+
+header {
+  flex-grow: 1;
+  max-height: 48px;
+}
+
+
+.container {
+  padding-inline: 0;
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* flex-grow: 2; */
+  /* height: 80vh; */
+  /* position: relative; */
+  /* background-color: #3f00a5; */
+  /* user-select: none;
+    overflow-y: auto;
+    overflow-x: hidden; */
+}
+
+.round-button {
+  margin: auto;
+  // background-color: #006400;
+  /* Темно-зеленый цвет */
+  border: none;
+  // background-color: #00000000;
+  /* color: white; */
+  /* text-align: center; */
+  /* text-decoration: none; */
+  /* display: inline-block; */
+  /* font-size: 20px; */
+  width: 252px;
+  height: 252px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  /* position: relative; */
+  /* overflow: hidden; */
+  animation: colorChange 2s infinite linear, shadowMove 10s infinite linear;
+  /* Анимация переливания и тени */
+  /* border-width: 2px; */
+  /* border-radius: 100%; */
+  /* border-color: #fff8dd; */
+  // transform: rotateX(60deg);
+  /* transform-style: preserve-3d; */
+}
+
+.round-button:active {
+  // transform: rotateX(60deg);
+}
+
+/* .round-button:active .icon {
+  transform: rotateX(-60deg);
+} */
+
+
+.round-button:hover {
+  // background-color: #006700;
+  transform: scale(1.05);
+}
+
+.round-button:active {
+  // background-color: #008f1f;
+  transform: scale(0.95);
+}
+
+
+
+
+@keyframes colorChange {
+  0% {
+    // background-color: #fff;
+    /* Темно-зеленый */
+  }
+
+  50% {
+    // background-color: #008000;
+    /* Зеленый */
+  }
+
+  100% {
+    // background-color: #006400;
+    /* Темно-зеленый */
+  }
+}
+
+@keyframes shadowMove {
+  0% {
+    box-shadow: 10px 5px 20px 5px rgba(255, 255, 255, 0.2);
+  }
+
+  25% {
+    box-shadow: 5px 10px 20px 5px rgba(255, 255, 255, 0.2);
+  }
+
+  50% {
+    box-shadow: -10px 5px 20px 5px rgba(255, 255, 255, 0.2);
+  }
+
+  75% {
+    box-shadow: 5px -10px 20px 5px rgba(255, 255, 255, 0.2);
+  }
+
+  100% {
+    box-shadow: 10px 5px 20px 5px rgba(255, 255, 255, 0.2);
+  }
+}
+
+
+
+.float-number {
+  position: absolute;
+  font-size: 48px;
+  color: #fff8dd;
+  opacity: 1;
+  animation: float-up 2s ease-out forwards;
+  user-select: none;
+  position: absolute;
+  z-index: 10;
+  /* Всплывающие числа выше кнопки */
+  pointer-events: none;
+  /* Отключить обработку кликов для всплывающих чисел */
+  /* Prevent text selection */
+}
+
+
+/* .container {
+  position: relative;
+} */
+
+.round-button {
+  position: relative;
+  z-index: 5;
+  /* Кнопка ниже всплывающих чисел */
+}
+
+.float-number {
+
+  /* Добавьте дополнительные стили для всплывающих чисел */
+}
+
+
+.gradient-box {
+
+  display: flex;
+  align-items: center;
+  //width: 50vw;
+  width: 90%;
+  margin: auto;
+  max-width: 22em;
+
+  position: relative;
+  padding: 30% 2em;
+  box-sizing: border-box;
+
+  $border: 5px;
+  color: #FFF;
+  background: #000;
+  background-clip: padding-box;
+  /* !importanté */
+  border: solid $border transparent;
+  /* !importanté */
+  border-radius: 1em;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    background-color: #006400;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    margin: -$border;
+    /* !importanté */
+    border-radius: inherit;
+    /* !importanté */
+    background: linear-gradient(to right, red, orange);
+  }
+}
+
+@keyframes float-up {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-150px);
+    opacity: 0;
+  }
+}
+
+.main-bg {
+  background: linear-gradient(360deg, #031B22 0%, #001315 100%);
+}
+
+.main-footer {
+  border-top: 1px solid rgba(21, 40, 48, 1);
+  background: linear-gradient(0deg, #05130F 0%, #0E2026 100%);
+}
+
+.element {
+  width: 200px;
+  height: 100px;
+  background-color: #3498db;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 80%);
+}
+
+body {
+  background-color: #333; /* Dark background for better visibility */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.progress-container {
+  width: 300px;  /* Width of the progress bar */
+  height: 20px;  /* Height of the progress bar */
+  background-color: #444; /* Dark grey background */
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-bar {
+  width: 60%; /* Adjust width to represent progress */
+  height: 100%;
+  background: linear-gradient(90deg, rgba(0,255,0,1) 0%, rgba(173,255,47,1) 100%);
+  position: relative;
+  border-radius: 10px 0 0 10px; /* Rounded corners on the left */
+}
+
+.glow-circle {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 30px;  /* Size of the glowing circle */
+  height: 30px; /* Size of the glowing circle */
+  background-color: rgba(173, 255, 47, 1); /* Inner circle color */
+  border-radius: 100%;
+  box-shadow: 0 0 20px rgba(173, 255, 47, 0.8), 
+              0 0 40px rgba(173, 255, 47, 0.6), 
+              0 0 60px rgba(173, 255, 47, 0.4);
+  transform: translate(-50%, -50%);
+  pointer-events: none; /* Prevent interactions */
+}
+
+
+/* styles.css */
+.gradient-stroke-text {
+  font-size: 36px; /* Размер шрифта */
+  font-weight: 800; /* Жирный шрифт */
+  color: transparent; /* Прозрачный цвет текста */
+  background: linear-gradient(to right, #CBFD63, #03E4F8); /* Градиентный фон */
+  -webkit-background-clip: text; /* Клипинг фона для текста */
+  background-clip: text; /* Клипинг фона для текста */
+  position: relative; /* Позиционирование */
+  display: inline-block; /* Отображение */
+}
+
+.gradient-stroke-text::before {
+  content: attr(data-text); /* Дублирование текста */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  color: #06353C; /* Цвет обводки */
+  background: none;
+  -webkit-text-stroke: 2px; /* Толщина обводки */
+  stroke: 2px; /* Толщина обводки */
+  text-shadow: 
+      -1px -1px 0 #06353C, 
+      1px -1px 0 #06353C, 
+      -1px 1px 0 #06353C, 
+      1px 1px 0 #06353C; /* Тени для эмуляции обводки */
+}
+
+.element-border {
+  position: relative;
+  padding: 10px; /* Отступы для внутреннего содержимого */
+  border-radius: 20px; /* Скругленные углы */
+  background: white; /* Цвет фона элемента */
+  z-index: 1;
+  // opacity: .8;
+}
+
+.element-border::before {
+  content: "";
+  position: absolute;
+  top: -1px; /* Толщина обводки */
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  border-radius: 20px; /* Скругленные углы псевдоэлемента */
+  background: linear-gradient(180deg, #CDFE64AA, #06353CAA); /* Градиентная обводка */
+  z-index: -1;
+}

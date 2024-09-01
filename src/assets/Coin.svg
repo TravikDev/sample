@@ -1,0 +1,38 @@
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="10" cy="12" r="7" fill="#F9E160"/>
+<g filter="url(#filter0_i_4050_385)">
+<circle cx="10.0001" cy="12.0001" r="5.81356" fill="#FE881C" fill-opacity="0.72"/>
+</g>
+<g filter="url(#filter1_d_4050_385)">
+<path d="M9.83341 9L6.66675 13.5H13.0001L9.83341 9Z" stroke="#FFEA7C" shape-rendering="crispEdges"/>
+</g>
+<g style="mix-blend-mode:overlay" filter="url(#filter2_f_4050_385)">
+<circle cx="10.1186" cy="9.98313" r="3.79661" fill="white"/>
+</g>
+<defs>
+<filter id="filter0_i_4050_385" x="4.18652" y="6.18652" width="11.6272" height="11.8642" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feMorphology radius="0.237288" operator="erode" in="SourceAlpha" result="effect1_innerShadow_4050_385"/>
+<feOffset dy="0.237288"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="shape" result="effect1_innerShadow_4050_385"/>
+</filter>
+<filter id="filter1_d_4050_385" x="5.70361" y="8.13086" width="8.25977" height="6.10247" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="0.233333"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_4050_385"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_4050_385" result="shape"/>
+</filter>
+<filter id="filter2_f_4050_385" x="0.627107" y="0.491609" width="18.9831" height="18.9826" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="2.84746" result="effect1_foregroundBlur_4050_385"/>
+</filter>
+</defs>
+</svg>
