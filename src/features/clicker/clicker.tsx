@@ -1,37 +1,49 @@
 import { addOneClick, selectProfile } from '@/entities/profile/profileSlice';
 import { useNewSelector } from '@/shared/hooks/storeActions';
-import { Box, Button, Container, Drawer, Card, CardActionArea, CardMedia, CardContent, Typography, CardActions, List, Paper, IconButton, Tabs, Divider } from '@mui/material'; // Импорт необходимых компонентов
+import {
+  Box, Button, Container, Drawer,
+  // Card, CardActionArea, 
+  CardMedia, CardContent, Typography, CardActions, List, Paper, IconButton,
+  Divider,
+  // Tabs, Divider
+} from '@mui/material'; // Импорт необходимых компонентов
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import '../../shared/styles/global.scss';
-import CurrencyBitcoinRoundedIcon from '@mui/icons-material/CurrencyBitcoinRounded';
-import { Fingerprint, Person } from '@mui/icons-material';
-import LinearProgress, { LinearProgressProps, linearProgressClasses } from '@mui/material/LinearProgress';
+// import CurrencyBitcoinRoundedIcon from '@mui/icons-material/CurrencyBitcoinRounded';
+import {
+  Fingerprint,
+  // Person
+} from '@mui/icons-material';
+import LinearProgress, {
+  // LinearProgressProps, 
+  linearProgressClasses
+} from '@mui/material/LinearProgress';
 import styled from 'styled-components';
-import DateRangeRoundedIcon from '@mui/icons-material/DateRangeRounded';
-import ElectricBoltRoundedIcon from '@mui/icons-material/ElectricBoltRounded';
-import GradeRoundedIcon from '@mui/icons-material/GradeRounded';
-import Diversity1RoundedIcon from '@mui/icons-material/Diversity1Rounded';
-import ChecklistRoundedIcon from '@mui/icons-material/ChecklistRounded';
-import { SvgChar } from '@/assets/SvgChar';
+// import DateRangeRoundedIcon from '@mui/icons-material/DateRangeRounded';
+// import ElectricBoltRoundedIcon from '@mui/icons-material/ElectricBoltRounded';
+// import GradeRoundedIcon from '@mui/icons-material/GradeRounded';
+// import Diversity1RoundedIcon from '@mui/icons-material/Diversity1Rounded';
+// import ChecklistRoundedIcon from '@mui/icons-material/ChecklistRounded';
+// import { SvgChar } from '@/assets/SvgChar';
 import TapCoin from '@/assets/Tap_coin.png';
 // import Box from '@mui/material/Box';
-import Tab from '@mui/material/Tab';
+// import Tab from '@mui/material/Tab';
 import { useTapMutation } from '@/entities/users/usersSlice';
 import { io, Socket } from 'socket.io-client';
 // import TabContext from '@mui/lab/TabContext';
 // import TabList from '@mui/lab/TabList';
 // import TabPanel from '@mui/lab/TabPanel';
 // import { ReactComponent as CharSVG } from '../../assets/character.svg?react'
-import Bg from '@/assets/icons-react/Bg';
+// import Bg from '@/assets/icons-react/Bg';
 import ButtonCard01 from '@/assets/Button_open_cards.png';
 import ButtonCard02 from '@/assets/Button_open_cards2.png';
-import Background from '@/assets/Background.png';
+// import Background from '@/assets/Background.png';
 import BackgroundEffect from '@/assets/BgEffect-1.png';
 import BackgroundEffect2 from '@/assets/BgEffect-2-png.png';
 import { Link } from 'react-router-dom';
 import IconCoin from '@/assets/icons-react/Coin';
-import IconCoinBig from '@/assets/icons-react/CoinBig';
+// import IconCoinBig from '@/assets/icons-react/CoinBig';
 
 import CoinBig from '@/assets/CoinBig.png';
 
@@ -40,10 +52,17 @@ import ImgStar from "@/assets/Star_img.png"
 import ImgStopwatch from "@/assets/Stopwatch_img.png"
 import DividerSvg from '@/assets/icons-react/Divider';
 import CardItem from '@/assets/icons-react/CardItem';
-import { EnergyIcon } from '@/assets/icons-react/EnergyIcon';
+// import { EnergyIcon } from '@/assets/icons-react/EnergyIcon';
+import ImgIconCard from "@/assets/Card2.png"
+import ImgFotoArea from "@/assets/FotoArea.png"
 
 import EnergyIconPng from '@/assets/energy1.png'
-import { ProgressLine } from '@/assets/icons-react/ProgressLine';
+import { IconCloseModal } from '@/assets/icons-react/IconCloseModal';
+import IconCoinBig from '@/assets/icons-react/CoinBig';
+import { IconCard } from '@/assets/icons-react/IconCard';
+import { IconCardPaid } from '@/assets/icons-react/IconCardPaid';
+import { IconCoinS } from '@/assets/icons-react/IconCoinS';
+// import { ProgressLine } from '@/assets/icons-react/ProgressLine';
 
 
 type User = {
@@ -125,6 +144,30 @@ const StyledButton = styled(Button)({
 
 const App: React.FC = () => {
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleSlider = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleBackgroundClick = () => {
+    if (isOpen) {
+      setIsOpen(false);
+    }
+  };
+
+  const [isOpen2, setIsOpen2] = useState(false);
+
+  const toggleSlider2 = () => {
+    setIsOpen2(!isOpen);
+  };
+
+  const handleBackgroundClick2 = () => {
+    if (isOpen) {
+      setIsOpen2(false);
+    }
+  };
+
   const [tap, { data, error, isLoading, isSuccess }] = useTapMutation()
 
   const [progress, setProgress] = React.useState(100);
@@ -183,6 +226,7 @@ const App: React.FC = () => {
       console.log('Socket is not connected');
     }
 
+    /* @ts-ignore */
     handleClick(event)
   };
 
@@ -267,14 +311,14 @@ const App: React.FC = () => {
     { id: 5, title: 'Frog', description: 'Frogs are amphibians', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVnlgnSfn_lCvpuKEc7Hc9FHr1Kw-yt0Yipw&s`', color: '#031E2B' },
     { id: 6, title: 'Frog', description: 'Frogs are amphibians', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVnlgnSfn_lCvpuKEc7Hc9FHr1Kw-yt0Yipw&s`', color: '#031E2B' },
     { id: 7, title: 'Frog', description: 'Frogs are amphibians', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVnlgnSfn_lCvpuKEc7Hc9FHr1Kw-yt0Yipw&s`', color: '#031E2B' },
-    { id: 8, title: 'Frog', description: 'Frogs are amphibians', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVnlgnSfn_lCvpuKEc7Hc9FHr1Kw-yt0Yipw&s`', color: '#031E2B' },
-    { id: 9, title: 'Frog', description: 'Frogs are amphibians', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVnlgnSfn_lCvpuKEc7Hc9FHr1Kw-yt0Yipw&s`', color: '#031E2B' },
-    { id: 10, title: 'Frog', description: 'Frogs are amphibians', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVnlgnSfn_lCvpuKEc7Hc9FHr1Kw-yt0Yipw&s`', color: '#031E2B' },
-    { id: 11, title: 'Frog', description: 'Frogs are amphibians', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVnlgnSfn_lCvpuKEc7Hc9FHr1Kw-yt0Yipw&s`', color: '#031E2B' },
-    { id: 12, title: 'Frog', description: 'Frogs are amphibians', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVnlgnSfn_lCvpuKEc7Hc9FHr1Kw-yt0Yipw&s`', color: '#031E2B' },
-
-    // Добавьте другие карточки по мере необходимости
   ];
+
+  const cardsCategoriesList = [
+    { id: 1, title: 'Все' },
+    { id: 2, title: 'Добавленные' },
+    { id: 3, title: 'Популярные' },
+    { id: 4, title: 'Новые' },
+  ]
 
   const [animate, setAnimate] = useState(false);
 
@@ -372,6 +416,126 @@ const App: React.FC = () => {
   return (
     <article style={{ position: 'relative', height: '100%', overflow: 'hidden' }}>
 
+      {isOpen && <div className="slider-background" onClick={handleBackgroundClick}></div>}
+      <button onClick={toggleSlider} className="slider-toggle-btn">
+        {isOpen ? 'Close Slider' : 'Open Slider'}
+      </button>
+      <Box className={`slider ${isOpen ? 'open' : ''}`} sx={{}}>
+        <Box
+          // className="slider-content" 
+          sx={{ color: '#fff', gap: 2, display: 'flex', flexDirection: 'column' }}>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', paddingBlock: 1, height: 22 }}>
+            <IconButton onClick={handleBackgroundClick}>
+              <IconCloseModal style={{ width: '25px', height: '25px' }} />
+            </IconButton>
+          </Box>
+          <Box sx={{ paddingInline: '35px', gap: 1, display: 'flex', flexDirection: 'column' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', height: 40 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                <IconCoinBig width={44} height={44} />
+                <Typography sx={{ fontWeight: '800', fontSize: 24 }}>19, 324</Typography>
+              </Box>
+              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                <Typography sx={{ fontSize: '10px', fontWeight: 200, lineHeight: 1 }}>
+                  Прибыль в час
+                </Typography>
+                <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                  <Typography sx={{ fontWeight: 600, lineHeight: 1 }}>
+                    +321
+                  </Typography>
+                  <IconCoin width={25} height={25} />
+                </Box>
+              </Box>
+            </Box>
+
+            <Divider sx={{ color: '#333', backgroundColor: '#333' }} />
+
+            <Box sx={{ display: 'flex', flex: 1, borderRadius: '8px', backgroundColor: 'rgba(27, 46, 55, 0.5)', p: '4px', gap: 1, justifyContent: 'space-between' }}>
+              {cardsCategoriesList.map(cat => <Box key={cat.id} className={cat.id === 1 ? 'cardsCategories' : ''} sx={{ paddingInline: '15px', paddingBlock: '8px', borderRadius: '6px', flex: 1, display: 'flex', justifyContent: 'center', fontSize: 10, fontWeight: 500 }}>
+                {cat.title}
+              </Box>)}
+            </Box>
+
+            <Box sx={{ display: 'flex', gap: 1, flexDirection: 'column', overflowY: 'auto', height: '60vh' }}>
+              {cardsList.map(card => (
+                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100%' }}>
+                  {/* <Box sx={{ display: 'flex', flexDirection: 'row', backgroundImage: `url(${ImgIconCard})` }} width='100%'> */}
+                  <Box sx={{ position: 'relative', background: `no-repeat url(${ImgIconCard})`, backgroundClip: 'content-box', width: '100%', borderBottomRightRadius: 20 }}>
+                    <IconCardPaid style={{ position: 'absolute', top: '10%', right: '5%' }} />
+                    {/* <img src={ImgIconCard} width='100%' style={{ position: 'absolute' }} /> */}
+                    <Button onClick={() => setIsOpen2(true)} sx={{ display: 'flex', p: 1.5, gap: 1, color: 'white' }}>
+                      <img src={ImgFotoArea} width='108px' />
+                      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, justifyContent: 'space-between', alignItems: 'start' }}>
+                        <Typography sx={{ alignItems: 'start', display: 'flex' }}>Coffee Break Master</Typography>
+                        <Typography sx={{ color: '#FFE881', fontSize: 12 }}>Lvl 3</Typography>
+                        <Divider sx={{ color: '#333', backgroundColor: '#333' }} />
+                        <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                          <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+                            <Typography>123</Typography>
+                            <IconCoin width={25} height={25} />
+                          </Box>
+                          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                            <Typography sx={{ fontWeight: 300, fontSize: 9, lineHeight: 1.1 }}>Прибыль в час</Typography>
+                            <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+                              <Typography sx={{ fontSize: 14, lineHeight: 1.4 }}>+123</Typography>
+                              {/* <IconCoin width={16} height={16} /> */}
+                              <IconCoinS width={20} height={20} />
+                            </Box>
+                          </Box>
+                        </Box>
+                      </Box>
+                    </Button>
+                  </Box>
+
+                  {/* <Box className='card'>GG</Box> */}
+                  {/* </Box> */}
+                </Box>
+              ))}
+            </Box>
+          </Box>
+        </Box>
+      </Box >
+
+      {isOpen2 && <div className="slider2-background" onClick={() => setIsOpen2(state => !state)}></div>}
+      {/* <button onClick={toggleSlider2} className="slider2-toggle-btn" style={{ position: 'absolute' }}>
+        {isOpen2 ? 'Close Slider' : 'Open Slider'}
+      </button> */}
+      <Box className={`slider2 ${isOpen2 ? 'open' : ''}`} sx={{ borderColor: '#518983', borderTopLeftRadius: 30, borderTopRightRadius: 30, boxShadow: '0px -50px 150px #38F99F' }}>
+        <Box
+          // className="slider-content" 
+          sx={{ color: '#fff', gap: 2, display: 'flex', flexDirection: 'column' }}>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', paddingBlock: 1, height: 22 }}>
+            <IconButton onClick={handleBackgroundClick2}>
+              <IconCloseModal style={{ width: '25px', height: '25px' }} />
+            </IconButton>
+          </Box>
+          <Box sx={{ paddingInline: '35px', gap: 1, display: 'flex', flexDirection: 'column' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', height: 40 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                <IconCoinBig width={44} height={44} />
+                <Typography sx={{ fontWeight: '800', fontSize: 24 }}>19, 324</Typography>
+              </Box>
+              {/* <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                <Typography sx={{ fontSize: '10px', fontWeight: 200, lineHeight: 1 }}>
+                  Прибыль в час
+                </Typography>
+                <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                  <Typography sx={{ fontWeight: 600, lineHeight: 1 }}>
+                    +321
+                  </Typography>
+                  <IconCoin width={25} height={25} />
+                </Box>
+              </Box> */}
+            </Box>
+
+            <Divider sx={{ color: '#333', backgroundColor: '#333' }} />
+
+
+
+          </Box>
+        </Box>
+      </Box >
+
       <Container sx={{ display: 'flex', flexDirection: 'column', gap: '0px', height: '100%', justifyContent: 'center', alignItems: 'center', position: 'relative', overflow: 'hidden' }} >
 
         <header style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', paddingTop: '12px', paddingBottom: '24px', width: '100%' }}>
@@ -441,7 +605,7 @@ const App: React.FC = () => {
 
           <List sx={{ display: 'flex', flexDirection: 'row', gap: '10px', justifyContent: 'space-between', width: '100%' }}>
 
-            <div style={{ zIndex: 50 }} onClick={() => setDrawerBloggersOpen(!drawerTeamOpen)}>
+            <div style={{ zIndex: 50 }} onClick={toggleSlider}>
               <img src={ButtonCard01} />
             </div>
 
@@ -541,7 +705,7 @@ const App: React.FC = () => {
           <svg height={20} version="1.1" xmlns="http://www.w3.org/2000/svg">
             {/* <circle className="stroke-1" cx="30" cy="30" r="20" width={200} />
              */}
-             <rect className="stroke-1" x="10" width="95%" height="20" rx="10" ry="10"  />
+            <rect className="stroke-1" x="10" width="95%" height="20" rx="10" ry="10" />
           </svg>
 
           <span style={{ color: '#BAF266', fontWeight: '600' }}>

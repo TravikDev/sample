@@ -1,8 +1,9 @@
 import { Helmet } from 'react-helmet-async';
 
 import { CONFIG } from '../../../app/config-global';
+import QuestsView from '../view/QuestsView';
 
-import { QuestsView } from '../view/';
+// import { QuestsView } from '../view/';
 
 // ----------------------------------------------------------------------
 

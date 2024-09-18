@@ -1,4 +1,5 @@
 import { useHelmet } from "@/shared/hooks/useHelmet"
+import { Box } from "@mui/material"
 
 const listCards = [
     {
@@ -35,7 +36,7 @@ function CardsView() {
         <>
             {helmet}
 
-            <div className="container" style={{ padding: '24px', display: 'flex', gap: '24px', flexDirection: 'column' }}>
+            {/* <div className="container" style={{ padding: '24px', display: 'flex', gap: '24px', flexDirection: 'column' }}>
                 {listCards.map((item) =>
                     <div
                         key={item.id}
@@ -55,7 +56,14 @@ function CardsView() {
                         <p>{item.content}</p>
                     </div>
                 )}
-            </div>
+            </div> */}
+            <Box sx={{ display: 'flex', width: '100%' }}>
+                <Box sx={{ margin: 'auto', textAlign: 'center', paddingTop: 15 }}>
+                    <span style={{ color: 'white', fontSize: '32px', fontWeight: 700, textAlign: 'center' }}>Скоро &nbsp; <br />
+                        <div className="gradient-stroke-text">откроется!</div>
+                    </span>
+                </Box>
+            </Box>
         </>
     )
 }

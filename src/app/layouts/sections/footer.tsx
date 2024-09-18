@@ -1,21 +1,21 @@
 import { forwardRef, useEffect, useState } from "react";
-import IconCoins from "@/assets/icons/menu/coins.png";
-import IconBoss from "@/assets/icons/menu/boss.png";
-import IconRocket from "@/assets/icons/menu/rocket.png";
-import IconTrophy from "@/assets/icons/menu/trophy.png";
+// import IconCoins from "@/assets/icons/menu/coins.png";
+// import IconBoss from "@/assets/icons/menu/boss.png";
+// import IconRocket from "@/assets/icons/menu/rocket.png";
+// import IconTrophy from "@/assets/icons/menu/trophy.png";
 import { useNewSelector } from "@/shared/hooks/storeActions";
 import { selectProfile } from "@/entities/profile/profileSlice";
 import { Link, useLocation } from "react-router-dom";
-import { Box, Button, IconButton, List, Stack, SvgIcon, Typography } from "@mui/material";
+import { Box, Button, IconButton, List, SvgIcon, Typography } from "@mui/material";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ChecklistRoundedIcon from '@mui/icons-material/ChecklistRounded';
-import EmojiEventsRoundedIcon from '@mui/icons-material/EmojiEventsRounded';
-import DiamondRoundedIcon from '@mui/icons-material/DiamondRounded';
-import RocketLaunchRoundedIcon from '@mui/icons-material/RocketLaunchRounded';
+// import ChecklistRoundedIcon from '@mui/icons-material/ChecklistRounded';
+// import EmojiEventsRoundedIcon from '@mui/icons-material/EmojiEventsRounded';
+// import DiamondRoundedIcon from '@mui/icons-material/DiamondRounded';
+// import RocketLaunchRoundedIcon from '@mui/icons-material/RocketLaunchRounded';
 // import { ReduceCapacityRounded } from "@mui/icons-material";
-import ReduceCapacityRoundedIcon from '@mui/icons-material/ReduceCapacityRounded';
-import Diversity2RoundedIcon from '@mui/icons-material/Diversity2Rounded';
-import InsightsRoundedIcon from '@mui/icons-material/InsightsRounded';
+// import ReduceCapacityRoundedIcon from '@mui/icons-material/ReduceCapacityRounded';
+// import Diversity2RoundedIcon from '@mui/icons-material/Diversity2Rounded';
+// import InsightsRoundedIcon from '@mui/icons-material/InsightsRounded';
 
 import Pick from "@/assets/Pick.png"
 import { IconMining } from "@/assets/icons-react/IconMining";
@@ -133,7 +133,7 @@ export const Footer = () => {
     }
 
     return (
-        <footer className="main-footer" style={{ width: '100%', paddingBlock: 2, borderBottomLeftRadius: 30, borderBottomRightRadius: 30 }}>
+        <footer className="main-footer" style={{ width: '100%', paddingBlock: 2, borderBottomLeftRadius: 30, borderBottomRightRadius: 30, zIndex: 105 }}>
             {/* {
                 user &&
                 <p>{user[0].id}: {user[0].name}</p>

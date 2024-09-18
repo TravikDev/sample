@@ -1,6 +1,7 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import counter from "../entities/counter/counterSlice";
 import posts from "../entities/posts/postsSlice";
+import quests from "../entities/quests/questsSlice";
 // import users from "@/entities/users/usersSlice";
 import profile from "@/entities/profile/profileSlice";
 import friends from "@/entities/friends/friendsSlice";
@@ -19,12 +20,13 @@ export const store: Store = configureStore({
         // users,
         profile,
         friends,
+        quests,
         api: apiSlice.reducer
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware()
-        //   .prepend(listenerMiddleware.middleware)
-          .concat(apiSlice.middleware)
+            //   .prepend(listenerMiddleware.middleware)
+            .concat(apiSlice.middleware)
 })
 
 
