@@ -2,7 +2,7 @@
 // import { useNewSelector } from "@/shared/hooks/storeActions"
 // import type { PostsState } from "@/entities/posts"
 import { PostAdd } from "@/features/posts/postAdd"
-import { PostsList } from "@/features/posts"
+import { PostsList } from "@/features/posts/PostsList"
 
 export const PostsView = () => {
 
