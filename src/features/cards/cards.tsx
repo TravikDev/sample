@@ -1,17 +1,9 @@
 import React from "react";
 import coinIcon from "@/assets/Coin.svg";
-import { CardType } from "@/entities/cards/cards.dto";
-import ImgFotoArea from "@/assets/FotoArea.png"
+import { CardDetailsModalProps, CardType } from "@/entities/cards/cards.dto";
 import IconCoinBig from '@/assets/icons-react/CoinBig';
-import { IconCoinS } from '@/assets/icons-react/IconCoinS';
 import IconCoin from "@/assets/icons-react/Coin";
-import { Box, Typography, Divider, Modal } from '@mui/material';
-// import CardItem from '@/assets/icons-react/CardItem';
-// import ImgIconCard from "@/assets/Card2.png"
-// import EnergyIconPng from '@/assets/energy1.png'
-// import { IconCard } from '@/assets/icons-react/IconCard';
-// import { IconCardPaid } from '@/assets/icons-react/IconCardPaid';
-//
+import { Box, Typography, Divider, Modal, Slide } from '@mui/material';
 import { IconButton, Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import YoutubeIcon from "@mui/icons-material/YouTube";
@@ -62,7 +54,7 @@ export const CardsList = ({ onSelectCard, cards  }: IProps) => {
               <Box>
                 <Typography sx={{ fontSize: '9px', color: 'white', opacity: 0.6 }}>Прибыль в час</Typography>
                 <Box sx={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                  <Typography sx={{ fontSize: '12px', fontWeight: 'bold', letterSpacing: ".8px" }}>+{card.salary}</Typography>
+                  <Typography sx={{ fontSize: '12px', fontWeight: 'bold', letterSpacing: ".8px" }}>+{card.rph}</Typography>
                   <IconCoin width={25} height={25} />
                 </Box>
               </Box>
@@ -75,32 +67,19 @@ export const CardsList = ({ onSelectCard, cards  }: IProps) => {
 };
 
 
-
-type CardDetailsModalProps = {
-  card: {
-    id: number;
-    name: string;
-    title?: string;
-    lvl: number;
-    coinsInHour: number;
-    description: string;
-    image: string;
-    color?: string;
-  };
-  onClose: () => void;
-  isView: boolean;
-};
-
-/* @ts-ignore */
-export const CardDetailsModal = ({ card, onClose, isView }) => {
+export const CardDetailsModal: React.FC<CardDetailsModalProps> = ({ card, onClose, isView }) => {
   return (
     <Modal
       open={isView}
       onClose={onClose}
-      sx={{ background: "linear-gradient(180deg, rgba(33.10, 36.19, 41.33, 0.50) 0%, rgba(56, 249, 158.93, 0.50) 100%)", display: "flex", alignItems: "flex-end", justifyContent: "center" }}
+      closeAfterTransition
+      // sx background: "rgba(18,59,56, 0.5)", 
+      sx={{ display: "flex", alignItems: "flex-end", justifyContent: "center" }}
     >
+       <Slide direction="up" in={isView} timeout={500}>
       <Box
         sx={{
+          color: "white",
           position: "relative",
           width: "100%",
           bgcolor: "#001313",
@@ -117,9 +96,9 @@ export const CardDetailsModal = ({ card, onClose, isView }) => {
         <IconButton
           aria-label="close"
           onClick={onClose}
-          sx={{ position: "absolute", right: 16, top: 16 }}
+          sx={{ position: "absolute", right: 16, top: 16, color: "black", backgroundColor: "rgba(98, 124, 108, 0.603)"  }}
         >
-          <CloseIcon />
+          <CloseIcon style={{ width: "20px", height: "20px" }} />
         </IconButton>
 
         {/* Монеты и прибыль */}
@@ -135,18 +114,18 @@ export const CardDetailsModal = ({ card, onClose, isView }) => {
         {/* Информация о карточке */}
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <img
-            src={ImgFotoArea}
-            alt="card"
+            src={card.urlPicture}
+            alt="card image"
             style={{ width: 150, height: 150, objectFit: "cover", borderRadius: 12 }}
           />
           <Box sx={{ ml: 3 }}>
             <Typography variant="h5" sx={{ fontWeight: "bold", textTransform: "capitalize", mb: 1 }}>
-              {card.name}
+              {card.title}
             </Typography>
             <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
               <YoutubeIcon />
               <Typography variant="body2" sx={{ color: "gray", textDecoration: "underline" }}>
-                {card.title || "Автор не указан"}
+                Автор не указан
               </Typography>
             </Box>
             <Box>
@@ -155,7 +134,7 @@ export const CardDetailsModal = ({ card, onClose, isView }) => {
               </Typography>
               <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                 <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-                  +{card.coinsInHour}
+                  +{card.rph}
                 </Typography>
                 <img src={coinIcon} alt="coin" style={{ width: 20, height: 20 }} />
               </Box>
@@ -180,6 +159,7 @@ export const CardDetailsModal = ({ card, onClose, isView }) => {
           Подписаться
         </Button>
       </Box>
+      </Slide>
     </Modal>
   );
 };

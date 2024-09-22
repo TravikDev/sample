@@ -72,9 +72,12 @@ import { IconCard } from "@/assets/icons-react/IconCard"
 import { IconCardPaid } from "@/assets/icons-react/IconCardPaid"
 import { IconCoinS } from "@/assets/icons-react/IconCoinS"
 import { CardType } from "@/entities/cards/cards.dto"
-import { cards } from "@/entities/cards/cardsSlice"
 import { CardDetailsModal, CardsList } from "@/features/cards/cards"
+import CustomButton from "@/shared/ui/CustomButton"
+// import { cards } from "@/entities/cards/cardsSlice"
 // import { ProgressLine } from '@/assets/icons-react/ProgressLine';
+import teamIcon from '@/assets/icons/btns/teamIcon.svg';
+import blogerIcon from '@/assets/icons/btns/blogerIcon.svg';
 
 type User = {
   _id: number
@@ -277,7 +280,8 @@ const App: React.FC = () => {
   const [drawerQuestsOpen, setDrawerQuestsOpen] = useState(false) // Состояние для управления видимостью sidebar
   //?
   const [showShare, setShowShare] = useState(false)
-  const [selectedCard, setSelectedCard] = useState<CardType>(cards[0])
+
+
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
@@ -344,12 +348,14 @@ const App: React.FC = () => {
     },
   ])
 
+  const [selectedCard, setSelectedCard] = useState<CardType>(cardsList[0])
+
   const [cardsCategoriesList, setCardsCategoriesList] = useState([
     { id: 1, title: "Все" },
-    { id: 2, title: "Добавленные" },
-    { id: 3, title: "Популярные" },
-    { id: 4, title: "Новые" },
+    { id: 2, title: "Мои" },
   ])
+
+  const [activeTab, setActiveTab] = useState(cardsCategoriesList[0]);
 
   const [animate, setAnimate] = useState(false)
 
@@ -528,37 +534,39 @@ const App: React.FC = () => {
             <Divider sx={{ color: "#333", backgroundColor: 'rgba(0, 143, 109, 0.1)' }} />
 
             <Box
-              sx={{
-                display: "flex",
-                flex: 1,
-                borderRadius: "8px",
-                backgroundColor: "rgba(27, 46, 55, 0.5)",
-                p: "4px",
-                gap: 1,
-                justifyContent: "space-between",
-              }}
-            >
-              {cardsCategoriesList.map((cat) => (
-                <Box
-                  key={cat.id}
-                  className={cat.id === 1 ? "cardsCategories" : ""}
-                  sx={{
-                    paddingInline: "15px",
-                    paddingBlock: "8px",
-                    borderRadius: "6px",
-                    flex: 1,
-                    display: "flex",
-                    justifyContent: "center",
-                    fontSize: 10,
-                    fontWeight: 500,
-                  }}
-                >
-                  {cat.title}
-                </Box>
-              ))}
-            </Box>
+  sx={{
+    display: "flex",
+    flex: 1,
+    borderRadius: "8px",
+    backgroundColor: "rgba(27, 46, 55, 0.5)",
+    p: "4px",
+    gap: 1,
+    maxHeight: "33px",
+    justifyContent: "space-between",
+  }}
+>
+  {cardsCategoriesList.map((cat) => (
+    <Box
+      key={cat.id}
+      onClick={() => setActiveTab(cat)} // Добавляем обработчик клика
+      sx={{
+        paddingInline: "15px",
+        paddingBlock: "8px",
+        borderRadius: "6px",
+        flex: 1,
+        display: "flex",
+        justifyContent: "center",
+        fontSize: 14,
+        letterSpacing: "0.3px",
+        backgroundColor: cat.id === activeTab.id ? "#008F6E" : "transparent", // Условный фон
+      }}
+    >
+      {cat.title}
+    </Box>
+  ))}
+</Box>
 
-            <CardsList onSelectCard={handleShareCard} cards={cardsList}  />
+            <CardsList onSelectCard={handleShareCard} cards={cardsList} userCoins={0} userSalary={0}  />
           </Box>
         </Box>
       </Box>
@@ -740,16 +748,18 @@ const App: React.FC = () => {
               width: "100%",
             }}
           >
-            <div style={{ zIndex: 50 }} onClick={toggleSlider}>
-              <img src={ButtonCard01} />
-            </div>
 
-            <div
-              style={{ zIndex: 50 }}
-              onClick={() => setDrawerBloggersOpen(!drawerBloggersOpen)}
-            >
-              <img src={ButtonCard02} />
-            </div>
+            <Box sx={{ zIndex: 50, position: 'relative' }} onClick={toggleSlider}> 
+              <CustomButton iconPath={teamIcon}>
+                Команда
+              </CustomButton>
+            </Box>
+            <Box sx={{ zIndex: 50, position: 'relative' }}
+             onClick={() => setDrawerBloggersOpen(!drawerBloggersOpen)}> 
+              <CustomButton iconPath={blogerIcon}>
+                Блогеры
+              </CustomButton>
+            </Box>
           </List>
         </Container>
 
