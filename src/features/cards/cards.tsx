@@ -19,14 +19,19 @@ import YoutubeIcon from "@mui/icons-material/YouTube";
 interface IProps {
   onSelectCard: (card: CardType) => void;
   cards: CardType[];
+  userCoins: number;
+  userSalary: number;
 }
 
-export const CardsList = ({ onSelectCard, cards }: IProps) => {
+export const CardsList = ({ onSelectCard, cards  }: IProps) => {
+
+  console.log('cards: ', cards)
+
   return (
-    <Box sx={{ overflowY: 'auto', marginTop: '20px', display: 'grid', gridTemplateColumns: '1fr', gap: '16px'}}>
+    <Box sx={{ overflowY: 'auto', marginTop: '20px', display: 'grid', gridTemplateColumns: '1fr', gap: '16px', paddingBottom: '64px' }}>
       {cards.map((card) => (
         <Box
-          key={card.name}
+          key={card._id}
           sx={{
             borderRadius: '16px',
             backgroundColor: 'primary.main',
@@ -40,24 +45,24 @@ export const CardsList = ({ onSelectCard, cards }: IProps) => {
           }}
           onClick={() => onSelectCard(card)}
         >
-          <img src={ImgFotoArea} width="108px" height="118px" alt="card image" style={{ borderRadius: '12px' }} />
+          <img src={card.urlPicture} width="108px" height="118px" alt="card image" style={{ borderRadius: '12px' }} />
           <Box sx={{ marginLeft: '16px', width: '100%', display: 'flex', flexDirection: 'column' }}>
             <Box sx={{ flexGrow: 1 }}>
               <Typography sx={{ fontSize: '16px', fontWeight: 'medium', textTransform: 'capitalize', marginBottom: '8px', maxWidth: '140px' }}>
-                {card.name}
+                {card.title}
               </Typography>
-              <Typography sx={{ fontSize: '12px', color: '#FFE881', marginBottom: '8px' }}>lvl {card.lvl}</Typography>
+              <Typography sx={{ fontSize: '12px', color: '#FFE881', marginBottom: '8px' }}>lvl {card.level}</Typography>
             </Box>
             <Divider sx={{ backgroundColor: 'rgba(0, 143, 109, 0.1)', marginTop: '8px' }} />
             <Box sx={{ marginTop: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <Box sx={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                <Typography sx={{ fontSize: '16px', fontWeight: '800', paddingBottom: "3px" }}>{card.coins}</Typography>
+                <Typography sx={{ fontSize: '16px', fontWeight: '800', paddingBottom: "3px" }}>{card.price}</Typography>
                 <IconCoin width={25} height={25} />
               </Box>
               <Box>
                 <Typography sx={{ fontSize: '9px', color: 'white', opacity: 0.6 }}>Прибыль в час</Typography>
                 <Box sx={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                  <Typography sx={{ fontSize: '12px', fontWeight: 'bold', letterSpacing: ".8px" }}>+{card.coinsInHour}</Typography>
+                  <Typography sx={{ fontSize: '12px', fontWeight: 'bold', letterSpacing: ".8px" }}>+{card.salary}</Typography>
                   <IconCoin width={25} height={25} />
                 </Box>
               </Box>
@@ -86,13 +91,13 @@ type CardDetailsModalProps = {
   isView: boolean;
 };
 
-
-export const CardDetailsModal: React.FC<CardDetailsModalProps> = ({ card, onClose, isView }) => {
+/* @ts-ignore */
+export const CardDetailsModal = ({ card, onClose, isView }) => {
   return (
     <Modal
       open={isView}
       onClose={onClose}
-      sx={{background: "linear-gradient(180deg, rgba(33.10, 36.19, 41.33, 0.50) 0%, rgba(56, 249, 158.93, 0.50) 100%)", display: "flex", alignItems: "flex-end", justifyContent: "center" }}
+      sx={{ background: "linear-gradient(180deg, rgba(33.10, 36.19, 41.33, 0.50) 0%, rgba(56, 249, 158.93, 0.50) 100%)", display: "flex", alignItems: "flex-end", justifyContent: "center" }}
     >
       <Box
         sx={{
@@ -119,9 +124,9 @@ export const CardDetailsModal: React.FC<CardDetailsModalProps> = ({ card, onClos
 
         {/* Монеты и прибыль */}
         <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
-        <IconCoinBig width={45} height={45} />
+          <IconCoinBig width={45} height={45} />
           <Typography sx={{ fontWeight: "800", fontSize: 28 }}>
-          19, 324
+            19, 324
           </Typography>
         </Box>
 

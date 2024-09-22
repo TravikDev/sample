@@ -1,12 +1,14 @@
 export type CardType = {
-   id: number;
-   name: string;
-   title?: string;
-   lvl: number;
-   coins: number;
-   coinsInHour: number;
+   _id: number;
+  //  name: string;
+   title: string;
    description: string; // добавляем описание
-   image: string;
-   color: string;
-   variant: "default" | "new" | "approved";
+   level: number;
+   salary: number;
+   rph: number;
+   progress: number;
+   urlPicture: string;
+   price: number;
+   dateCreation: string;
+   upgradeCost: number;
  };

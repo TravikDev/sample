@@ -73,7 +73,7 @@ import { IconCardPaid } from "@/assets/icons-react/IconCardPaid"
 import { IconCoinS } from "@/assets/icons-react/IconCoinS"
 import { CardType } from "@/entities/cards/cards.dto"
 import { cards } from "@/entities/cards/cardsSlice"
-import { CardDetailsModal, CardsList, СardsList } from "@/features/cards/cards"
+import { CardDetailsModal, CardsList } from "@/features/cards/cards"
 // import { ProgressLine } from '@/assets/icons-react/ProgressLine';
 
 type User = {
@@ -282,7 +282,7 @@ const App: React.FC = () => {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
     const newClicks = clicks + 1
-    setClicks(newClicks)
+    // setClicks(newClicks)
     const x = e.clientX - 50
     const y = e.clientY - 250
     let z = 1
@@ -328,71 +328,28 @@ const App: React.FC = () => {
   }
 
   // Пример списка карточек
-  const cardsList = [
+  const [cardsList, setCardsList] = useState([
     {
-      id: 1,
-      title: "Aline",
-      description: "Lizards are a widespread",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVnlgnSfn_lCvpuKEc7Hc9FHr1Kw-yt0Yipw&s`",
-      color: "#031E2B",
+      "_id": 1,
+      "title": "NewCard",
+      "description": "description",
+      "level": 1,
+      "salary": 10,
+      "rph": 1,
+      "progress": 0,
+      "urlPicture": "http://google.com",
+      "price": 100,
+      "dateCreation": "1",
+      "upgradeCost": 0
     },
-    {
-      id: 2,
-      title: "Morgensperm",
-      description: "Frogs are amphibians",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVnlgnSfn_lCvpuKEc7Hc9FHr1Kw-yt0Yipw&s",
-      color: "#031E2B",
-    },
-    {
-      id: 3,
-      title: "Frog",
-      description: "Frogs are amphibians",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVnlgnSfn_lCvpuKEc7Hc9FHr1Kw-yt0Yipw&s`",
-      color: "#031E2B",
-    },
-    {
-      id: 4,
-      title: "Frog",
-      description: "Frogs are amphibians",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVnlgnSfn_lCvpuKEc7Hc9FHr1Kw-yt0Yipw&s`",
-      color: "#031E2B",
-    },
-    {
-      id: 5,
-      title: "Frog",
-      description: "Frogs are amphibians",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVnlgnSfn_lCvpuKEc7Hc9FHr1Kw-yt0Yipw&s`",
-      color: "#031E2B",
-    },
-    {
-      id: 6,
-      title: "Frog",
-      description: "Frogs are amphibians",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVnlgnSfn_lCvpuKEc7Hc9FHr1Kw-yt0Yipw&s`",
-      color: "#031E2B",
-    },
-    {
-      id: 7,
-      title: "Frog",
-      description: "Frogs are amphibians",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVnlgnSfn_lCvpuKEc7Hc9FHr1Kw-yt0Yipw&s`",
-      color: "#031E2B",
-    },
-  ]
+  ])
 
-  const cardsCategoriesList = [
+  const [cardsCategoriesList, setCardsCategoriesList] = useState([
     { id: 1, title: "Все" },
     { id: 2, title: "Добавленные" },
     { id: 3, title: "Популярные" },
     { id: 4, title: "Новые" },
-  ]
+  ])
 
   const [animate, setAnimate] = useState(false)
 
@@ -426,34 +383,38 @@ const App: React.FC = () => {
   const [error2, setError2] = useState<unknown | null>(null)
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:3501/users/update/10")
-        if (!response.ok) {
-          throw new Error("Network response was not ok")
+    if (isOpen === true) {
+      const fetchData = async () => {
+        try {
+          const response = await fetch("http://localhost:3501/cards")
+          if (!response.ok) {
+            throw new Error("Network response was not ok")
+          }
+          const jsonData = await response.json()
+          console.log('json Cards:', jsonData)
+          setCardsList(jsonData)
+          return jsonData
+          // setData2(jsonData); // Устанавливаем полученные данные в состояние
+          return jsonData
+        } catch (err) {
+          setError2(err) // Устанавливаем ошибку в случае неудачи
+        } finally {
+          setLoading(false) // Отключаем индикатор загрузки
         }
-        const jsonData = await response.json()
-        console.log(jsonData)
-        // setData2(jsonData); // Устанавливаем полученные данные в состояние
-        return jsonData
-      } catch (err) {
-        setError2(err) // Устанавливаем ошибку в случае неудачи
-      } finally {
-        setLoading(false) // Отключаем индикатор загрузки
       }
+      /* @ts-ignore */
+      // const res = result()
+
+      const response = fetchData()
+
+      console.log('response2:', response)
     }
-    /* @ts-ignore */
-    // const res = result()
-
-    const response = fetchData()
-
-    // setProgress(response?.result?`.energy)
-  }, [])
+  }, [isOpen])
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3501/users/10")
+        const response = await fetch("http://localhost:3501/users/9")
         if (!response.ok) {
           throw new Error("Network response was not ok")
         }
@@ -472,29 +433,26 @@ const App: React.FC = () => {
 
     const response = fetchData()
 
-    // setProgress(response?.result?`.energy)
+    /* @ts-ignore */
+    setProgress(response?.result?.energy)
   }, [])
   //
 
-  useEffect(() => {
-    if (!!data2) {
-      // setProgress(data2.energy)
-    }
-  }, [])
 
   return (
     <article
       style={{ position: "relative", height: "100%", overflow: "hidden" }}
     >
-      {isOpen && (
+      {(isOpen || isOpen2) && (
         <div
           className="slider-background"
           onClick={handleBackgroundClick}
         ></div>
       )}
-      <button onClick={toggleSlider} className="slider-toggle-btn">
+
+      {/* <button onClick={toggleSlider} className="slider-toggle-btn">
         {isOpen ? "Close Slider" : "Open Slider"}
-      </button>
+      </button> */}
       <Box className={`slider ${isOpen ? "open" : ""}`} sx={{}}>
         <Box
           // className="slider-content"
@@ -600,7 +558,7 @@ const App: React.FC = () => {
               ))}
             </Box>
 
-            <CardsList onSelectCard={handleShareCard} cards={cards} />
+            <CardsList onSelectCard={handleShareCard} cards={cardsList}  />
           </Box>
         </Box>
       </Box>
@@ -960,177 +918,10 @@ const App: React.FC = () => {
 
         {/* PR Team */}
 
-        <Drawer
-          anchor="bottom"
-          open={drawerTeamOpen}
-          onClose={() => setDrawerTeamOpen(false)}
-          sx={{
-            "& .MuiDrawer-paper": {
-              backgroundColor: "#001313",
-              color: "white",
-              borderTopLeftRadius: "10px",
-              borderTopRightRadius: "10px",
-              padding: "20px",
-              height: "100%", // Задаем высоту 60%
-            },
-          }}
-        >
-          <Box
-            sx={{
-              overflowY: "auto",
-              // display: 'flex', flexDirection: 'column', gap: '20px',
-              display: "flex",
-              flexDirection: "row",
-              gap: "18px",
-              flexWrap: "wrap",
-              width: "100%",
-              height: "100px",
-              backgroundColor: "#3498db",
-              clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 80%)",
-            }}
-          >
-            {cardsList.map((card) => (
-              // <Paper elevation={3} key={card.id} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', backgroundColor: `${card.color}`, color: 'white', borderRadius: '10px', minHeight: 128, maxWidth: '42%', padding: 1, gap: '8px' }}>
-              //   <CardMedia
-              //     component="img"
-              //     sx={{ borderRadius: '10px' }}
-              //     image={card.image}
-              //     alt={card.title}
-              //   />
-              //   <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-              //     <CardContent sx={{ padding: '0px', display: 'flex', justifyContent: 'center' }}>
 
-              //     </CardContent>
-              //     <CardActions>
-              //       <Button size="small" color="primary" sx={{ color: '#111' }}>
-              //         {card.title}
-              //       </Button>
-              //       <IconButton aria-label="fingerprint" color="success">
-              //         <Fingerprint />
-              //       </IconButton>
-              //     </CardActions>
-              //   </Box>
-              // </Paper>
-              <CardItem />
-            ))}
-          </Box>
-          <Box sx={{ display: "flex", flexDirection: "row", width: "100%" }}>
-            <Button
-              sx={{
-                marginTop: "20px",
-                color: "white",
-                borderColor: "white",
-                width: "100%",
-              }}
-              variant="outlined"
-              onClick={() => setDrawerTeamOpen(false)}
-            >
-              Закрыть
-            </Button>
-          </Box>
-        </Drawer>
 
         {/* Bloggers */}
 
-        <Drawer
-          anchor="bottom"
-          open={drawerBloggersOpen}
-          onClose={() => setDrawerBloggersOpen(false)}
-          sx={{
-            "& .MuiDrawer-paper": {
-              backgroundColor: "#001313",
-              color: "white",
-              borderTopLeftRadius: "10px",
-              borderTopRightRadius: "10px",
-              padding: "20px",
-              height: "80%", // Задаем высоту 60%
-            },
-          }}
-        >
-          <Box sx={{ borderBottom: 1, borderColor: "divider" }}></Box>
-          <Box sx={{ width: "100%", overflowY: "auto" }}>
-            <CustomTabPanel value={value} index={1}>
-              <Box
-                sx={{
-                  // overflowY: 'auto',
-                  display: "flex",
-                  flexDirection: "row",
-                  flexWrap: "wrap",
-                  gap: "12px",
-                }}
-              >
-                {cardsList.map((card) => (
-                  <Paper
-                    elevation={3}
-                    key={card.id}
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      backgroundColor: `${card.color}`,
-                      color: "white",
-                      borderRadius: "10px",
-                      minHeight: 128,
-                      maxWidth: "42%",
-                      padding: 1,
-                      gap: "8px",
-                    }}
-                  >
-                    <CardMedia
-                      component="img"
-                      sx={{ borderRadius: "10px" }}
-                      image={card.image}
-                      alt={card.title}
-                    />
-                    <Box sx={{ display: "flex", flexDirection: "column" }}>
-                      <CardContent
-                        sx={{
-                          padding: "0px",
-                          display: "flex",
-                          justifyContent: "center",
-                        }}
-                      ></CardContent>
-                      <CardActions>
-                        <Button
-                          size="small"
-                          color="primary"
-                          sx={{ color: "#111" }}
-                        >
-                          ЯЯЯЯЯ
-                        </Button>
-                        <IconButton aria-label="fingerprint" color="success">
-                          <Fingerprint />
-                        </IconButton>
-                      </CardActions>
-                    </Box>
-                  </Paper>
-                ))}
-              </Box>
-            </CustomTabPanel>
-          </Box>
-
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
-            <Button
-              sx={{
-                marginTop: "20px",
-                color: "white",
-                borderColor: "white",
-                width: "100%",
-              }}
-              variant="outlined"
-              onClick={() => setDrawerTeamOpen(false)}
-            >
-              Закрыть
-            </Button>
-          </Box>
-        </Drawer>
       </Container>
 
       <img
