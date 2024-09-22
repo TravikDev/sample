@@ -4,79 +4,44 @@ import {
   Box,
   Button,
   Container,
-  Drawer,
-  // Card, CardActionArea,
-  CardMedia,
-  CardContent,
   Typography,
-  CardActions,
   List,
-  Paper,
   IconButton,
   Divider,
-  // Tabs, Divider
 } from "@mui/material" // Импорт необходимых компонентов
 import React, { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import "../../shared/styles/global.scss"
-// import CurrencyBitcoinRoundedIcon from '@mui/icons-material/CurrencyBitcoinRounded';
-import {
-  Fingerprint,
-  // Person
-} from "@mui/icons-material"
 import LinearProgress, {
-  // LinearProgressProps,
   linearProgressClasses,
 } from "@mui/material/LinearProgress"
 import styled from "styled-components"
-// import DateRangeRoundedIcon from '@mui/icons-material/DateRangeRounded';
-// import ElectricBoltRoundedIcon from '@mui/icons-material/ElectricBoltRounded';
-// import GradeRoundedIcon from '@mui/icons-material/GradeRounded';
-// import Diversity1RoundedIcon from '@mui/icons-material/Diversity1Rounded';
-// import ChecklistRoundedIcon from '@mui/icons-material/ChecklistRounded';
-// import { SvgChar } from '@/assets/SvgChar';
 import TapCoin from "@/assets/Tap_coin.png"
-// import Box from '@mui/material/Box';
-// import Tab from '@mui/material/Tab';
 import { useTapMutation } from "@/entities/users/usersSlice"
 import { io, Socket } from "socket.io-client"
-// import TabContext from '@mui/lab/TabContext';
-// import TabList from '@mui/lab/TabList';
-// import TabPanel from '@mui/lab/TabPanel';
-// import { ReactComponent as CharSVG } from '../../assets/character.svg?react'
-// import Bg from '@/assets/icons-react/Bg';
-import ButtonCard01 from "@/assets/Button_open_cards.png"
-import ButtonCard02 from "@/assets/Button_open_cards2.png"
-// import Background from '@/assets/Background.png';
 import BackgroundEffect from "@/assets/BgEffect-1.png"
 import BackgroundEffect2 from "@/assets/BgEffect-2-png.png"
 import { Link } from "react-router-dom"
+
 import IconCoin from "@/assets/icons-react/Coin"
-// import IconCoinBig from '@/assets/icons-react/CoinBig';
-
 import CoinBig from "@/assets/CoinBig.png"
-
-import ImgAvatar from "@/assets/9.png"
-import ImgStar from "@/assets/Star_img.png"
 import ImgStopwatch from "@/assets/Stopwatch_img.png"
 import DividerSvg from "@/assets/icons-react/Divider"
-import CardItem from "@/assets/icons-react/CardItem"
-// import { EnergyIcon } from '@/assets/icons-react/EnergyIcon';
-import ImgIconCard from "@/assets/Card2.png"
-import ImgFotoArea from "@/assets/FotoArea.png"
 
 import EnergyIconPng from "@/assets/energy1.png"
 import { IconCloseModal } from "@/assets/icons-react/IconCloseModal"
 import IconCoinBig from "@/assets/icons-react/CoinBig"
 import { IconCard } from "@/assets/icons-react/IconCard"
-import { IconCardPaid } from "@/assets/icons-react/IconCardPaid"
-import { IconCoinS } from "@/assets/icons-react/IconCoinS"
-import { CardType } from "@/entities/cards/cards.dto"
 import { CardDetailsModal, CardsList } from "@/features/cards/cards"
 import CustomButton from "@/shared/ui/CustomButton"
-// import { ProgressLine } from '@/assets/icons-react/ProgressLine';
 import teamIcon from "@/assets/icons/btns/teamIcon.svg"
 import blogerIcon from "@/assets/icons/btns/blogerIcon.svg"
+import { CardType, IUserCardType } from "@/entities/cards/cards.dto"
+
+import ImgAvatar from "@/assets/9.png"
+import ImgStar from "@/assets/Star_img.png"
+// import ImgStopwatch from "@/assets/Stopwatch_img.png"
+// import DividerSvg from "@/assets/icons-react/Divider"
 
 type User = {
   _id: number
@@ -99,40 +64,40 @@ interface TabPanelProps {
   value: number
 }
 
-function CustomTabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props
+// function CustomTabPanel(props: TabPanelProps) {
+//   const { children, value, index, ...other } = props
 
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
-    </div>
-  )
-}
+//   return (
+//     <div
+//       role="tabpanel"
+//       hidden={value !== index}
+//       id={`simple-tabpanel-${index}`}
+//       aria-labelledby={`simple-tab-${index}`}
+//       {...other}
+//     >
+//       {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+//     </div>
+//   )
+// }
 
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  }
-}
+// function a11yProps(index: number) {
+//   return {
+//     id: `simple-tab-${index}`,
+//     "aria-controls": `simple-tabpanel-${index}`,
+//   }
+// }
 
-const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
-  height: 10,
-  borderRadius: 5,
-  [`&.${linearProgressClasses.colorPrimary}`]: {
-    backgroundColor: "#fff",
-  },
-  [`& .${linearProgressClasses.bar}`]: {
-    // borderRadius: 5,
-    backgroundColor: "#191",
-  },
-}))
+// const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
+//   height: 10,
+//   borderRadius: 5,
+//   [`&.${linearProgressClasses.colorPrimary}`]: {
+//     backgroundColor: "#fff",
+//   },
+//   [`& .${linearProgressClasses.bar}`]: {
+//     // borderRadius: 5,
+//     backgroundColor: "#191",
+//   },
+// }))
 
 interface FloatNumber {
   id: number
@@ -141,17 +106,17 @@ interface FloatNumber {
   value: number
 }
 
-const StyledButton = styled(Button)({
-  "&:focus": {
-    animation: "none",
-  },
-  "&:active": {
-    animation: "none",
-  },
-  "&:hover": {
-    animation: "none",
-  },
-})
+// const StyledButton = styled(Button)({
+//   "&:focus": {
+//     animation: "none",
+//   },
+//   "&:active": {
+//     animation: "none",
+//   },
+//   "&:hover": {
+//     animation: "none",
+//   },
+// })
 
 const App: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -168,15 +133,15 @@ const App: React.FC = () => {
 
   const [isOpen2, setIsOpen2] = useState(false)
 
-  const toggleSlider2 = () => {
-    setIsOpen2(!isOpen)
-  }
+  // const toggleSlider2 = () => {
+  //   setIsOpen2(!isOpen)
+  // }
 
-  const handleBackgroundClick2 = () => {
-    if (isOpen) {
-      setIsOpen2(false)
-    }
-  }
+  // const handleBackgroundClick2 = () => {
+  //   if (isOpen) {
+  //     setIsOpen2(false)
+  //   }
+  // }
 
   const [tap, { data, error, isLoading, isSuccess }] = useTapMutation()
 
@@ -185,7 +150,7 @@ const App: React.FC = () => {
   const [socket, setSocket] = useState<Socket | null>(null)
   const [socketId, setSocketId] = useState<string | undefined>("")
   const [isConnected, setIsConnected] = useState(false)
-  const [pressCount, setPressCount] = useState(0)
+  // const [pressCount, setPressCount] = useState(0)
   const [thresholdMessage, setThresholdMessage] = useState("")
 
   useEffect(() => {
@@ -276,7 +241,7 @@ const App: React.FC = () => {
   const [floatNumbers, setFloatNumbers] = useState<FloatNumber[]>([])
   const [drawerTeamOpen, setDrawerTeamOpen] = useState(false) // Состояние для управления видимостью sidebar
   const [drawerBloggersOpen, setDrawerBloggersOpen] = useState(false) // Состояние для управления видимостью sidebar
-  const [drawerQuestsOpen, setDrawerQuestsOpen] = useState(false) // Состояние для управления видимостью sidebar
+  // const [drawerQuestsOpen, setDrawerQuestsOpen] = useState(false) // Состояние для управления видимостью sidebar
   //?
   const [showShare, setShowShare] = useState(false)
 
@@ -306,18 +271,44 @@ const App: React.FC = () => {
     // onClickTap()
   }
 
-  const onClickQuests = () => {
-    setDrawerTeamOpen(!drawerTeamOpen) // Переключение видимости sidebar
-  }
+  // const onClickQuests = () => {
+  //   setDrawerTeamOpen(!drawerTeamOpen) // Переключение видимости sidebar
+  // }
 
-  const onClickProfile = () => {
-    setDrawerTeamOpen(!drawerTeamOpen) // Переключение видимости sidebar
-  }
+  // const onClickProfile = () => {
+  //   setDrawerTeamOpen(!drawerTeamOpen) // Переключение видимости sidebar
+  // }
 
-  const onClick = () => {
-    setDrawerTeamOpen(!drawerTeamOpen) // Переключение видимости sidebar
-  }
+  // const onClick = () => {
+  //   setDrawerTeamOpen(!drawerTeamOpen) // Переключение видимости sidebar
+  // }
 
+  const onClickBuyCard = async (cardId: number) => {
+
+    const body = JSON.stringify({ userId: 10, cardId })
+
+    try {
+      const response = await fetch("http://localhost:3501/user-cards/assign", {
+        method: 'POST', body, headers: {
+          "Content-Type": "application/json",
+        }
+      })
+      if (!response.ok) {
+        throw new Error("Network response was not ok")
+      }
+      const jsonData = await response.json()
+      // console.log("json Cards:", jsonData)
+      return jsonData
+      // const filteredData = jsonData.map((card: IUserCardType) => card.card)
+      // setMyCardsList(filteredData)
+      // return jsonData
+      setData2(jsonData); // Устанавливаем полученные данные в состояние
+    } catch (err) {
+      setError2(err) // Устанавливаем ошибку в случае неудачи
+    } finally {
+      setLoading(false) // Отключаем индикатор загрузки
+    }
+  }
   //?
   const handleShareCard = (card: CardType) => {
     setSelectedCard(card)
@@ -345,6 +336,22 @@ const App: React.FC = () => {
     },
   ])
 
+  const [myCardsList, setMyCardsList] = useState([
+    {
+      _id: 1,
+      title: "NewCard",
+      description: "description",
+      level: 1,
+      salary: 10,
+      rph: 1,
+      progress: 0,
+      urlPicture: "http://google.com",
+      price: 100,
+      dateCreation: "1",
+      upgradeCost: 0,
+    },
+  ])
+
   const [selectedCard, setSelectedCard] = useState<CardType>(cardsList[0])
 
   const [cardsCategoriesList, setCardsCategoriesList] = useState([
@@ -354,19 +361,45 @@ const App: React.FC = () => {
 
   const [activeTab, setActiveTab] = useState(cardsCategoriesList[0])
 
-  const [animate, setAnimate] = useState(false)
+  useEffect(() => {
+    if (activeTab.id === 2) {
+      const fetchData = async () => {
+        try {
+          const response = await fetch("http://localhost:3501/user-cards/10")
+          if (!response.ok) {
+            throw new Error("Network response was not ok")
+          }
+          const jsonData = await response.json()
+          console.log("json Cards:", jsonData)
+          const filteredData = jsonData.map((card: IUserCardType) => card.card)
+          setMyCardsList(filteredData)
+          return jsonData
+          // setData2(jsonData); // Устанавливаем полученные данные в состояние
+        } catch (err) {
+          setError2(err) // Устанавливаем ошибку в случае неудачи
+        } finally {
+          setLoading(false) // Отключаем индикатор загрузки
+        }
+      }
+      /* @ts-ignore */
+      // const res = result()
 
-  const handleClick2 = () => {
-    setAnimate(!animate)
-  }
+      const response = fetchData()
+    }
+  }, [activeTab])
+  // const [animate, setAnimate] = useState(false)
+
+  // const handleClick2 = () => {
+  //   setAnimate(!animate)
+  // }
 
   // TABS
 
-  const [value, setValue] = useState(1)
+  // const [value, setValue] = useState(1)
 
-  const handleChange3 = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue)
-  }
+  // const handleChange3 = (event: React.SyntheticEvent, newValue: number) => {
+  //   setValue(newValue)
+  // }
 
   const [data2, setData2] = useState<User>({
     _id: 10,
@@ -417,7 +450,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3501/users/9")
+        const response = await fetch("http://localhost:3501/users/10")
         if (!response.ok) {
           throw new Error("Network response was not ok")
         }
@@ -502,7 +535,7 @@ const App: React.FC = () => {
               >
                 <IconCoinBig width={44} height={44} />
                 <Typography sx={{ fontWeight: "800", fontSize: 24 }}>
-                  19, 324
+                  {data2.coins}
                 </Typography>
               </Box>
               <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -520,7 +553,7 @@ const App: React.FC = () => {
                   }}
                 >
                   <Typography sx={{ fontWeight: 600, lineHeight: 1 }}>
-                    +321
+                    +{data2.salary}
                   </Typography>
                   <IconCoin width={25} height={25} />
                 </Box>
@@ -563,11 +596,12 @@ const App: React.FC = () => {
                   {cat.title}
                 </Box>
               ))}
+
             </Box>
 
             <CardsList
               onSelectCard={handleShareCard}
-              cards={cardsList}
+              cards={activeTab.id === 1 ? cardsList : myCardsList}
               userCoins={0}
               userSalary={0}
             />
@@ -590,6 +624,7 @@ const App: React.FC = () => {
         card={selectedCard}
         onClose={handleClearAndCloseModal}
         isView={showShare}
+        onClickBuyCard={onClickBuyCard}
       />
 
       <Container
@@ -655,7 +690,7 @@ const App: React.FC = () => {
                     >
                       <img src={ImgStar} style={{ width: 28, height: 28 }} />
                       <Typography style={{ color: "white", fontSize: "18px" }}>
-                        {profile?.rank}123
+                        {data2.rating}
                       </Typography>
                     </Box>
                   </Box>

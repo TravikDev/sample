@@ -15,7 +15,7 @@ interface IProps {
   userSalary: number;
 }
 
-export const CardsList = ({ onSelectCard, cards  }: IProps) => {
+export const CardsList = ({ onSelectCard, cards }: IProps) => {
 
   console.log('cards: ', cards)
 
@@ -67,7 +67,7 @@ export const CardsList = ({ onSelectCard, cards  }: IProps) => {
 };
 
 
-export const CardDetailsModal: React.FC<CardDetailsModalProps> = ({ card, onClose, isView }) => {
+export const CardDetailsModal: React.FC<CardDetailsModalProps> = ({ card, onClose, isView, onClickBuyCard }) => {
   return (
     <Modal
       open={isView}
@@ -76,89 +76,90 @@ export const CardDetailsModal: React.FC<CardDetailsModalProps> = ({ card, onClos
       // sx background: "rgba(18,59,56, 0.5)", 
       sx={{ display: "flex", alignItems: "flex-end", justifyContent: "center" }}
     >
-       <Slide direction="up" in={isView} timeout={500}>
-      <Box
-        sx={{
-          color: "white",
-          position: "relative",
-          width: "100%",
-          bgcolor: "#001313",
-          borderTop: "3px solid #026850",
-          borderRadius: "24px 24px 0 0",
-          boxShadow: 24,
-          p: 3,
-          pt: 4,
-          pb: 6,
-          animation: `${isView ? "fadeIn" : "fadeOut"} 0.5s`,
-        }}
-      >
-        {/* Кнопка закрытия */}
-        <IconButton
-          aria-label="close"
-          onClick={onClose}
-          sx={{ position: "absolute", right: 16, top: 16, color: "black", backgroundColor: "rgba(98, 124, 108, 0.603)"  }}
+      <Slide direction="up" in={isView} timeout={500}>
+        <Box
+          sx={{
+            color: "white",
+            position: "relative",
+            width: "100%",
+            bgcolor: "#001313",
+            borderTop: "3px solid #026850",
+            borderRadius: "24px 24px 0 0",
+            boxShadow: 24,
+            p: 3,
+            pt: 4,
+            pb: 6,
+            animation: `${isView ? "fadeIn" : "fadeOut"} 0.5s`,
+          }}
         >
-          <CloseIcon style={{ width: "20px", height: "20px" }} />
-        </IconButton>
+          {/* Кнопка закрытия */}
+          <IconButton
+            aria-label="close"
+            onClick={onClose}
+            sx={{ position: "absolute", right: 16, top: 16, color: "black", backgroundColor: "rgba(98, 124, 108, 0.603)" }}
+          >
+            <CloseIcon style={{ width: "20px", height: "20px" }} />
+          </IconButton>
 
-        {/* Монеты и прибыль */}
-        <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
-          <IconCoinBig width={45} height={45} />
-          <Typography sx={{ fontWeight: "800", fontSize: 28 }}>
-            19, 324
-          </Typography>
-        </Box>
-
-        <Divider sx={{ mb: 2, backgroundColor: 'rgba(0, 143, 109, 0.1)' }} />
-
-        {/* Информация о карточке */}
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          <img
-            src={card.urlPicture}
-            alt="card image"
-            style={{ width: 150, height: 150, objectFit: "cover", borderRadius: 12 }}
-          />
-          <Box sx={{ ml: 3 }}>
-            <Typography variant="h5" sx={{ fontWeight: "bold", textTransform: "capitalize", mb: 1 }}>
-              {card.title}
+          {/* Монеты и прибыль */}
+          <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
+            <IconCoinBig width={45} height={45} />
+            <Typography sx={{ fontWeight: "800", fontSize: 28 }}>
+              {123}
             </Typography>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
-              <YoutubeIcon />
-              <Typography variant="body2" sx={{ color: "gray", textDecoration: "underline" }}>
-                Автор не указан
+          </Box>
+
+          <Divider sx={{ mb: 2, backgroundColor: 'rgba(0, 143, 109, 0.1)' }} />
+
+          {/* Информация о карточке */}
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <img
+              src={card.urlPicture}
+              alt="card image"
+              style={{ width: 150, height: 150, objectFit: "cover", borderRadius: 12 }}
+            />
+            <Box sx={{ ml: 3 }}>
+              <Typography variant="h5" sx={{ fontWeight: "bold", textTransform: "capitalize", mb: 1 }}>
+                {card.title}
               </Typography>
-            </Box>
-            <Box>
-              <Typography variant="body2" sx={{ color: "white", opacity: 0.6, marginTop: "15px" }}>
-                Прибыль в час
-              </Typography>
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-                  +{card.rph}
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
+                <YoutubeIcon />
+                <Typography variant="body2" sx={{ color: "gray", textDecoration: "underline" }}>
+                  Автор не указан
                 </Typography>
-                <img src={coinIcon} alt="coin" style={{ width: 20, height: 20 }} />
+              </Box>
+              <Box>
+                <Typography variant="body2" sx={{ color: "white", opacity: 0.6, marginTop: "15px" }}>
+                  Прибыль в час
+                </Typography>
+                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                  <Typography variant="body1" sx={{ fontWeight: "bold" }}>
+                    +{card.rph}
+                  </Typography>
+                  <img src={coinIcon} alt="coin" style={{ width: 20, height: 20 }} />
+                </Box>
               </Box>
             </Box>
           </Box>
-        </Box>
 
-        {/* Описание карточки */}
-        <Box sx={{ mt: 4 }}>
-          <Typography variant="body2" sx={{ color: "white", opacity: 0.6, textAlign: "center" }}>
-            {card.description}
-          </Typography>
-        </Box>
+          {/* Описание карточки */}
+          <Box sx={{ mt: 4 }}>
+            <Typography variant="body2" sx={{ color: "white", opacity: 0.6, textAlign: "center" }}>
+              {card.description}
+            </Typography>
+          </Box>
 
-        {/* Кнопка */}
-        <Button
-          fullWidth
-          variant="contained"
-          color="primary"
-          sx={{ mt: 4, height: 56, fontWeight: "600", letterSpacing: "1px", borderRadius: "16px", fontSize: "18px", backgroundColor: "#026850" }}
-        >
-          Подписаться
-        </Button>
-      </Box>
+          {/* Кнопка */}
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            sx={{ mt: 4, height: 56, fontWeight: "600", letterSpacing: "1px", borderRadius: "16px", fontSize: "18px", backgroundColor: "#026850" }}
+            onClick={() => onClickBuyCard(card._id)}
+          >
+            Подписаться
+          </Button>
+        </Box>
       </Slide>
     </Modal>
   );
