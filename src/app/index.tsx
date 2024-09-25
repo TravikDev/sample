@@ -10,8 +10,6 @@ import { Router } from './routes/sections/index.tsx'
 // import { ApiProvider } from '@reduxjs/toolkit/query/react'
 // import { apiSlice } from '@/entities/api/apiSlice.ts'
 import '@/shared/styles/global.scss'
-import { ApiProvider } from '@reduxjs/toolkit/query/react'
-import { apiSlice } from '@/entities/api/apiSlice.ts'
 import { usersApiSlice } from '@/entities/users/usersSlice.ts'
 // import './index.css'
 

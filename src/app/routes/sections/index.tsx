@@ -10,14 +10,14 @@ import { mainRoutes } from './main';
 // import { authDemoRoutes } from './auth-demo';
 // import { dashboardRoutes } from './dashboard';
 // import { componentsRoutes } from './components';
-import {
-    TransitionGroup,
-    CSSTransition
-} from "react-transition-group";
+// import {
+//     TransitionGroup,
+//     CSSTransition
+// } from "react-transition-group";
 
 // ----------------------------------------------------------------------
 
-const HomePage = lazy(() => import('@/pages/home/view/HomeView'));
+const HomePage = lazy(() => import('../../../pages/home/view/HomeView'));
 
 
 

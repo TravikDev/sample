@@ -1,4 +1,3 @@
-import * as React from "react"
 import { SVGProps } from "react"
 export const ProgressLine = (props: SVGProps<SVGSVGElement>) => (
   <svg

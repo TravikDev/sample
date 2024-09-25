@@ -1,33 +1,33 @@
 import { useHelmet } from "@/shared/hooks/useHelmet"
 import { Box } from "@mui/material"
 
-const listCards = [
-    {
-        id: '1',
-        title: 'Title 1',
-        content: 'Content 1',
-    },
-    {
-        id: '2',
-        title: 'Title 2',
-        content: 'Content 2',
-    },
-    {
-        id: '3',
-        title: 'Title 3',
-        content: 'Content 3',
-    },
-    // {
-    //     id: '4',
-    //     title: 'Title 3',
-    //     content: 'Content 3',
-    // },
-    // {
-    //     id: '5',
-    //     title: 'Title 3',
-    //     content: 'Content 3',
-    // },
-]
+// const listCards = [
+//     {
+//         id: '1',
+//         title: 'Title 1',
+//         content: 'Content 1',
+//     },
+//     {
+//         id: '2',
+//         title: 'Title 2',
+//         content: 'Content 2',
+//     },
+//     {
+//         id: '3',
+//         title: 'Title 3',
+//         content: 'Content 3',
+//     },
+//     // {
+//     //     id: '4',
+//     //     title: 'Title 3',
+//     //     content: 'Content 3',
+//     // },
+//     // {
+//     //     id: '5',
+//     //     title: 'Title 3',
+//     //     content: 'Content 3',
+//     // },
+// ]
 
 function CardsView() {
     const helmet = useHelmet({ title: 'Title', description: 'Description', keywords: 'keywords' })

@@ -1,20 +1,16 @@
-// import { selectAllPosts } from "@/entities/posts"
-// import { useNewSelector } from "@/shared/hooks/storeActions"
-// import type { PostsState } from "@/entities/posts"
-// import { PostAdd } from "@/features/posts/postAdd"
-// import { PostsList } from "@/features/posts"
-// import { FriendsList } from "@/features/friends"
-import GiftBox from "@/assets/giftBox.png"
-import CoinBig from "@/assets/CoinBig.png"
-import IconQuestsCal from "@/assets/Cal.png"
+
+// import GiftBox from "@/assets/giftBox.png"
+// import CoinBig from "@/assets/CoinBig.png"
+// import IconQuestsCal from "@/assets/Cal.png"
 
 import '@/shared/styles/global.scss'
-import { Avatar, Box, Button, Typography } from "@mui/material"
-import { IconFriendUser } from "@/assets/icons-react/IconFriendUser"
+import { Avatar, Box, 
+    // Button, 
+    Typography } from "@mui/material"
+// import { IconFriendUser } from "@/assets/icons-react/IconFriendUser"
 import IconCoin from "@/assets/icons-react/Coin"
 import { useSelector } from "react-redux"
 import { QuestsLogo } from "@/assets/icons-react/QuestsLogo"
-import { selectAllQuests } from "@/entities/quests/questsSlice"
 import { Quest } from "@/features/quests/quests.types"
 
 import IconPr from "@/assets/Pr.png"
@@ -39,31 +35,31 @@ const Welcome = () => (
 )
 
 
-const Banner = () => (
-    <Box sx={{ display: 'flex', padding: 4 }}>
-        <Box sx={{ display: 'flex', flexDirection: 'row', gap: 4, justifyContent: 'center', backgroundColor: '#2E195F', width: '100%', borderRadius: '36px', height: 138 }}>
-            <Box>
+// const Banner = () => (
+//     <Box sx={{ display: 'flex', padding: 4 }}>
+//         <Box sx={{ display: 'flex', flexDirection: 'row', gap: 4, justifyContent: 'center', backgroundColor: '#2E195F', width: '100%', borderRadius: '36px', height: 138 }}>
+//             <Box>
 
-                <img src={GiftBox} width={130} height={130} />
-            </Box>
-            <Box
-                sx={{ display: 'flex', flexDirection: 'column' }}
-            >
-                <Box
-                    sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 1, paddingTop: 2 }}
-                >
-                    {/* <Typography sx={{ color: 'white', fontWeight: '700', fontSize: 42 }}>+1000</Typography> */}
-                    <span style={{ color: 'white', fontWeight: '700', fontSize: 36, lineHeight: 0.1 }}>+&nbsp;1&nbsp;000</span>
-                    <img src={CoinBig} width={32} height={32} />
-                </Box>
-                <Typography sx={{ color: 'white', fontWeight: '300', fontSize: 14, paddingLeft: 1 }}>для тебя и друга</Typography>
+//                 <img src={GiftBox} width={130} height={130} />
+//             </Box>
+//             <Box
+//                 sx={{ display: 'flex', flexDirection: 'column' }}
+//             >
+//                 <Box
+//                     sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 1, paddingTop: 2 }}
+//                 >
+//                     {/* <Typography sx={{ color: 'white', fontWeight: '700', fontSize: 42 }}>+1000</Typography> */}
+//                     <span style={{ color: 'white', fontWeight: '700', fontSize: 36, lineHeight: 0.1 }}>+&nbsp;1&nbsp;000</span>
+//                     <img src={CoinBig} width={32} height={32} />
+//                 </Box>
+//                 <Typography sx={{ color: 'white', fontWeight: '300', fontSize: 14, paddingLeft: 1 }}>для тебя и друга</Typography>
 
-                <Button sx={{ backgroundColor: '#74E5F2', borderRadius: 15, padding: '1px', marginInline: '1px', width: '70%', marginTop: 1 }}>Получить</Button>
+//                 <Button sx={{ backgroundColor: '#74E5F2', borderRadius: 15, padding: '1px', marginInline: '1px', width: '70%', marginTop: 1 }}>Получить</Button>
 
-            </Box>
-        </Box>
-    </Box>
-)
+//             </Box>
+//         </Box>
+//     </Box>
+// )
 
 const Bonuses = ({ title }: { title: string }) => (
     <Box sx={{
@@ -109,58 +105,58 @@ const Bonuses = ({ title }: { title: string }) => (
 // )
 
 
-const WeeklyEvents = ({ friends, title }: { friends: any, title: string }) => (<>
+// const WeeklyEvents = ({ friends, title }: { friends: any, title: string }) => (<>
 
-    <Box sx={{ display: 'flex', gap: 0, flexDirection: 'column' }}>
-        <Bonuses title={title} />
-
-
-        {friends.slice(0, 1).map((friend: any, idx: number) => (
-            <>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', height: '95%' }}>
-                    <div style={{ width: '80%', margin: 'auto', padding: 1, height: 64 }}
-                    // className='element-border'
-                    >
-                        <div style={{ backgroundColor: '#182830', borderRadius: 20, height: 64, display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', }}>
-                            <Box sx={{ margin: 1, display: 'flex', flexDirection: 'row', gap: 1 }}>
-                                <Avatar src={IconQuestsCal} />
-                                <Box>
-                                    <Typography sx={{ fontSize: 14, color: 'white' }}>{friend.idTelegram}</Typography>
-                                    {/* <img src={IconFriendUser} /> */}
-                                    <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                                        <IconFriendUser />
-                                        <Typography sx={{ fontSize: 14, color: '#838D90' }}>0</Typography>
-                                    </Box>
-                                </Box>
-                            </Box>
-
-                            <Box
-                                sx={{ display: 'flex', flexDirection: 'row' }}
-                            >
-                                <Typography sx={{ color: 'white' }}>+1000</Typography>
-                                <IconCoin
-                                    width={25} height={25}
-                                />
-                            </Box>
-
-                        </div>
-                    </div>
-                    {/* <div style={{ width: '80%', margin: 'auto', padding: 1, height: 64 }} className='element-border'>
-      <div style={{ backgroundColor: '#000', borderRadius: 20, height: 64 }}>ggg</div>
-    </div> */}
-                </Box >
-            </>
-
-        ))}
+//     <Box sx={{ display: 'flex', gap: 0, flexDirection: 'column' }}>
+//         <Bonuses title={title} />
 
 
+//         {friends.slice(0, 1).map((friend: any, idx: number) => (
+//             <>
+//                 <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', height: '95%' }}>
+//                     <div style={{ width: '80%', margin: 'auto', padding: 1, height: 64 }}
+//                     // className='element-border'
+//                     >
+//                         <div style={{ backgroundColor: '#182830', borderRadius: 20, height: 64, display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', }}>
+//                             <Box sx={{ margin: 1, display: 'flex', flexDirection: 'row', gap: 1 }}>
+//                                 <Avatar src={IconQuestsCal} />
+//                                 <Box>
+//                                     <Typography sx={{ fontSize: 14, color: 'white' }}>{friend.idTelegram}</Typography>
+//                                     {/* <img src={IconFriendUser} /> */}
+//                                     <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+//                                         <IconFriendUser />
+//                                         <Typography sx={{ fontSize: 14, color: '#838D90' }}>0</Typography>
+//                                     </Box>
+//                                 </Box>
+//                             </Box>
 
-        {/* <FriendsList /> */}
-        {/* <PostAdd /> */}
-        {/* <PostsList /> */}
-    </Box>
-</>
-)
+//                             <Box
+//                                 sx={{ display: 'flex', flexDirection: 'row' }}
+//                             >
+//                                 <Typography sx={{ color: 'white' }}>+1000</Typography>
+//                                 <IconCoin
+//                                     width={25} height={25}
+//                                 />
+//                             </Box>
+
+//                         </div>
+//                     </div>
+//                     {/* <div style={{ width: '80%', margin: 'auto', padding: 1, height: 64 }} className='element-border'>
+//       <div style={{ backgroundColor: '#000', borderRadius: 20, height: 64 }}>ggg</div>
+//     </div> */}
+//                 </Box >
+//             </>
+
+//         ))}
+
+
+
+//         {/* <FriendsList /> */}
+//         {/* <PostAdd /> */}
+//         {/* <PostsList /> */}
+//     </Box>
+// </>
+// )
 
 const QuestsEvents = ({ quests, title }: { quests: Quest[], title: string }) => (<>
 
@@ -229,7 +225,7 @@ const QuestsAnotherEvents = ({ quests, title }: { quests: Quest[], title: string
         <Bonuses title={title} />
 
 
-        {quests.map((quest: Quest, idx: number) => (
+        {quests.map((quest: Quest) => (
             <>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', height: '95%' }}>
                     <div style={{ width: '80%', margin: 'auto', padding: 1, height: 64 }}

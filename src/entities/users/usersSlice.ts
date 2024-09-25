@@ -1,21 +1,20 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { apiSlice } from "../api/apiSlice";
 import { createEntityAdapter, createSelector } from "@reduxjs/toolkit";
 
-interface User {
-  _id: number;
-  idTelegram: number;
-  username: string;
-  level: number;
-  salary: number;
-  rating: number;
-  energy: number;
-  coins: number;
-  dateRegistartion: string;
-  dateSalary: string;
-  dateUpdated: string;
-  dateOnline: string;
-}
+// interface User {
+//   _id: number;
+//   idTelegram: number;
+//   username: string;
+//   level: number;
+//   salary: number;
+//   rating: number;
+//   energy: number;
+//   coins: number;
+//   dateRegistartion: string;
+//   dateSalary: string;
+//   dateUpdated: string;
+//   dateOnline: string;
+// }
 
 const usersAdapter = createEntityAdapter()
 

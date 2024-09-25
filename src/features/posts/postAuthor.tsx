@@ -1,5 +1,5 @@
-import { selectAllUsers } from "@/entities/users/usersSlice"
-import { useSelector } from "react-redux"
+// import { selectAllUsers } from "@/entities/users/usersSlice"
+// import { useSelector } from "react-redux"
 
 type PropsWithUserId = {
     userId: string
@@ -7,9 +7,10 @@ type PropsWithUserId = {
 
 export const PostAuthor = ({ userId }: PropsWithUserId) => {
 
-    const users = useSelector(selectAllUsers)
+    // const users = useSelector(selectAllUsers)
 
-    const author = users.find(user => user.id === userId)
+    // const author = users.find(user => user.id === userId)
 
-    return <span>by {author ? author.name : 'Unknown author'}</span>
+    // return <span>by {author ? author.name : 'Unknown author'}</span>
+    return userId
 }

@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async';
-import HomeView from '../view/homeView';
+import HomeView from '../view/HomeView';
+// import HomeView from '../view/homeView';
 
 // import HomeView from '../view/homeView';
 

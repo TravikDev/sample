@@ -1,12 +1,12 @@
-import { forwardRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 // import IconCoins from "@/assets/icons/menu/coins.png";
 // import IconBoss from "@/assets/icons/menu/boss.png";
 // import IconRocket from "@/assets/icons/menu/rocket.png";
 // import IconTrophy from "@/assets/icons/menu/trophy.png";
-import { useNewSelector } from "@/shared/hooks/storeActions";
-import { selectProfile } from "@/entities/profile/profileSlice";
+// import { useNewSelector } from "@/shared/hooks/storeActions";
+// import { selectProfile } from "@/entities/profile/profileSlice";
 import { Link, useLocation } from "react-router-dom";
-import { Box, Button, IconButton, List, SvgIcon, Typography } from "@mui/material";
+import { Box, Button, List, Typography } from "@mui/material";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import ChecklistRoundedIcon from '@mui/icons-material/ChecklistRounded';
 // import EmojiEventsRoundedIcon from '@mui/icons-material/EmojiEventsRounded';
@@ -90,25 +90,25 @@ const listMenu = [
     // },
 ];
 
-type FontAwesomeSvgIconProps = {
-    icon: any;
-};
+// type FontAwesomeSvgIconProps = {
+//     icon: any;
+// };
 
-const FontAwesomeSvgIcon = forwardRef<SVGSVGElement, FontAwesomeSvgIconProps>(
-    (props, ref) => {
-        const { icon } = props;
+// const FontAwesomeSvgIcon = forwardRef<SVGSVGElement, FontAwesomeSvgIconProps>(
+//     (props, ref) => {
+//         const { icon } = props;
 
-        const {
-            icon: [width, height, , , svgPathData],
-        } = icon;
+//         const {
+//             icon: [width, height, , , svgPathData],
+//         } = icon;
 
-        return (
-            <SvgIcon>
+//         return (
+//             <SvgIcon>
 
-            </SvgIcon>
-        );
-    },
-);
+//             </SvgIcon>
+//         );
+//     },
+// );
 
 
 export const Footer = () => {
@@ -118,7 +118,7 @@ export const Footer = () => {
     console.log(window.location.pathname)
     console.log(location.pathname)
 
-    const profile = useNewSelector(selectProfile)
+    // const profile = useNewSelector(selectProfile)
 
     const [user, setUser] = useState<{ id: number, name: string }[]>([{ id: 123, name: "string" }]);
 

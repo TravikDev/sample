@@ -37,7 +37,7 @@ export const PostAdd = () => {
 
 	const usersOptions = users.map(user => (
 		<option key={user.id} value={user.id}>
-			{user.name} {user.surname}
+			{/* {user.name} {user.surname} */}
 		</option>
 	))
 

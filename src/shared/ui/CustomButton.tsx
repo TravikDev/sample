@@ -1,8 +1,6 @@
 import { Box, Button, Typography } from '@mui/material';
 import React from 'react';
-import teamIcon from '@/assets/icons/btns/teamIcon.png';
 
-// Пропс для пути к иконке
 interface CustomButtonProps {
   children: React.ReactNode;
   iconPath?: string; // Новый пропс для пути к иконке
