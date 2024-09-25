@@ -40,6 +40,7 @@ import { CardType, IUserCardType } from "@/entities/cards/cards.dto"
 
 import ImgAvatar from "@/assets/9.png"
 import ImgStar from "@/assets/Star_img.png"
+import { EnergyBar } from "@/shared/ui/EnergyLine"
 // import ImgStopwatch from "@/assets/Stopwatch_img.png"
 // import DividerSvg from "@/assets/icons-react/Divider"
 
@@ -245,32 +246,6 @@ const App: React.FC = () => {
   //?
   const [showShare, setShowShare] = useState(false)
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault()
-    const newClicks = clicks + 1
-    // setClicks(newClicks)
-    const x = e.clientX - 50
-    const y = e.clientY - 250
-    let z = 1
-    if (!data2.energy) z = 0
-    const newFloatNumber: FloatNumber = {
-      id: newClicks,
-      x: x,
-      y: y,
-      value: z, // Сохраняем текущее количество кликов
-    }
-    setFloatNumbers([...floatNumbers, newFloatNumber])
-    dispatch(addOneClick())
-
-    setTimeout(() => {
-      setFloatNumbers((current) =>
-        current.filter((floatNumber) => floatNumber.id !== newFloatNumber.id)
-      )
-    }, 2000)
-
-    // onClickTap()
-  }
-
   // const onClickQuests = () => {
   //   setDrawerTeamOpen(!drawerTeamOpen) // Переключение видимости sidebar
   // }
@@ -282,6 +257,42 @@ const App: React.FC = () => {
   // const onClick = () => {
   //   setDrawerTeamOpen(!drawerTeamOpen) // Переключение видимости sidebar
   // }
+
+const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  e.preventDefault();
+  const newClicks = clicks + 1;
+
+  //? Устанавливаем новое значение кликов
+  setClicks(newClicks)
+
+  const x = e.clientX - 50;
+  const y = e.clientY - 250;
+  let z = 1;
+
+  //? Пример изменения энергии
+  let newEnergy = data2.energy - 10; // Уменьшение энергии на 10
+  if (newEnergy < 0) newEnergy = 0;  // Не позволяем энергии быть меньше 0
+  setData2((prev) => ({ ...prev, energy: newEnergy }));  // Обновляем энергию
+
+  if (!data2.energy) z = 0;
+  const newFloatNumber: FloatNumber = {
+    id: newClicks,
+    x: x,
+    y: y,
+    value: z,
+  };
+  setFloatNumbers([...floatNumbers, newFloatNumber]);
+  dispatch(addOneClick());
+
+  setTimeout(() => {
+    setFloatNumbers((current) =>
+      current.filter((floatNumber) => floatNumber.id !== newFloatNumber.id)
+    );
+  }, 2000);
+
+  // onClickTap();
+};
+
 
   const onClickBuyCard = async (cardId: number) => {
 
@@ -907,47 +918,11 @@ const App: React.FC = () => {
           </div>
         </div> */}
 
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            fontSize: "18px",
-            stroke: "rgba(186, 242, 102, 0.5)",
-            strokeWidth: 2,
-            height: 100,
-            width: "80%",
-            gap: 4,
-          }}
-        >
-          {/* <EnergyIcon  /> */}
-          {/* <div style={{ borderColor: 'rgba(186, 242, 102, 0.5)', borderRadius: 25, borderWidth: '2px', backgroundColor: 'GrayText' }}>
-            ________
-          </div> */}
-          <img src={EnergyIconPng} style={{ position: "absolute" }} />
-          {/* <ProgressLine width={150} /> */}
-
-          {/* <div style={{ backgroundColor: '#fff', borderColor: '#BAF266', borderWidth: '2px', borderRadius: 25, stroke: 'GrayText', width: '100%' }}>
-            .
-          </div> */}
-
-          <svg height={20} version="1.1" xmlns="http://www.w3.org/2000/svg">
-            {/* <circle className="stroke-1" cx="30" cy="30" r="20" width={200} />
-             */}
-            <rect
-              className="stroke-1"
-              x="10"
-              width="95%"
-              height="20"
-              rx="10"
-              ry="10"
-            />
-          </svg>
-
-          <span style={{ color: "#BAF266", fontWeight: "600" }}>
-            {data2.energy}%
-          </span>
+        <div style={{ padding: '20px' }}>
+          <EnergyBar  energy={data2.energy}  />
         </div>
+
+
         {/* 
         <Box sx={{ width: '100%' }}>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
