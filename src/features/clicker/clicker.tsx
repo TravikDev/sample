@@ -1,5 +1,5 @@
-import { addOneClick, selectProfile } from "@/entities/profile/profileSlice"
-import { useNewSelector } from "@/shared/hooks/storeActions"
+import { addOneClick } from "@/entities/profile/profileSlice"
+// import { useNewSelector } from "@/shared/hooks/storeActions"
 import {
   Box,
   Button,
@@ -12,12 +12,12 @@ import {
 import React, { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import "../../shared/styles/global.scss"
-import LinearProgress, {
-  linearProgressClasses,
-} from "@mui/material/LinearProgress"
-import styled from "styled-components"
+// import LinearProgress, {
+//   linearProgressClasses,
+// } from "@mui/material/LinearProgress"
+// import styled from "styled-components"
 import TapCoin from "@/assets/Tap_coin.png"
-import { useTapMutation } from "@/entities/users/usersSlice"
+// import { useTapMutation } from "@/entities/users/usersSlice"
 import { io, Socket } from "socket.io-client"
 import BackgroundEffect from "@/assets/BgEffect-1.png"
 import BackgroundEffect2 from "@/assets/BgEffect-2-png.png"
@@ -28,10 +28,10 @@ import CoinBig from "@/assets/CoinBig.png"
 import ImgStopwatch from "@/assets/Stopwatch_img.png"
 import DividerSvg from "@/assets/icons-react/Divider"
 
-import EnergyIconPng from "@/assets/energy1.png"
+// import EnergyIconPng from "@/assets/energy1.png"
 import { IconCloseModal } from "@/assets/icons-react/IconCloseModal"
 import IconCoinBig from "@/assets/icons-react/CoinBig"
-import { IconCard } from "@/assets/icons-react/IconCard"
+// import { IconCard } from "@/assets/icons-react/IconCard"
 import { CardDetailsModal, CardsList } from "@/features/cards/cards"
 import CustomButton from "@/shared/ui/CustomButton"
 import teamIcon from "@/assets/icons/btns/teamIcon.svg"
@@ -59,11 +59,11 @@ type User = {
   dateOnline: string
 }
 
-interface TabPanelProps {
-  children?: React.ReactNode
-  index: number
-  value: number
-}
+// interface TabPanelProps {
+//   children?: React.ReactNode
+//   index: number
+//   value: number
+// }
 
 // function CustomTabPanel(props: TabPanelProps) {
 //   const { children, value, index, ...other } = props
@@ -132,7 +132,7 @@ const App: React.FC = () => {
     }
   }
 
-  const [isOpen2, setIsOpen2] = useState(false)
+  const [isOpen2] = useState(false)
 
   // const toggleSlider2 = () => {
   //   setIsOpen2(!isOpen)
@@ -144,7 +144,7 @@ const App: React.FC = () => {
   //   }
   // }
 
-  const [tap, { data, error, isLoading, isSuccess }] = useTapMutation()
+  // const [tap, { data, error, isLoading, isSuccess }] = useTapMutation()
 
   const [progress, setProgress] = React.useState(100)
 
@@ -153,6 +153,8 @@ const App: React.FC = () => {
   const [isConnected, setIsConnected] = useState(false)
   // const [pressCount, setPressCount] = useState(0)
   const [thresholdMessage, setThresholdMessage] = useState("")
+
+  console.log(progress, isConnected, thresholdMessage,)
 
   useEffect(() => {
     const newSocket = io("http://localhost:3501", {
@@ -212,17 +214,17 @@ const App: React.FC = () => {
     handleClick(event)
   }
 
-  const onClickTap = async () => {
-    const result = await tap(10).unwrap()
+  // const onClickTap = async () => {
+  //   const result = await tap(10).unwrap()
 
-    console.log("Result: ", result)
+  //   console.log("Result: ", result)
 
-    // if (isSuccess)
-    console.log("DATA: ", data)
-    console.log("ERROR: ", error)
-    console.log("Loading: ", isLoading)
-    console.log("Success: ", isSuccess)
-  }
+  //   // if (isSuccess)
+  //   console.log("DATA: ", data)
+  //   console.log("ERROR: ", error)
+  //   console.log("Loading: ", isLoading)
+  //   console.log("Success: ", isSuccess)
+  // }
 
   // React.useEffect(() => {
   //   const timer = setInterval(() => {
@@ -234,13 +236,13 @@ const App: React.FC = () => {
   // }, []);
 
   const dispatch = useDispatch()
-  const profile = useNewSelector(selectProfile)
+  // const profile = useNewSelector(selectProfile)
 
   // console.log(profile?.clicks);
 
   const [clicks, setClicks] = useState(0)
   const [floatNumbers, setFloatNumbers] = useState<FloatNumber[]>([])
-  const [drawerTeamOpen, setDrawerTeamOpen] = useState(false) // Состояние для управления видимостью sidebar
+  // const [drawerTeamOpen, setDrawerTeamOpen] = useState(false) // Состояние для управления видимостью sidebar
   const [drawerBloggersOpen, setDrawerBloggersOpen] = useState(false) // Состояние для управления видимостью sidebar
   // const [drawerQuestsOpen, setDrawerQuestsOpen] = useState(false) // Состояние для управления видимостью sidebar
   //?
@@ -258,40 +260,40 @@ const App: React.FC = () => {
   //   setDrawerTeamOpen(!drawerTeamOpen) // Переключение видимости sidebar
   // }
 
-const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-  e.preventDefault();
-  const newClicks = clicks + 1;
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    const newClicks = clicks + 1;
 
-  //? Устанавливаем новое значение кликов
-  setClicks(newClicks)
+    //? Устанавливаем новое значение кликов
+    setClicks(newClicks)
 
-  const x = e.clientX - 50;
-  const y = e.clientY - 250;
-  let z = 1;
+    const x = e.clientX - 50;
+    const y = e.clientY - 250;
+    let z = 1;
 
-  //? Пример изменения энергии
-  let newEnergy = data2.energy - 10; // Уменьшение энергии на 10
-  if (newEnergy < 0) newEnergy = 0;  // Не позволяем энергии быть меньше 0
-  setData2((prev) => ({ ...prev, energy: newEnergy }));  // Обновляем энергию
+    //? Пример изменения энергии
+    let newEnergy = data2.energy - 10; // Уменьшение энергии на 10
+    if (newEnergy < 0) newEnergy = 0;  // Не позволяем энергии быть меньше 0
+    setData2((prev) => ({ ...prev, energy: newEnergy }));  // Обновляем энергию
 
-  if (!data2.energy) z = 0;
-  const newFloatNumber: FloatNumber = {
-    id: newClicks,
-    x: x,
-    y: y,
-    value: z,
+    if (!data2.energy) z = 0;
+    const newFloatNumber: FloatNumber = {
+      id: newClicks,
+      x: x,
+      y: y,
+      value: z,
+    };
+    setFloatNumbers([...floatNumbers, newFloatNumber]);
+    dispatch(addOneClick());
+
+    setTimeout(() => {
+      setFloatNumbers((current) =>
+        current.filter((floatNumber) => floatNumber.id !== newFloatNumber.id)
+      );
+    }, 2000);
+
+    // onClickTap();
   };
-  setFloatNumbers([...floatNumbers, newFloatNumber]);
-  dispatch(addOneClick());
-
-  setTimeout(() => {
-    setFloatNumbers((current) =>
-      current.filter((floatNumber) => floatNumber.id !== newFloatNumber.id)
-    );
-  }, 2000);
-
-  // onClickTap();
-};
 
 
   const onClickBuyCard = async (cardId: number) => {
@@ -313,7 +315,7 @@ const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       // const filteredData = jsonData.map((card: IUserCardType) => card.card)
       // setMyCardsList(filteredData)
       // return jsonData
-      setData2(jsonData); // Устанавливаем полученные данные в состояние
+      // setData2(jsonData); // Устанавливаем полученные данные в состояние
     } catch (err) {
       setError2(err) // Устанавливаем ошибку в случае неудачи
     } finally {
@@ -365,7 +367,7 @@ const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 
   const [selectedCard, setSelectedCard] = useState<CardType>(cardsList[0])
 
-  const [cardsCategoriesList, setCardsCategoriesList] = useState([
+  const [cardsCategoriesList] = useState([
     { id: 1, title: "Все" },
     { id: 2, title: "Мои" },
   ])
@@ -428,6 +430,8 @@ const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
   })
   const [loading, setLoading] = useState(true)
   const [error2, setError2] = useState<unknown | null>(null)
+
+  console.log(loading, error2)
 
   useEffect(() => {
     if (isOpen === true) {
@@ -919,7 +923,7 @@ const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         </div> */}
 
         <div style={{ padding: '20px' }}>
-          <EnergyBar  energy={data2.energy}  />
+          <EnergyBar energy={data2.energy} />
         </div>
 
 
