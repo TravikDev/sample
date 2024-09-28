@@ -45,5 +45,5 @@ export type CardDetailsModalProps = {
   };
   onClose: () => void;
   isView: boolean;
-  onClickBuyCard: (cardId: number) => void;
+  onClickBuyCard?: (cardId: number) => void;
 };

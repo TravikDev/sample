@@ -41,6 +41,7 @@ import { CardType, IUserCardType } from "@/entities/cards/cards.dto"
 import ImgAvatar from "@/assets/9.png"
 import ImgStar from "@/assets/Star_img.png"
 import { EnergyBar } from "@/shared/ui/EnergyLine"
+import { WelcomeModal } from "@/shared/ui/WelcomeModal"
 // import ImgStopwatch from "@/assets/Stopwatch_img.png"
 // import DividerSvg from "@/assets/icons-react/Divider"
 
@@ -198,6 +199,41 @@ const App: React.FC = () => {
     }
   }, [])
 
+  // Функция для обработки клика
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    const newClicks = clicks + 1;
+
+    //? Устанавливаем новое значение кликов
+    setClicks(newClicks)
+
+    const x = e.clientX - 50;
+    const y = e.clientY - 250;
+    let z = 1;
+
+    let newEnergy = data2.energy - 1; // Уменьшение энергии на 10
+    if (newEnergy < 0) newEnergy = 0;  // Не позволяем энергии быть меньше 0
+    setData2((prev) => ({ ...prev, energy: newEnergy }));  // Обновляем энергию
+
+    if (!data2.energy) z = 0;
+    const newFloatNumber: FloatNumber = {
+      id: newClicks,
+      x: x,
+      y: y,
+      value: z,
+    };
+    setFloatNumbers([...floatNumbers, newFloatNumber]);
+    dispatch(addOneClick());
+
+    setTimeout(() => {
+      setFloatNumbers((current) =>
+        current.filter((floatNumber) => floatNumber.id !== newFloatNumber.id)
+      );
+    }, 2000);
+
+    // onClickTap();
+  };
+
   // Функция для обработки нажатия на кнопку
   const handleButtonPress = () => {
     if (socket && socket.connected) {
@@ -247,6 +283,8 @@ const App: React.FC = () => {
   // const [drawerQuestsOpen, setDrawerQuestsOpen] = useState(false) // Состояние для управления видимостью sidebar
   //?
   const [showShare, setShowShare] = useState(false)
+  const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false);
+
 
   // const onClickQuests = () => {
   //   setDrawerTeamOpen(!drawerTeamOpen) // Переключение видимости sidebar
@@ -260,40 +298,7 @@ const App: React.FC = () => {
   //   setDrawerTeamOpen(!drawerTeamOpen) // Переключение видимости sidebar
   // }
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    const newClicks = clicks + 1;
 
-    //? Устанавливаем новое значение кликов
-    setClicks(newClicks)
-
-    const x = e.clientX - 50;
-    const y = e.clientY - 250;
-    let z = 1;
-
-    //? Пример изменения энергии
-    let newEnergy = data2.energy - 10; // Уменьшение энергии на 10
-    if (newEnergy < 0) newEnergy = 0;  // Не позволяем энергии быть меньше 0
-    setData2((prev) => ({ ...prev, energy: newEnergy }));  // Обновляем энергию
-
-    if (!data2.energy) z = 0;
-    const newFloatNumber: FloatNumber = {
-      id: newClicks,
-      x: x,
-      y: y,
-      value: z,
-    };
-    setFloatNumbers([...floatNumbers, newFloatNumber]);
-    dispatch(addOneClick());
-
-    setTimeout(() => {
-      setFloatNumbers((current) =>
-        current.filter((floatNumber) => floatNumber.id !== newFloatNumber.id)
-      );
-    }, 2000);
-
-    // onClickTap();
-  };
 
 
   const onClickBuyCard = async (cardId: number) => {
@@ -331,6 +336,23 @@ const App: React.FC = () => {
   const handleClearAndCloseModal = () => {
     setShowShare(false)
   }
+
+  //? Закрытие начального окна
+  // const handleCloseWelcomeModal = () => {
+  //   setIsWelcomeModalOpen(false);
+  // };
+
+  const handleCloseWelcomeModal = () => {
+    setIsWelcomeModalOpen(false);
+    sessionStorage.setItem("welcomeModalShown", "true"); // Используем sessionStorage вместо localStorage
+  };
+
+  useEffect(() => {
+    const welcomeModalShown = sessionStorage.getItem("welcomeModalShown");
+    if (!welcomeModalShown) {
+      setIsWelcomeModalOpen(true); // Открываем окно только если его еще не показывали в этой сессии
+    }
+  }, []);
 
   // Пример списка карточек
   const [cardsList, setCardsList] = useState([
@@ -444,7 +466,6 @@ const App: React.FC = () => {
           const jsonData = await response.json()
           console.log("json Cards:", jsonData)
           setCardsList(jsonData)
-          return jsonData
           // setData2(jsonData); // Устанавливаем полученные данные в состояние
           return jsonData
         } catch (err) {
@@ -462,7 +483,37 @@ const App: React.FC = () => {
     }
   }, [isOpen])
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch("http://localhost:3501/users/10")
+  //       if (!response.ok) {
+  //         throw new Error("Network response was not ok")
+  //       }
+  //       const jsonData = await response.json()
+  //       console.log(jsonData)
+  //       setData2(jsonData) // Устанавливаем полученные данные в состояние
+  //       return jsonData
+  //     } catch (err) {
+  //       setError2(err) // Устанавливаем ошибку в случае неудачи
+  //     } finally {
+  //       setLoading(false) // Отключаем индикатор загрузки
+  //     }
+  //   }
+  //   /* @ts-ignore */
+  //   // const res = result()
+
+  //   const response = fetchData()
+
+  //   /* @ts-ignore */
+  //   setProgress(response?.result?.energy)
+  // }, [])
+  //?
+  // Отвечает за отображение компонента
+  // const [activeTab2, setActiveTab2] = useState(listMenu[0].url);
+
+  useEffect(() => { 
+    
     const fetchData = async () => {
       try {
         const response = await fetch("http://localhost:3501/users/10")
@@ -472,22 +523,20 @@ const App: React.FC = () => {
         const jsonData = await response.json()
         console.log(jsonData)
         setData2(jsonData) // Устанавливаем полученные данные в состояние
-        return jsonData
+  
+        // Устанавливаем прогресс энергии только после успешного получения данных
+        setProgress(jsonData.result?.energy)
+  
       } catch (err) {
         setError2(err) // Устанавливаем ошибку в случае неудачи
       } finally {
         setLoading(false) // Отключаем индикатор загрузки
       }
     }
-    /* @ts-ignore */
-    // const res = result()
-
-    const response = fetchData()
-
-    /* @ts-ignore */
-    setProgress(response?.result?.energy)
+  
+    fetchData()
   }, [])
-  //
+  
 
   return (
     <article
@@ -499,6 +548,11 @@ const App: React.FC = () => {
           onClick={handleBackgroundClick}
         ></div>
       )}
+
+      {/* onClose - собирать монеты */}
+      <WelcomeModal
+        isView={isWelcomeModalOpen}
+        onClose={handleCloseWelcomeModal}      />
 
       {/* <button onClick={toggleSlider} className="slider-toggle-btn">
         {isOpen ? "Close Slider" : "Open Slider"}
@@ -549,13 +603,13 @@ const App: React.FC = () => {
                 }}
               >
                 <IconCoinBig width={44} height={44} />
-                <Typography sx={{ fontWeight: "800", fontSize: 24 }}>
+                <Typography sx={{ fontWeight: "800", fontSize: 30, paddingLeft: 1 }}>
                   {data2.coins}
                 </Typography>
               </Box>
               <Box sx={{ display: "flex", flexDirection: "column" }}>
                 <Typography
-                  sx={{ fontSize: "10px", fontWeight: 200, lineHeight: 1 }}
+                  sx={{ fontSize: "10px", fontWeight: 200, lineHeight: 1, opacity: 0.6 }}
                 >
                   Прибыль в час
                 </Typography>
@@ -747,7 +801,7 @@ const App: React.FC = () => {
                     alignItems: "center",
                   }}
                 >
-                  <img src={ImgStopwatch} style={{ width: 28, height: 28 }} />
+                  <img src={ImgStopwatch} style={{ width: 28, height: 28, paddingRight: "5px" }} />
                   <Box sx={{ display: "flex", flexDirection: "column" }}>
                     <span
                       style={{ color: "white", fontSize: "9px", opacity: 0.6 }}
@@ -797,13 +851,16 @@ const App: React.FC = () => {
             sx={{
               display: "flex",
               flexDirection: "row",
-              gap: "10px",
+              gap: "15px",
               justifyContent: "space-between",
               width: "100%",
+              // '@media (max-width: 424px)': {
+              //   paddinLeft: "0px",
+              // }
             }}
           >
             <Box
-              sx={{ zIndex: 50, position: "relative" }}
+              sx={{ zIndex: 50, position: "relative"}}
               onClick={toggleSlider}
             >
               <CustomButton iconPath={teamIcon}>Команда</CustomButton>
@@ -861,7 +918,7 @@ const App: React.FC = () => {
               position: "absolute",
               zIndex: 5,
               left: "0%",
-              top: "0%",
+              top: "120%",
               width: "100%",
               height: "500px",
             }}

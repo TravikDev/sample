@@ -13,21 +13,24 @@ const CustomButton: React.FC<CustomButtonProps> = ({ children, iconPath }) => {
       sx={{
         width: '180px',
         height: '60px',
-        paddingLeft: '24px',
-        paddingRight: '24px',
-        paddingTop: '12px',
-        paddingBottom: '12px',
+        padding: '12px 24px',
         backgroundColor: '#0/31E2B',
         borderRadius: '20px',
         border: '1px solid #413894a4',
         borderBottom: '1px solid rgba(0, 143, 109, 0.2)',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        display: 'inline-flex',
-        gap: '10px',
+        // alignItems: 'center',
+        // display: 'inline-flex',
+        gap: '15px',
         '&:hover': {
           backgroundColor: '#031E2B',
         },
+        '@media (max-width: 424px)': {
+          width: "150px",
+          padding: "0px",
+        },
+        '@media (max-width: 350px)': {
+          left: "-12%",
+        }
       }}
     >
       <Box
@@ -60,7 +63,6 @@ const CustomButton: React.FC<CustomButtonProps> = ({ children, iconPath }) => {
       <Typography
         sx={{
           color: 'white',
-          fontSize: '16px',
           fontFamily: 'Inter, sans-serif',
           fontWeight: '500',
           lineHeight: '110%',

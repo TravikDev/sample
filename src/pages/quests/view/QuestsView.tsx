@@ -13,12 +13,12 @@ import { useSelector } from "react-redux"
 import { QuestsLogo } from "@/assets/icons-react/QuestsLogo"
 import { Quest } from "@/features/quests/quests.types"
 
-import IconPr from "@/assets/Pr.png"
-import IconFr from "@/assets/Fr.png"
-import IconYtb from "@/assets/Ytb.png"
-import IconTg from "@/assets/Tg.png"
+import IconPr from "@/assets/icons/tasks/Pr.png"
+import IconFr from "@/assets/icons/tasks/Fr.png"
+import IconYtb from "@/assets/icons/tasks/Ytb.png"
+import IconTg from "@/assets/icons/tasks/Tg.png"
+import IconCal from "@/assets/icons/tasks/Cal.png"
 
-import IconCal from "@/assets/Cal.png"
 import { IconRightArrow } from "@/assets/icons-react/IconRightArrow"
 
 
