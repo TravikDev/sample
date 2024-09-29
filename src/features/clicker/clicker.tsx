@@ -269,6 +269,7 @@ const App: React.FC = () => {
     /* @ts-ignore */
     const tg = window.Telegram.WebApp;
     const userData = tg?.initDataUnsafe;
+    /* @ts-ignore */
     setUser(JSON.stringify(userData))
     // const queryIdData = tg?.initDataUnsafe?.query_id;
 
