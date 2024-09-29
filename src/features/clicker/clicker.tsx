@@ -222,7 +222,7 @@ const App: React.FC = () => {
     const body = JSON.stringify({ userId: data2._id, cardId })
 
     try {
-      const response = await fetch("http://localhost:3501/user-cards/assign", {
+      const response = await fetch("https://paradoxlive.pro/user-cards/assign", {
         method: 'POST', body, headers: {
           "Content-Type": "application/json",
         }
@@ -271,7 +271,7 @@ const App: React.FC = () => {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:3501/users/telegram/${userTelegramId}`)
+        const response = await fetch(`https://paradoxlive.pro/users/telegram/${userTelegramId}`)
         if (!response.ok) {
           throw new Error("Network response was not ok")
         }
@@ -292,7 +292,7 @@ const App: React.FC = () => {
   }, [])
 
   useEffect(() => {
-    const newSocket = io("http://localhost:3501", {
+    const newSocket = io("https://paradoxlive.pro", {
       transports: ["websocket"],
       autoConnect: true,
     })
@@ -332,7 +332,7 @@ const App: React.FC = () => {
     if (activeTab.id === 2) {
       const fetchData = async () => {
         try {
-          const response = await fetch(`http://localhost:3501/user-cards/${data2._id}`)
+          const response = await fetch(`https://paradoxlive.pro/user-cards/${data2._id}`)
           if (!response.ok) {
             throw new Error("Network response was not ok")
           }
@@ -360,7 +360,7 @@ const App: React.FC = () => {
     if (isOpen === true) {
       const fetchData = async () => {
         try {
-          const response = await fetch("http://localhost:3501/cards")
+          const response = await fetch("https://paradoxlive.pro/cards")
           if (!response.ok) {
             throw new Error("Network response was not ok")
           }
