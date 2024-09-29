@@ -10,6 +10,7 @@ import WalletImg from "@/assets/walletIcon.png"
 export const WelcomeModal: React.FC<DetailsModalProps> = ({
   onClose,
   isView,
+  salary
 }) => {
   const handleButtonClick = () => {
     // Закрываем модальное окно
@@ -17,7 +18,7 @@ export const WelcomeModal: React.FC<DetailsModalProps> = ({
   }
 
   return (
-    <DetailsModal onClose={onClose} isView={isView}>
+    <DetailsModal onClose={onClose} isView={isView} salary={salary}>
       <Box
         sx={{
           display: "flex",
@@ -75,10 +76,10 @@ export const WelcomeModal: React.FC<DetailsModalProps> = ({
             alignItems: "center",
           }}
         >
-          <span style={{ paddingRight: "15px" }}>+ 1 000</span>
+          <span style={{ paddingRight: "15px" }}>{salary}</span>
           <IconCoinBig
             width={44} //44
-            height={44} 
+            height={44}
             style={{ paddingBottom: "5px" }}
           />
         </Typography>
@@ -93,7 +94,7 @@ export const WelcomeModal: React.FC<DetailsModalProps> = ({
             letterSpacing: "1px",
             wordWwrap: "break-word",
             textTransform: "none",
-            padding: "16px 0", 
+            padding: "16px 0",
             boxShadow: "-2px -2px 2px rgba(0, 0, 0, 0.25) inset",
             background: "linear-gradient(45deg, #1d9988 0%, #5B5EF3 100%)",
           }}

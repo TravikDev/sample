@@ -138,6 +138,8 @@ const App: React.FC = () => {
   const [showShare, setShowShare] = useState(false)
   const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false);
 
+  const [welcomeSalary, setWelcomeSalary] = useState(0);
+
 
   const toggleSlider = () => {
     setIsOpen(!isOpen)
@@ -261,11 +263,38 @@ const App: React.FC = () => {
   // ------------------- useEffects
 
   useEffect(() => {
+
+
+
     const welcomeModalShown = sessionStorage.getItem("welcomeModalShown");
     if (!welcomeModalShown) {
-      setIsWelcomeModalOpen(true);
+
+      if (data2.idTelegram) {
+        const fetchData = async () => {
+          try {
+            const response = await fetch(`https://paradoxlive.pro/users/update/${data2._id}`, { method: 'POST' })
+            if (!response.ok) {
+              throw new Error("Network response was not ok")
+            }
+            const jsonData = await response.json()
+            console.log(jsonData)
+            setWelcomeSalary(jsonData)
+
+          } catch (err) {
+            setError2(err)
+          }
+        }
+
+        fetchData()
+
+        setIsWelcomeModalOpen(true);
+
+      }
+
+
+
     }
-  }, []);
+  }, [data2.idTelegram]);
 
   useEffect(() => {
 
@@ -398,7 +427,9 @@ const App: React.FC = () => {
       {/* onClose - собирать монеты */}
       <WelcomeModal
         isView={isWelcomeModalOpen}
-        onClose={handleCloseWelcomeModal} />
+        onClose={handleCloseWelcomeModal}
+        salary={welcomeSalary}
+      />
 
       <Box className={`slider ${isOpen ? "open" : ""}`} sx={{}}>
         <Box
