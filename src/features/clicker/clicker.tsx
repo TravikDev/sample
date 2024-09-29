@@ -15,7 +15,7 @@ import TapCoin from "@/assets/Tap_coin.png"
 import { io, Socket } from "socket.io-client"
 import BackgroundEffect from "@/assets/BgEffect-1.png"
 import BackgroundEffect2 from "@/assets/BgEffect-2-png.png"
-import { Link, useLocation, useParams } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 
 import IconCoin from "@/assets/icons-react/Coin"
 import CoinBig from "@/assets/CoinBig.png"
