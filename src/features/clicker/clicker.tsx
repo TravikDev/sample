@@ -320,8 +320,6 @@ const App: React.FC = () => {
 
   useEffect(() => {
 
-
-
     const newSocket = io("https://paradoxlive.pro", {
       transports: ["websocket"],
       autoConnect: true,
@@ -800,7 +798,7 @@ const App: React.FC = () => {
                 // width: '70%'
               }}
             >
-              {user}
+              {/* {user} */}
               {data2?.coins}
             </Typography>
           </Box>
