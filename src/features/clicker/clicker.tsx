@@ -205,7 +205,7 @@ const App: React.FC = () => {
     if (socket && socket.connected) {
       socket.emit(
         "buttonPress",
-        { message: "Button pressed!", id: 10 },
+        { message: "Button pressed!", id: data2._id },
         socketId
       )
     } else {
@@ -219,7 +219,7 @@ const App: React.FC = () => {
 
   const onClickBuyCard = async (cardId: number) => {
 
-    const body = JSON.stringify({ userId: userTelegramId, cardId })
+    const body = JSON.stringify({ userId: data2._id, cardId })
 
     try {
       const response = await fetch("http://localhost:3501/user-cards/assign", {
@@ -332,7 +332,7 @@ const App: React.FC = () => {
     if (activeTab.id === 2) {
       const fetchData = async () => {
         try {
-          const response = await fetch(`http://localhost:3501/user-cards/${userTelegramId}`)
+          const response = await fetch(`http://localhost:3501/user-cards/${data2._id}`)
           if (!response.ok) {
             throw new Error("Network response was not ok")
           }
