@@ -160,6 +160,8 @@ const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState(cardsCategoriesList[0])
 
   const [data2, setData2] = useState<User>(defaultData)
+  
+  const [dataSuccess, setDataSuccess] = useState(false)
   const [loading, setLoading] = useState(true)
   const [error2, setError2] = useState<unknown | null>(null)
 
@@ -286,6 +288,36 @@ const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
+
+    if (user) {
+      const fetchData = async () => {
+        try {
+          const response = await fetch(`https://paradoxlive.pro/users/telegram/${user}`)
+          if (!response.ok) {
+            throw new Error("Network response was not ok")
+          }
+          const jsonData = await response.json()
+          console.log(jsonData)
+          setData2(jsonData) // Устанавливаем полученные данные в состояние
+
+          setProgress(jsonData.result?.energy)
+
+        } catch (err) {
+          setError2(err) // Устанавливаем ошибку в случае неудачи
+        } finally {
+          setLoading(false) // Отключаем индикатор загрузки
+        }
+      }
+
+      fetchData()
+    }
+  }, [user])
+
+
+  useEffect(() => {
+
+    
+
     const newSocket = io("https://paradoxlive.pro", {
       transports: ["websocket"],
       autoConnect: true,
@@ -352,31 +384,6 @@ const App: React.FC = () => {
   useEffect(() => {
     if (welcomeSalary) setIsWelcomeModalOpen(true);
   }, [welcomeSalary])
-
-  useEffect(() => {
-
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`https://paradoxlive.pro/users/telegram/${userTelegramId}`)
-        if (!response.ok) {
-          throw new Error("Network response was not ok")
-        }
-        const jsonData = await response.json()
-        console.log(jsonData)
-        setData2(jsonData) // Устанавливаем полученные данные в состояние
-
-        setProgress(jsonData.result?.energy)
-
-      } catch (err) {
-        setError2(err) // Устанавливаем ошибку в случае неудачи
-      } finally {
-        setLoading(false) // Отключаем индикатор загрузки
-      }
-    }
-
-    fetchData()
-  }, [])
-
 
 
   useEffect(() => {
