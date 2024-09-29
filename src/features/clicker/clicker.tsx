@@ -423,7 +423,8 @@ const App: React.FC = () => {
       <WelcomeModal
         isView={isWelcomeModalOpen}
         onClose={handleCloseWelcomeModal}
-        salary={welcomeSalary}
+        // salary={welcomeSalary}
+        salary={0}
       />
 
       <Box className={`slider ${isOpen ? "open" : ""}`} sx={{}}>
