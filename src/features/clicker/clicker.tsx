@@ -113,15 +113,11 @@ const App: React.FC = () => {
 
   const location = useLocation();
 
-  // Получение параметров строки запроса
   const queryParams = new URLSearchParams(location.search);
 
-  // Извлечение userId
   const userTelegramId = queryParams.get('userId');
 
   const dispatch = useDispatch()
-
-  // console.log(params)
 
   const [isOpen, setIsOpen] = useState(false)
   const [isOpen2] = useState(false)
@@ -263,64 +259,6 @@ const App: React.FC = () => {
   // ------------------- useEffects
 
   useEffect(() => {
-
-
-
-    const welcomeModalShown = sessionStorage.getItem("welcomeModalShown");
-    if (!welcomeModalShown) {
-
-      if (data2.idTelegram) {
-        const fetchData = async () => {
-          try {
-            const response = await fetch(`https://paradoxlive.pro/users/update/${data2._id}`, { method: 'POST' })
-            if (!response.ok) {
-              throw new Error("Network response was not ok")
-            }
-            const jsonData = await response.json()
-            console.log(jsonData)
-            setWelcomeSalary(jsonData)
-
-          } catch (err) {
-            setError2(err)
-          }
-        }
-
-        fetchData()
-
-        setIsWelcomeModalOpen(true);
-
-      }
-
-
-
-    }
-  }, [data2.idTelegram]);
-
-  useEffect(() => {
-
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`https://paradoxlive.pro/users/telegram/${userTelegramId}`)
-        if (!response.ok) {
-          throw new Error("Network response was not ok")
-        }
-        const jsonData = await response.json()
-        console.log(jsonData)
-        setData2(jsonData) // Устанавливаем полученные данные в состояние
-
-        setProgress(jsonData.result?.energy)
-
-      } catch (err) {
-        setError2(err) // Устанавливаем ошибку в случае неудачи
-      } finally {
-        setLoading(false) // Отключаем индикатор загрузки
-      }
-    }
-
-    fetchData()
-  }, [])
-
-  useEffect(() => {
     const newSocket = io("https://paradoxlive.pro", {
       transports: ["websocket"],
       autoConnect: true,
@@ -356,6 +294,63 @@ const App: React.FC = () => {
       newSocket.close()
     }
   }, [])
+
+
+  // useEffect(() => {
+
+  //   const welcomeModalShown = sessionStorage.getItem("welcomeModalShown");
+  //   if (!welcomeModalShown) {
+
+  //     if (data2.idTelegram) {
+  //       const fetchData = async () => {
+  //         try {
+  //           const response = await fetch(`https://paradoxlive.pro/users/update/${data2._id}`, { method: 'POST' })
+  //           if (!response.ok) {
+  //             throw new Error("Network response was not ok")
+  //           }
+  //           const jsonData = await response.json()
+  //           console.log(jsonData)
+  //           setWelcomeSalary(jsonData)
+
+  //         } catch (err) {
+  //           setError2(err)
+  //         }
+  //       }
+
+  //       fetchData()
+  //     }
+  //   }
+  // }, [data2.idTelegram]);
+
+  // useEffect(() => {
+  //   if (welcomeSalary) setIsWelcomeModalOpen(true);
+  // }, [welcomeSalary])
+
+  useEffect(() => {
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`https://paradoxlive.pro/users/telegram/${userTelegramId}`)
+        if (!response.ok) {
+          throw new Error("Network response was not ok")
+        }
+        const jsonData = await response.json()
+        console.log(jsonData)
+        setData2(jsonData) // Устанавливаем полученные данные в состояние
+
+        setProgress(jsonData.result?.energy)
+
+      } catch (err) {
+        setError2(err) // Устанавливаем ошибку в случае неудачи
+      } finally {
+        setLoading(false) // Отключаем индикатор загрузки
+      }
+    }
+
+    fetchData()
+  }, [])
+
+
 
   useEffect(() => {
     if (activeTab.id === 2) {
@@ -433,7 +428,6 @@ const App: React.FC = () => {
 
       <Box className={`slider ${isOpen ? "open" : ""}`} sx={{}}>
         <Box
-          // className="slider-content"
           sx={{
             color: "#fff",
             gap: 2,
@@ -523,7 +517,7 @@ const App: React.FC = () => {
               {cardsCategoriesList.map((cat) => (
                 <Box
                   key={cat.id}
-                  onClick={() => setActiveTab(cat)} // Добавляем обработчик клика
+                  onClick={() => setActiveTab(cat)}
                   sx={{
                     paddingInline: "15px",
                     paddingBlock: "8px",
@@ -534,7 +528,7 @@ const App: React.FC = () => {
                     fontSize: 14,
                     letterSpacing: "0.3px",
                     backgroundColor:
-                      cat.id === activeTab.id ? "#008F6E" : "transparent", // Условный фон
+                      cat.id === activeTab.id ? "#008F6E" : "transparent",
                   }}
                 >
                   {cat.title}
@@ -552,17 +546,6 @@ const App: React.FC = () => {
           </Box>
         </Box>
       </Box>
-
-      {/* {isOpen2 && (
-        <div
-          className="slider2-background"
-          onClick={() => setIsOpen2((state) => !state)}
-        ></div>
-      )} */}
-
-      {/* <button onClick={toggleSlider2} className="slider2-toggle-btn" style={{ position: 'absolute' }}>
-        {isOpen2 ? 'Close Slider' : 'Open Slider'}
-      </button> */}
 
       <CardDetailsModal
         card={selectedCard}
@@ -594,10 +577,6 @@ const App: React.FC = () => {
             width: "100%",
           }}
         >
-          {/* {
-                user &&
-                <p>{user[0].id}: {user[0].name}</p>
-            } */}
 
           <Container
             sx={{
@@ -618,7 +597,6 @@ const App: React.FC = () => {
             >
               <Link to="/">
                 <Button>
-                  {/* <RocketLaunchRoundedIcon sx={{ color: '#fff', width: '48px', height: '48px' }} /> */}
                   <Box
                     sx={{
                       display: "flex",
@@ -640,7 +618,6 @@ const App: React.FC = () => {
                   </Box>
                 </Button>
               </Link>
-              {/* <p style={{ fontStyle: 'normal', fontSize: 48, color: 'rgba(57, 255, 20, 0.8)' }}>{profile.rank}</p> */}
             </Box>
 
             <Box
@@ -651,7 +628,6 @@ const App: React.FC = () => {
                 alignItems: "center",
               }}
             >
-              {/* <p style={{ fontStyl: 'normal', fontSize: 48, color: 'rgba(57, 255, 20, 0.8)' }}>{profile.moneyPerHour}$</p> */}
             </Box>
 
             <Box
