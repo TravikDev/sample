@@ -275,7 +275,7 @@ const App: React.FC = () => {
 
     // // Установка данных пользователя и query_id в состояние
     if (userData) {
-      setUser(userData);
+      setUser(userData.user);
     }
     // if (queryIdData) {
     //   setQueryId(queryIdData);
