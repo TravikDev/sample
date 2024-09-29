@@ -258,7 +258,9 @@ const App: React.FC = () => {
 
   // ------------------- useEffects
 
-  const [user, setUser] = useState(null);
+  const [user, 
+    // setUser
+  ] = useState(null);
   // const [queryId, setQueryId] = useState(null);
 
   // console.log(queryId)
