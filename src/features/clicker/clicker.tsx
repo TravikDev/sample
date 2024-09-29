@@ -205,7 +205,7 @@ const App: React.FC = () => {
     if (socket && socket.connected) {
       socket.emit(
         "buttonPress",
-        { message: "Button pressed!", id: data2._id },
+        { message: "Button pressed!", id: user },
         socketId
       )
     } else {
@@ -362,7 +362,7 @@ const App: React.FC = () => {
     const welcomeModalShown = sessionStorage.getItem("welcomeModalShown");
     if (!welcomeModalShown) {
 
-      if (data2.idTelegram) {
+      if (user) {
         const fetchData = async () => {
           try {
             const response = await fetch(`https://paradoxlive.pro/users/update/${data2._id}`, { method: 'POST' })
@@ -381,7 +381,7 @@ const App: React.FC = () => {
         fetchData()
       }
     }
-  }, [data2.idTelegram]);
+  }, [user]);
 
   useEffect(() => {
     if (welcomeSalary) setIsWelcomeModalOpen(true);
