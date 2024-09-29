@@ -279,21 +279,10 @@ const App: React.FC = () => {
     if (userData) {
       setUser(userData.user.id);
       // setDataSuccess(true)
-    }
-    // if (queryIdData) {
-    //   setQueryId(queryIdData);
-    // }
 
-    // // При желании можно также инициализировать Telegram WebApp
-    // tg.ready();  // Сообщаем Telegram, что приложение готово к работе
-  }, []);
-
-  useEffect(() => {
-
-    if (user) {
       const fetchData = async () => {
         try {
-          const response = await fetch(`https://paradoxlive.pro/users/telegram/${user}`)
+          const response = await fetch(`https://paradoxlive.pro/users/telegram/${userData.user.id}`)
           if (!response.ok) {
             throw new Error("Network response was not ok")
           }
@@ -311,8 +300,22 @@ const App: React.FC = () => {
       }
 
       fetchData()
+
     }
-  }, [user])
+
+
+    // if (queryIdData) {
+    //   setQueryId(queryIdData);
+    // }
+
+    // // При желании можно также инициализировать Telegram WebApp
+    // tg.ready();  // Сообщаем Telegram, что приложение готово к работе
+  }, []);
+
+  // useEffect(() => {
+
+
+  // }, [user])
 
 
   useEffect(() => {
