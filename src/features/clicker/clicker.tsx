@@ -267,13 +267,13 @@ const App: React.FC = () => {
     // Получение данных из Telegram WebApp API
     /* @ts-ignore */
     const tg = window.Telegram.WebApp;
-    const userData = tg?.initDataUnsafe?.user;
+    // const userData = tg?.initDataUnsafe?.user;
     // const queryIdData = tg?.initDataUnsafe?.query_id;
 
     // // Установка данных пользователя и query_id в состояние
-    if (userData) {
-      setUser(userData);
-    }
+    // if (userData) {
+    //   setUser(userData);
+    // }
     // if (queryIdData) {
     //   setQueryId(queryIdData);
     // }
