@@ -270,13 +270,13 @@ const App: React.FC = () => {
     const tg = window.Telegram.WebApp;
     const userData = tg?.initDataUnsafe;
     /* @ts-ignore */
-    setUser(JSON.stringify(userData))
+    // setUser(JSON.stringify(userData))
     // const queryIdData = tg?.initDataUnsafe?.query_id;
 
     // // Установка данных пользователя и query_id в состояние
-    // if (userData) {
-    //   setUser(userData);
-    // }
+    if (userData) {
+      setUser(userData);
+    }
     // if (queryIdData) {
     //   setQueryId(queryIdData);
     // }
