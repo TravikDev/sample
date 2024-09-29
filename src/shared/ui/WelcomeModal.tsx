@@ -2,10 +2,18 @@ import React from "react"
 import IconCoinBig from "@/assets/icons-react/CoinBig"
 import { Box, Typography } from "@mui/material"
 import { Button } from "@mui/material"
-import { DetailsModal, DetailsModalProps } from "@/shared/ui/ModalWindow"
+import { DetailsModal } from "@/shared/ui/DetailsModal"
 // import ImgPyramide from "@/assets/pyramid.png"
 import HeartImg from "@/assets/heart.png"
 import WalletImg from "@/assets/walletIcon.png"
+
+export interface DetailsModalProps {
+  onClose: () => void;
+  isView: boolean;
+  salary: number;
+  children?: React.ReactNode; // Изменяемый контент
+}
+
 
 export const WelcomeModal: React.FC<DetailsModalProps> = ({
   onClose,
@@ -76,7 +84,7 @@ export const WelcomeModal: React.FC<DetailsModalProps> = ({
             alignItems: "center",
           }}
         >
-          <span style={{ paddingRight: "15px" }}>{salary}</span>
+          <span style={{ paddingRight: "15px" }}>+{salary}</span>
           <IconCoinBig
             width={44} //44
             height={44}

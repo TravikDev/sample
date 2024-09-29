@@ -6,7 +6,7 @@ import IconCoin from "@/assets/icons-react/Coin"
 import { Box, Typography, Divider } from "@mui/material"
 import { Button } from "@mui/material"
 import YoutubeIcon from "@mui/icons-material/YouTube"
-import { DetailsModal } from "@/shared/ui/ModalWindow"
+import { DetailsModal } from "@/shared/ui/DetailsModal"
 
 interface IProps {
   onSelectCard: (card: CardType) => void
@@ -138,7 +138,7 @@ export const CardDetailsModal: React.FC<CardDetailsModalProps> = ({
   onClickBuyCard,
 }) => {
   return (
-    <DetailsModal onClose={onClose} isView={isView}>
+    <DetailsModal onClose={onClose} isView={isView} salary={0}>
       {/* Монеты и прибыль */}
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
         <IconCoinBig width={45} height={45} />
