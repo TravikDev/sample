@@ -784,7 +784,7 @@ const App: React.FC = () => {
                 // width: '70%'
               }}
             >
-              {user} {queryId}
+              {user}
               {data2?.coins}
             </Typography>
           </Box>
