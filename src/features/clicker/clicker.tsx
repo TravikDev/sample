@@ -181,7 +181,7 @@ const App: React.FC = () => {
 
     let newEnergy = data2.energy - 1;
     if (newEnergy < 0) newEnergy = 0;
-    setData2((prev) => ({ ...prev, energy: newEnergy }));
+    // setData2((prev) => ({ ...prev, energy: newEnergy }));
 
     if (!data2.energy) z = 0;
     const newFloatNumber: FloatNumber = {
