@@ -258,29 +258,29 @@ const App: React.FC = () => {
 
   // ------------------- useEffects
 
-  // const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
   // const [queryId, setQueryId] = useState(null);
 
   // console.log(queryId)
 
-  // useEffect(() => {
-  //   // Получение данных из Telegram WebApp API
-  //   /* @ts-ignore */
-  //   const tg = window.Telegram.WebApp;
-  //   const userData = tg?.initDataUnsafe?.user;
-  //   const queryIdData = tg?.initDataUnsafe?.query_id;
+  useEffect(() => {
+    // Получение данных из Telegram WebApp API
+    /* @ts-ignore */
+    const tg = window.Telegram.WebApp;
+    const userData = tg?.initDataUnsafe?.user;
+    // const queryIdData = tg?.initDataUnsafe?.query_id;
 
-  //   // Установка данных пользователя и query_id в состояние
-  //   if (userData) {
-  //     setUser(userData);
-  //   }
-  //   if (queryIdData) {
-  //     setQueryId(queryIdData);
-  //   }
+    // // Установка данных пользователя и query_id в состояние
+    if (userData) {
+      setUser(userData);
+    }
+    // if (queryIdData) {
+    //   setQueryId(queryIdData);
+    // }
 
-  //   // При желании можно также инициализировать Telegram WebApp
-  //   tg.ready();  // Сообщаем Telegram, что приложение готово к работе
-  // }, []);
+    // // При желании можно также инициализировать Telegram WebApp
+    // tg.ready();  // Сообщаем Telegram, что приложение готово к работе
+  }, []);
 
   useEffect(() => {
     const newSocket = io("https://paradoxlive.pro", {
@@ -786,7 +786,7 @@ const App: React.FC = () => {
                 // width: '70%'
               }}
             >
-              {/* {user} */}
+              {user}
               {data2?.coins}
             </Typography>
           </Box>
