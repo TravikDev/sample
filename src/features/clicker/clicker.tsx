@@ -115,7 +115,7 @@ const App: React.FC = () => {
 
   const queryParams = new URLSearchParams(location.search);
 
-  const userTelegramId = queryParams.get('userId');
+  // const userTelegramId = queryParams.get('userId');
 
   const dispatch = useDispatch()
 
@@ -160,8 +160,8 @@ const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState(cardsCategoriesList[0])
 
   const [data2, setData2] = useState<User>(defaultData)
-  
-  const [dataSuccess, setDataSuccess] = useState(false)
+
+  // const [dataSuccess, setDataSuccess] = useState(false)
   const [loading, setLoading] = useState(true)
   const [error2, setError2] = useState<unknown | null>(null)
 
@@ -278,6 +278,7 @@ const App: React.FC = () => {
     // // Установка данных пользователя и query_id в состояние
     if (userData) {
       setUser(userData.user.id);
+      // setDataSuccess(true)
     }
     // if (queryIdData) {
     //   setQueryId(queryIdData);
@@ -316,7 +317,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
 
-    
+
 
     const newSocket = io("https://paradoxlive.pro", {
       transports: ["websocket"],
