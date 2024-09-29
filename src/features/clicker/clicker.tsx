@@ -134,7 +134,7 @@ const App: React.FC = () => {
   const [showShare, setShowShare] = useState(false)
   const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false);
 
-  const [welcomeSalary, setWelcomeSalary] = useState(0);
+  // const [welcomeSalary, setWelcomeSalary] = useState(0);
 
 
   const toggleSlider = () => {
