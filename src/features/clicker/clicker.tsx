@@ -21,17 +21,14 @@ import TapCoin from "@/assets/Tap_coin.png"
 import { io, Socket } from "socket.io-client"
 import BackgroundEffect from "@/assets/BgEffect-1.png"
 import BackgroundEffect2 from "@/assets/BgEffect-2-png.png"
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 
 import IconCoin from "@/assets/icons-react/Coin"
 import CoinBig from "@/assets/CoinBig.png"
 import ImgStopwatch from "@/assets/Stopwatch_img.png"
 import DividerSvg from "@/assets/icons-react/Divider"
-
-// import EnergyIconPng from "@/assets/energy1.png"
 import { IconCloseModal } from "@/assets/icons-react/IconCloseModal"
 import IconCoinBig from "@/assets/icons-react/CoinBig"
-// import { IconCard } from "@/assets/icons-react/IconCard"
 import { CardDetailsModal, CardsList } from "@/features/cards/cards"
 import CustomButton from "@/shared/ui/CustomButton"
 import teamIcon from "@/assets/icons/btns/teamIcon.svg"
@@ -42,8 +39,6 @@ import ImgAvatar from "@/assets/9.png"
 import ImgStar from "@/assets/Star_img.png"
 import { EnergyBar } from "@/shared/ui/EnergyLine"
 import { WelcomeModal } from "@/shared/ui/WelcomeModal"
-// import ImgStopwatch from "@/assets/Stopwatch_img.png"
-// import DividerSvg from "@/assets/icons-react/Divider"
 
 type User = {
   _id: number
@@ -60,47 +55,6 @@ type User = {
   dateOnline: string
 }
 
-// interface TabPanelProps {
-//   children?: React.ReactNode
-//   index: number
-//   value: number
-// }
-
-// function CustomTabPanel(props: TabPanelProps) {
-//   const { children, value, index, ...other } = props
-
-//   return (
-//     <div
-//       role="tabpanel"
-//       hidden={value !== index}
-//       id={`simple-tabpanel-${index}`}
-//       aria-labelledby={`simple-tab-${index}`}
-//       {...other}
-//     >
-//       {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
-//     </div>
-//   )
-// }
-
-// function a11yProps(index: number) {
-//   return {
-//     id: `simple-tab-${index}`,
-//     "aria-controls": `simple-tabpanel-${index}`,
-//   }
-// }
-
-// const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
-//   height: 10,
-//   borderRadius: 5,
-//   [`&.${linearProgressClasses.colorPrimary}`]: {
-//     backgroundColor: "#fff",
-//   },
-//   [`& .${linearProgressClasses.bar}`]: {
-//     // borderRadius: 5,
-//     backgroundColor: "#191",
-//   },
-// }))
-
 interface FloatNumber {
   id: number
   x: number
@@ -108,19 +62,12 @@ interface FloatNumber {
   value: number
 }
 
-// const StyledButton = styled(Button)({
-//   "&:focus": {
-//     animation: "none",
-//   },
-//   "&:active": {
-//     animation: "none",
-//   },
-//   "&:hover": {
-//     animation: "none",
-//   },
-// })
-
 const App: React.FC = () => {
+
+  const params = useParams()
+
+  console.log(params)
+
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleSlider = () => {
@@ -135,44 +82,29 @@ const App: React.FC = () => {
 
   const [isOpen2] = useState(false)
 
-  // const toggleSlider2 = () => {
-  //   setIsOpen2(!isOpen)
-  // }
-
-  // const handleBackgroundClick2 = () => {
-  //   if (isOpen) {
-  //     setIsOpen2(false)
-  //   }
-  // }
-
-  // const [tap, { data, error, isLoading, isSuccess }] = useTapMutation()
-
   const [progress, setProgress] = React.useState(100)
 
   const [socket, setSocket] = useState<Socket | null>(null)
   const [socketId, setSocketId] = useState<string | undefined>("")
   const [isConnected, setIsConnected] = useState(false)
-  // const [pressCount, setPressCount] = useState(0)
   const [thresholdMessage, setThresholdMessage] = useState("")
 
   console.log(progress, isConnected, thresholdMessage,)
 
   useEffect(() => {
     const newSocket = io("http://localhost:3501", {
-      transports: ["websocket"], // Принудительное использование WebSocket
+      transports: ["websocket"],
       autoConnect: true,
     })
 
     setSocket(newSocket)
 
-    // Обработчик события успешного подключения
     newSocket.on("connect", () => {
       console.log("Connected to server:", newSocket.id)
       setSocketId(newSocket.id)
       setIsConnected(newSocket.connected)
     })
 
-    // Обработчик события разрыва соединения
     newSocket.on("disconnect", () => {
       console.log("Disconnected from server")
       setSocketId("")
@@ -181,10 +113,8 @@ const App: React.FC = () => {
 
     newSocket.on("buttonPressAck", (data) => {
       console.log("data: ", data.result)
-      // setProgress(data.result.energy)
       const { coins, energy } = data.result
       setData2((state) => ({ ...state, coins, energy }))
-      // onClick
     })
 
     newSocket.on("thresholdReached", (data) => {
@@ -193,27 +123,24 @@ const App: React.FC = () => {
       )
     })
 
-    // Очистка при размонтировании компонента
     return () => {
       newSocket.close()
     }
   }, [])
 
-  // Функция для обработки клика
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     const newClicks = clicks + 1;
 
-    //? Устанавливаем новое значение кликов
     setClicks(newClicks)
 
     const x = e.clientX - 50;
     const y = e.clientY - 250;
     let z = 1;
 
-    let newEnergy = data2.energy - 1; // Уменьшение энергии на 10
-    if (newEnergy < 0) newEnergy = 0;  // Не позволяем энергии быть меньше 0
-    setData2((prev) => ({ ...prev, energy: newEnergy }));  // Обновляем энергию
+    let newEnergy = data2.energy - 1;
+    if (newEnergy < 0) newEnergy = 0;
+    setData2((prev) => ({ ...prev, energy: newEnergy }));
 
     if (!data2.energy) z = 0;
     const newFloatNumber: FloatNumber = {
@@ -250,56 +177,13 @@ const App: React.FC = () => {
     handleClick(event)
   }
 
-  // const onClickTap = async () => {
-  //   const result = await tap(10).unwrap()
-
-  //   console.log("Result: ", result)
-
-  //   // if (isSuccess)
-  //   console.log("DATA: ", data)
-  //   console.log("ERROR: ", error)
-  //   console.log("Loading: ", isLoading)
-  //   console.log("Success: ", isSuccess)
-  // }
-
-  // React.useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     setProgress((prevProgress) => (prevProgress >= 100 ? 10 : prevProgress + 10));
-  //   }, 800);
-  //   return () => {
-  //     clearInterval(timer);
-  //   };
-  // }, []);
-
   const dispatch = useDispatch()
-  // const profile = useNewSelector(selectProfile)
-
-  // console.log(profile?.clicks);
 
   const [clicks, setClicks] = useState(0)
   const [floatNumbers, setFloatNumbers] = useState<FloatNumber[]>([])
-  // const [drawerTeamOpen, setDrawerTeamOpen] = useState(false) // Состояние для управления видимостью sidebar
-  const [drawerBloggersOpen, setDrawerBloggersOpen] = useState(false) // Состояние для управления видимостью sidebar
-  // const [drawerQuestsOpen, setDrawerQuestsOpen] = useState(false) // Состояние для управления видимостью sidebar
-  //?
+  const [drawerBloggersOpen, setDrawerBloggersOpen] = useState(false)
   const [showShare, setShowShare] = useState(false)
   const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false);
-
-
-  // const onClickQuests = () => {
-  //   setDrawerTeamOpen(!drawerTeamOpen) // Переключение видимости sidebar
-  // }
-
-  // const onClickProfile = () => {
-  //   setDrawerTeamOpen(!drawerTeamOpen) // Переключение видимости sidebar
-  // }
-
-  // const onClick = () => {
-  //   setDrawerTeamOpen(!drawerTeamOpen) // Переключение видимости sidebar
-  // }
-
-
-
 
   const onClickBuyCard = async (cardId: number) => {
 
@@ -422,19 +306,6 @@ const App: React.FC = () => {
       const response = fetchData()
     }
   }, [activeTab])
-  // const [animate, setAnimate] = useState(false)
-
-  // const handleClick2 = () => {
-  //   setAnimate(!animate)
-  // }
-
-  // TABS
-
-  // const [value, setValue] = useState(1)
-
-  // const handleChange3 = (event: React.SyntheticEvent, newValue: number) => {
-  //   setValue(newValue)
-  // }
 
   const [data2, setData2] = useState<User>({
     _id: 10,
@@ -483,37 +354,8 @@ const App: React.FC = () => {
     }
   }, [isOpen])
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch("http://localhost:3501/users/10")
-  //       if (!response.ok) {
-  //         throw new Error("Network response was not ok")
-  //       }
-  //       const jsonData = await response.json()
-  //       console.log(jsonData)
-  //       setData2(jsonData) // Устанавливаем полученные данные в состояние
-  //       return jsonData
-  //     } catch (err) {
-  //       setError2(err) // Устанавливаем ошибку в случае неудачи
-  //     } finally {
-  //       setLoading(false) // Отключаем индикатор загрузки
-  //     }
-  //   }
-  //   /* @ts-ignore */
-  //   // const res = result()
+  useEffect(() => {
 
-  //   const response = fetchData()
-
-  //   /* @ts-ignore */
-  //   setProgress(response?.result?.energy)
-  // }, [])
-  //?
-  // Отвечает за отображение компонента
-  // const [activeTab2, setActiveTab2] = useState(listMenu[0].url);
-
-  useEffect(() => { 
-    
     const fetchData = async () => {
       try {
         const response = await fetch("http://localhost:3501/users/10")
@@ -523,20 +365,20 @@ const App: React.FC = () => {
         const jsonData = await response.json()
         console.log(jsonData)
         setData2(jsonData) // Устанавливаем полученные данные в состояние
-  
+
         // Устанавливаем прогресс энергии только после успешного получения данных
         setProgress(jsonData.result?.energy)
-  
+
       } catch (err) {
         setError2(err) // Устанавливаем ошибку в случае неудачи
       } finally {
         setLoading(false) // Отключаем индикатор загрузки
       }
     }
-  
+
     fetchData()
   }, [])
-  
+
 
   return (
     <article
@@ -552,12 +394,13 @@ const App: React.FC = () => {
       {/* onClose - собирать монеты */}
       <WelcomeModal
         isView={isWelcomeModalOpen}
-        onClose={handleCloseWelcomeModal}      />
+        onClose={handleCloseWelcomeModal} />
 
       {/* <button onClick={toggleSlider} className="slider-toggle-btn">
         {isOpen ? "Close Slider" : "Open Slider"}
       </button> */}
       <Box className={`slider ${isOpen ? "open" : ""}`} sx={{}}>
+        <Box>{JSON.stringify(params)}</Box>
         <Box
           // className="slider-content"
           sx={{
@@ -860,7 +703,7 @@ const App: React.FC = () => {
             }}
           >
             <Box
-              sx={{ zIndex: 50, position: "relative"}}
+              sx={{ zIndex: 50, position: "relative" }}
               onClick={toggleSlider}
             >
               <CustomButton iconPath={teamIcon}>Команда</CustomButton>
