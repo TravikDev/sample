@@ -264,7 +264,7 @@ const App: React.FC = () => {
   useEffect(() => {
     // Получение данных из Telegram WebApp API
     /* @ts-ignore */
-    const tg = window.Telegram?.WebApp;
+    const tg = window.Telegram.WebApp;
     const userData = tg?.initDataUnsafe?.user;
     const queryIdData = tg?.initDataUnsafe?.query_id;
 
