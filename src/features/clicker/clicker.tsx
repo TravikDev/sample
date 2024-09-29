@@ -1,5 +1,4 @@
 import { addOneClick } from "@/entities/profile/profileSlice"
-// import { useNewSelector } from "@/shared/hooks/storeActions"
 import {
   Box,
   Button,
@@ -8,20 +7,15 @@ import {
   List,
   IconButton,
   Divider,
-} from "@mui/material" // Импорт необходимых компонентов
+} from "@mui/material"
 import React, { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import "../../shared/styles/global.scss"
-// import LinearProgress, {
-//   linearProgressClasses,
-// } from "@mui/material/LinearProgress"
-// import styled from "styled-components"
 import TapCoin from "@/assets/Tap_coin.png"
-// import { useTapMutation } from "@/entities/users/usersSlice"
 import { io, Socket } from "socket.io-client"
 import BackgroundEffect from "@/assets/BgEffect-1.png"
 import BackgroundEffect2 from "@/assets/BgEffect-2-png.png"
-import { Link, useParams } from "react-router-dom"
+import { Link, useLocation, useParams } from "react-router-dom"
 
 import IconCoin from "@/assets/icons-react/Coin"
 import CoinBig from "@/assets/CoinBig.png"
@@ -62,13 +56,88 @@ interface FloatNumber {
   value: number
 }
 
+// -------------------- Init 
+
+const defaultCard = [{
+  _id: 1,
+  title: "NewCard",
+  description: "description",
+  level: 1,
+  salary: 10,
+  rph: 1,
+  progress: 0,
+  urlPicture: "http://google.com",
+  price: 100,
+  dateCreation: "1",
+  upgradeCost: 0,
+}]
+
+const defaultMyCard = [
+  {
+    _id: 1,
+    title: "NewCard",
+    description: "description",
+    level: 1,
+    salary: 10,
+    rph: 1,
+    progress: 0,
+    urlPicture: "http://google.com",
+    price: 100,
+    dateCreation: "1",
+    upgradeCost: 0,
+  },
+]
+
+const defaultCategories = [
+  { id: 1, title: "Все" },
+  { id: 2, title: "Мои" },
+]
+
+const defaultData = {
+  _id: 0,
+  idTelegram: 0,
+  username: "Guest",
+  level: 1,
+  salary: 1100,
+  rating: 0,
+  energy: 0,
+  coins: 0,
+  dateRegistartion: "0",
+  dateSalary: "0",
+  dateUpdated: "0",
+  dateOnline: "1724591195368",
+}
+
+
 const App: React.FC = () => {
 
-  const params = useParams()
+  const location = useLocation();
 
-  console.log(params)
+  // Получение параметров строки запроса
+  const queryParams = new URLSearchParams(location.search);
+
+  // Извлечение userId
+  const userId = queryParams.get('userId');
+
+  const dispatch = useDispatch()
+
+  // console.log(params)
 
   const [isOpen, setIsOpen] = useState(false)
+  const [isOpen2] = useState(false)
+  const [progress, setProgress] = React.useState(0)
+  const [socket, setSocket] = useState<Socket | null>(null)
+  const [socketId, setSocketId] = useState<string | undefined>("")
+  const [isConnected, setIsConnected] = useState(false)
+  const [thresholdMessage, setThresholdMessage] = useState("")
+
+
+  const [clicks, setClicks] = useState(0)
+  const [floatNumbers, setFloatNumbers] = useState<FloatNumber[]>([])
+  const [drawerBloggersOpen, setDrawerBloggersOpen] = useState(false)
+  const [showShare, setShowShare] = useState(false)
+  const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false);
+
 
   const toggleSlider = () => {
     setIsOpen(!isOpen)
@@ -80,16 +149,147 @@ const App: React.FC = () => {
     }
   }
 
-  const [isOpen2] = useState(false)
 
-  const [progress, setProgress] = React.useState(100)
 
-  const [socket, setSocket] = useState<Socket | null>(null)
-  const [socketId, setSocketId] = useState<string | undefined>("")
-  const [isConnected, setIsConnected] = useState(false)
-  const [thresholdMessage, setThresholdMessage] = useState("")
+  const [cardsList, setCardsList] = useState(defaultCard)
 
+  const [myCardsList, setMyCardsList] = useState(defaultMyCard)
+
+  const [selectedCard, setSelectedCard] = useState<CardType>(cardsList[0])
+
+  const [cardsCategoriesList] = useState(defaultCategories)
+
+  const [activeTab, setActiveTab] = useState(cardsCategoriesList[0])
+
+  const [data2, setData2] = useState<User>(defaultData)
+  const [loading, setLoading] = useState(true)
+  const [error2, setError2] = useState<unknown | null>(null)
+
+  console.log(loading, error2)
   console.log(progress, isConnected, thresholdMessage,)
+
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    const newClicks = clicks + 1;
+
+    setClicks(newClicks)
+
+    const x = e.clientX - 50;
+    const y = e.clientY - 250;
+    let z = 1;
+
+    let newEnergy = data2.energy - 1;
+    if (newEnergy < 0) newEnergy = 0;
+    setData2((prev) => ({ ...prev, energy: newEnergy }));
+
+    if (!data2.energy) z = 0;
+    const newFloatNumber: FloatNumber = {
+      id: newClicks,
+      x: x,
+      y: y,
+      value: z,
+    };
+    setFloatNumbers([...floatNumbers, newFloatNumber]);
+    dispatch(addOneClick());
+
+    setTimeout(() => {
+      setFloatNumbers((current) =>
+        current.filter((floatNumber) => floatNumber.id !== newFloatNumber.id)
+      );
+    }, 2000);
+
+  };
+
+  const handleButtonPress = () => {
+    if (socket && socket.connected) {
+      socket.emit(
+        "buttonPress",
+        { message: "Button pressed!", id: 10 },
+        socketId
+      )
+    } else {
+      console.log("Socket is not connected")
+    }
+
+    /* @ts-ignore */
+    handleClick(event)
+  }
+
+
+  const onClickBuyCard = async (cardId: number) => {
+
+    const body = JSON.stringify({ userId, cardId })
+
+    try {
+      const response = await fetch("http://localhost:3501/user-cards/assign", {
+        method: 'POST', body, headers: {
+          "Content-Type": "application/json",
+        }
+      })
+      if (!response.ok) {
+        throw new Error("Network response was not ok")
+      }
+      const jsonData = await response.json()
+      // console.log("json Cards:", jsonData)
+      return jsonData
+      // const filteredData = jsonData.map((card: IUserCardType) => card.card)
+      // setMyCardsList(filteredData)
+      // return jsonData
+      // setData2(jsonData); // Устанавливаем полученные данные в состояние
+    } catch (err) {
+      setError2(err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleShareCard = (card: CardType) => {
+    setSelectedCard(card)
+    setShowShare(true)
+  }
+
+  const handleClearAndCloseModal = () => {
+    setShowShare(false)
+  }
+
+  const handleCloseWelcomeModal = () => {
+    setIsWelcomeModalOpen(false);
+    sessionStorage.setItem("welcomeModalShown", "true"); // Используем sessionStorage вместо localStorage
+  };
+
+  // ------------------- useEffects
+
+  useEffect(() => {
+    const welcomeModalShown = sessionStorage.getItem("welcomeModalShown");
+    if (!welcomeModalShown) {
+      setIsWelcomeModalOpen(true);
+    }
+  }, []);
+
+  useEffect(() => {
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://localhost:3501/users/${userId}`)
+        if (!response.ok) {
+          throw new Error("Network response was not ok")
+        }
+        const jsonData = await response.json()
+        console.log(jsonData)
+        setData2(jsonData) // Устанавливаем полученные данные в состояние
+
+        setProgress(jsonData.result?.energy)
+
+      } catch (err) {
+        setError2(err) // Устанавливаем ошибку в случае неудачи
+      } finally {
+        setLoading(false) // Отключаем индикатор загрузки
+      }
+    }
+
+    fetchData()
+  }, [])
 
   useEffect(() => {
     const newSocket = io("http://localhost:3501", {
@@ -128,163 +328,11 @@ const App: React.FC = () => {
     }
   }, [])
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    const newClicks = clicks + 1;
-
-    setClicks(newClicks)
-
-    const x = e.clientX - 50;
-    const y = e.clientY - 250;
-    let z = 1;
-
-    let newEnergy = data2.energy - 1;
-    if (newEnergy < 0) newEnergy = 0;
-    setData2((prev) => ({ ...prev, energy: newEnergy }));
-
-    if (!data2.energy) z = 0;
-    const newFloatNumber: FloatNumber = {
-      id: newClicks,
-      x: x,
-      y: y,
-      value: z,
-    };
-    setFloatNumbers([...floatNumbers, newFloatNumber]);
-    dispatch(addOneClick());
-
-    setTimeout(() => {
-      setFloatNumbers((current) =>
-        current.filter((floatNumber) => floatNumber.id !== newFloatNumber.id)
-      );
-    }, 2000);
-
-    // onClickTap();
-  };
-
-  // Функция для обработки нажатия на кнопку
-  const handleButtonPress = () => {
-    if (socket && socket.connected) {
-      socket.emit(
-        "buttonPress",
-        { message: "Button pressed!", id: 10 },
-        socketId
-      )
-    } else {
-      console.log("Socket is not connected")
-    }
-
-    /* @ts-ignore */
-    handleClick(event)
-  }
-
-  const dispatch = useDispatch()
-
-  const [clicks, setClicks] = useState(0)
-  const [floatNumbers, setFloatNumbers] = useState<FloatNumber[]>([])
-  const [drawerBloggersOpen, setDrawerBloggersOpen] = useState(false)
-  const [showShare, setShowShare] = useState(false)
-  const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false);
-
-  const onClickBuyCard = async (cardId: number) => {
-
-    const body = JSON.stringify({ userId: 10, cardId })
-
-    try {
-      const response = await fetch("http://localhost:3501/user-cards/assign", {
-        method: 'POST', body, headers: {
-          "Content-Type": "application/json",
-        }
-      })
-      if (!response.ok) {
-        throw new Error("Network response was not ok")
-      }
-      const jsonData = await response.json()
-      // console.log("json Cards:", jsonData)
-      return jsonData
-      // const filteredData = jsonData.map((card: IUserCardType) => card.card)
-      // setMyCardsList(filteredData)
-      // return jsonData
-      // setData2(jsonData); // Устанавливаем полученные данные в состояние
-    } catch (err) {
-      setError2(err) // Устанавливаем ошибку в случае неудачи
-    } finally {
-      setLoading(false) // Отключаем индикатор загрузки
-    }
-  }
-  //?
-  const handleShareCard = (card: CardType) => {
-    setSelectedCard(card)
-    setShowShare(true)
-  }
-
-  const handleClearAndCloseModal = () => {
-    setShowShare(false)
-  }
-
-  //? Закрытие начального окна
-  // const handleCloseWelcomeModal = () => {
-  //   setIsWelcomeModalOpen(false);
-  // };
-
-  const handleCloseWelcomeModal = () => {
-    setIsWelcomeModalOpen(false);
-    sessionStorage.setItem("welcomeModalShown", "true"); // Используем sessionStorage вместо localStorage
-  };
-
-  useEffect(() => {
-    const welcomeModalShown = sessionStorage.getItem("welcomeModalShown");
-    if (!welcomeModalShown) {
-      setIsWelcomeModalOpen(true); // Открываем окно только если его еще не показывали в этой сессии
-    }
-  }, []);
-
-  // Пример списка карточек
-  const [cardsList, setCardsList] = useState([
-    {
-      _id: 1,
-      title: "NewCard",
-      description: "description",
-      level: 1,
-      salary: 10,
-      rph: 1,
-      progress: 0,
-      urlPicture: "http://google.com",
-      price: 100,
-      dateCreation: "1",
-      upgradeCost: 0,
-    },
-  ])
-
-  const [myCardsList, setMyCardsList] = useState([
-    {
-      _id: 1,
-      title: "NewCard",
-      description: "description",
-      level: 1,
-      salary: 10,
-      rph: 1,
-      progress: 0,
-      urlPicture: "http://google.com",
-      price: 100,
-      dateCreation: "1",
-      upgradeCost: 0,
-    },
-  ])
-
-  const [selectedCard, setSelectedCard] = useState<CardType>(cardsList[0])
-
-  const [cardsCategoriesList] = useState([
-    { id: 1, title: "Все" },
-    { id: 2, title: "Мои" },
-  ])
-
-  const [activeTab, setActiveTab] = useState(cardsCategoriesList[0])
-
   useEffect(() => {
     if (activeTab.id === 2) {
       const fetchData = async () => {
         try {
-          const response = await fetch("http://localhost:3501/user-cards/10")
+          const response = await fetch(`http://localhost:3501/user-cards/${userId}`)
           if (!response.ok) {
             throw new Error("Network response was not ok")
           }
@@ -307,24 +355,6 @@ const App: React.FC = () => {
     }
   }, [activeTab])
 
-  const [data2, setData2] = useState<User>({
-    _id: 10,
-    idTelegram: 0,
-    username: "Tester",
-    level: 1,
-    salary: 1100,
-    rating: 0,
-    energy: 100,
-    coins: 0,
-    dateRegistartion: "0",
-    dateSalary: "0",
-    dateUpdated: "0",
-    dateOnline: "1724591195368",
-  })
-  const [loading, setLoading] = useState(true)
-  const [error2, setError2] = useState<unknown | null>(null)
-
-  console.log(loading, error2)
 
   useEffect(() => {
     if (isOpen === true) {
@@ -354,32 +384,6 @@ const App: React.FC = () => {
     }
   }, [isOpen])
 
-  useEffect(() => {
-
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:3501/users/10")
-        if (!response.ok) {
-          throw new Error("Network response was not ok")
-        }
-        const jsonData = await response.json()
-        console.log(jsonData)
-        setData2(jsonData) // Устанавливаем полученные данные в состояние
-
-        // Устанавливаем прогресс энергии только после успешного получения данных
-        setProgress(jsonData.result?.energy)
-
-      } catch (err) {
-        setError2(err) // Устанавливаем ошибку в случае неудачи
-      } finally {
-        setLoading(false) // Отключаем индикатор загрузки
-      }
-    }
-
-    fetchData()
-  }, [])
-
-
   return (
     <article
       style={{ position: "relative", height: "100%", overflow: "hidden" }}
@@ -396,11 +400,7 @@ const App: React.FC = () => {
         isView={isWelcomeModalOpen}
         onClose={handleCloseWelcomeModal} />
 
-      {/* <button onClick={toggleSlider} className="slider-toggle-btn">
-        {isOpen ? "Close Slider" : "Open Slider"}
-      </button> */}
       <Box className={`slider ${isOpen ? "open" : ""}`} sx={{}}>
-        <Box>{JSON.stringify(params)}</Box>
         <Box
           // className="slider-content"
           sx={{
@@ -455,6 +455,7 @@ const App: React.FC = () => {
                   sx={{ fontSize: "10px", fontWeight: 200, lineHeight: 1, opacity: 0.6 }}
                 >
                   Прибыль в час
+
                 </Typography>
                 <Box
                   sx={{
@@ -743,6 +744,9 @@ const App: React.FC = () => {
             }}
           >
             {/* <IconCoinBig  /> */}
+
+            <Box sx={{ color: 'white' }}>{JSON.stringify(userId)} {'GG'}</Box>
+
             <img src={CoinBig} />
             <Typography
               sx={{
@@ -786,6 +790,7 @@ const App: React.FC = () => {
                 justifyContent: "center",
                 alignItems: "center",
                 top: "20%",
+                // pointerEvents: "none"
                 // position: 'absolute'
               }}
               onClick={handleButtonPress}
