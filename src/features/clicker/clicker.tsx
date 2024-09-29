@@ -117,7 +117,7 @@ const App: React.FC = () => {
   const queryParams = new URLSearchParams(location.search);
 
   // Извлечение userId
-  const userId = queryParams.get('userId');
+  const userTelegramId = queryParams.get('userId');
 
   const dispatch = useDispatch()
 
@@ -219,7 +219,7 @@ const App: React.FC = () => {
 
   const onClickBuyCard = async (cardId: number) => {
 
-    const body = JSON.stringify({ userId, cardId })
+    const body = JSON.stringify({ userId: userTelegramId, cardId })
 
     try {
       const response = await fetch("http://localhost:3501/user-cards/assign", {
@@ -271,7 +271,7 @@ const App: React.FC = () => {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:3501/users/${userId}`)
+        const response = await fetch(`http://localhost:3501/users/telegram/${userTelegramId}`)
         if (!response.ok) {
           throw new Error("Network response was not ok")
         }
@@ -332,7 +332,7 @@ const App: React.FC = () => {
     if (activeTab.id === 2) {
       const fetchData = async () => {
         try {
-          const response = await fetch(`http://localhost:3501/user-cards/${userId}`)
+          const response = await fetch(`http://localhost:3501/user-cards/${userTelegramId}`)
           if (!response.ok) {
             throw new Error("Network response was not ok")
           }
@@ -745,7 +745,7 @@ const App: React.FC = () => {
           >
             {/* <IconCoinBig  /> */}
 
-            <Box sx={{ color: 'white' }}>{JSON.stringify(userId)} {'GG'}</Box>
+            {/* <Box sx={{ color: 'white' }}>{JSON.stringify(userTelegramId)} {'GG'}</Box> */}
 
             <img src={CoinBig} />
             <Typography
