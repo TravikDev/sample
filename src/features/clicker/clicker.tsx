@@ -296,35 +296,35 @@ const App: React.FC = () => {
   }, [])
 
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    const welcomeModalShown = sessionStorage.getItem("welcomeModalShown");
-    if (!welcomeModalShown) {
+  //   const welcomeModalShown = sessionStorage.getItem("welcomeModalShown");
+  //   if (!welcomeModalShown) {
 
-      if (data2.idTelegram) {
-        const fetchData = async () => {
-          try {
-            const response = await fetch(`https://paradoxlive.pro/users/update/${data2._id}`, { method: 'POST' })
-            if (!response.ok) {
-              throw new Error("Network response was not ok")
-            }
-            const jsonData = await response.json()
-            console.log(jsonData)
-            setWelcomeSalary(jsonData)
+  //     if (data2.idTelegram) {
+  //       const fetchData = async () => {
+  //         try {
+  //           const response = await fetch(`https://paradoxlive.pro/users/update/${data2._id}`, { method: 'POST' })
+  //           if (!response.ok) {
+  //             throw new Error("Network response was not ok")
+  //           }
+  //           const jsonData = await response.json()
+  //           console.log(jsonData)
+  //           setWelcomeSalary(jsonData)
 
-          } catch (err) {
-            setError2(err)
-          }
-        }
+  //         } catch (err) {
+  //           setError2(err)
+  //         }
+  //       }
 
-        fetchData()
-      }
-    }
-  }, [data2.idTelegram]);
+  //       fetchData()
+  //     }
+  //   }
+  // }, [data2.idTelegram]);
 
-  useEffect(() => {
-    if (welcomeSalary) setIsWelcomeModalOpen(true);
-  }, [welcomeSalary])
+  // useEffect(() => {
+  //   if (welcomeSalary) setIsWelcomeModalOpen(true);
+  // }, [welcomeSalary])
 
   useEffect(() => {
 
