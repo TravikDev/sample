@@ -745,7 +745,7 @@ const App: React.FC = () => {
           >
             {/* <IconCoinBig  /> */}
 
-            <Box sx={{ color: 'white' }}>{JSON.stringify(userTelegramId)} {JSON.stringify(data2)} {'GG'}</Box>
+            {/* <Box sx={{ color: 'white' }}>{JSON.stringify(userTelegramId)} {JSON.stringify(data2)} {'GG'}</Box> */}
 
             <img src={CoinBig} />
             <Typography
