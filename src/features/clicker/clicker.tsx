@@ -264,7 +264,7 @@ const App: React.FC = () => {
   // const [queryId, setQueryId] = useState(null);
 
   const [user, setUser] = useState(null)
-  // console.log(queryId)
+  console.log(user)
 
   useEffect(() => {
     // Получение данных из Telegram WebApp API
