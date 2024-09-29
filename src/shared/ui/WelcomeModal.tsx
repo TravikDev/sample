@@ -3,7 +3,7 @@ import IconCoinBig from "@/assets/icons-react/CoinBig"
 import { Box, Typography } from "@mui/material"
 import { Button } from "@mui/material"
 import { DetailsModal, DetailsModalProps } from "@/shared/ui/ModalWindow"
-import ImgPyramide from "@/assets/pyramid.png"
+// import ImgPyramide from "@/assets/pyramid.png"
 import HeartImg from "@/assets/heart.png"
 import WalletImg from "@/assets/walletIcon.png"
 
