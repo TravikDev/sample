@@ -70,6 +70,7 @@ const defaultCard = [{
   price: 100,
   dateCreation: "1",
   upgradeCost: 0,
+  paid: false
 }]
 
 const defaultMyCard = [
@@ -85,6 +86,7 @@ const defaultMyCard = [
     price: 100,
     dateCreation: "1",
     upgradeCost: 0,
+    // paid: false,
   },
 ]
 
@@ -222,7 +224,7 @@ const App: React.FC = () => {
     const body = JSON.stringify({ userId: data2._id, cardId })
 
     try {
-      const response = await fetch("https://paradoxlive.pro/user-cards/assign", {
+      const response = await fetch("http://localhost:3501/user-cards/assign", {
         method: 'POST', body, headers: {
           "Content-Type": "application/json",
         }
@@ -231,12 +233,13 @@ const App: React.FC = () => {
         throw new Error("Network response was not ok")
       }
       const jsonData = await response.json()
+      // console.log('ResultZ: ', jsonData)
       // console.log("json Cards:", jsonData)
+      setData2(jsonData); // Устанавливаем полученные данные в состояние
       return jsonData
       // const filteredData = jsonData.map((card: IUserCardType) => card.card)
       // setMyCardsList(filteredData)
       // return jsonData
-      // setData2(jsonData); // Устанавливаем полученные данные в состояние
     } catch (err) {
       setError2(err)
     } finally {
@@ -270,8 +273,8 @@ const App: React.FC = () => {
     // Получение данных из Telegram WebApp API
     /* @ts-ignore */
     const tg = window.Telegram.WebApp;
-    const userData = tg?.initDataUnsafe;
-    // const userData = { user: { id: "1" } }
+    // const userData = tg?.initDataUnsafe;
+    const userData = { user: { id: "1" } }
 
     /* @ts-ignore */
     // setUser(JSON.stringify(userData))
@@ -279,12 +282,13 @@ const App: React.FC = () => {
 
     // // Установка данных пользователя и query_id в состояние
     if (userData) {
+      /* @ts-ignore */
       setUser(userData.user?.id);
       // setDataSuccess(true)
 
       const fetchData = async () => {
         try {
-          const response = await fetch(`https://paradoxlive.pro/users/telegram/${userData.user.id}`)
+          const response = await fetch(`http://localhost:3501/users/telegram/${userData.user.id}`)
           if (!response.ok) {
             throw new Error("Network response was not ok")
           }
@@ -316,6 +320,27 @@ const App: React.FC = () => {
 
   // useEffect(() => {
 
+  // ------------------------------ fetch
+
+  const fetchDataMyCards = async () => {
+    try {
+      const response = await fetch(`http://localhost:3501/user-cards/${data2._id}`)
+      if (!response.ok) {
+        throw new Error("Network response was not ok")
+      }
+      const jsonData = await response.json()
+      console.log("json Cards:", jsonData)
+      const filteredData = jsonData.map((card: IUserCardType) => card.card)
+      setMyCardsList(filteredData.map((data: any) => ({ ...data, paid: true })))
+      return jsonData
+      // setData2(jsonData); // Устанавливаем полученные данные в состояние
+    } catch (err) {
+      setError2(err) // Устанавливаем ошибку в случае неудачи
+    } finally {
+      setLoading(false) // Отключаем индикатор загрузки
+    }
+  }
+
 
   // }, [user])
 
@@ -323,7 +348,7 @@ const App: React.FC = () => {
   useEffect(() => {
 
     if (user) {
-      const newSocket = io("https://paradoxlive.pro/", {
+      const newSocket = io("http://localhost:3501/", {
         transports: ["websocket"],
         autoConnect: true,
         query: { userId: user }
@@ -371,7 +396,7 @@ const App: React.FC = () => {
       if (user) {
         const fetchData = async () => {
           try {
-            const response = await fetch(`https://paradoxlive.pro/users/update/${data2._id}`, { method: 'POST' })
+            const response = await fetch(`http://localhost:3501/users/update/${data2._id}`, { method: 'POST' })
             if (!response.ok) {
               throw new Error("Network response was not ok")
             }
@@ -396,28 +421,11 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (activeTab.id === 2) {
-      const fetchData = async () => {
-        try {
-          const response = await fetch(`https://paradoxlive.pro/user-cards/${data2._id}`)
-          if (!response.ok) {
-            throw new Error("Network response was not ok")
-          }
-          const jsonData = await response.json()
-          console.log("json Cards:", jsonData)
-          const filteredData = jsonData.map((card: IUserCardType) => card.card)
-          setMyCardsList(filteredData)
-          return jsonData
-          // setData2(jsonData); // Устанавливаем полученные данные в состояние
-        } catch (err) {
-          setError2(err) // Устанавливаем ошибку в случае неудачи
-        } finally {
-          setLoading(false) // Отключаем индикатор загрузки
-        }
-      }
+
       /* @ts-ignore */
       // const res = result()
 
-      const response = fetchData()
+      const response = fetchDataMyCards()
     }
   }, [activeTab])
 
@@ -426,7 +434,7 @@ const App: React.FC = () => {
     if (isOpen === true) {
       const fetchData = async () => {
         try {
-          const response = await fetch("https://paradoxlive.pro/cards")
+          const response = await fetch("http://localhost:3501/cards")
           if (!response.ok) {
             throw new Error("Network response was not ok")
           }
@@ -445,10 +453,21 @@ const App: React.FC = () => {
       // const res = result()
 
       const response = fetchData()
+      const response2 = fetchDataMyCards()
 
-      console.log("response2:", response)
+      console.log("cards:", response)
+      console.log("my cards:", response2)
     }
   }, [isOpen])
+
+
+  useEffect(() => {
+    console.log('transform')
+    if (myCardsList && data2._id) {
+      console.log('transform2')
+      setCardsList(state => state.map(card => myCardsList.find(myCard => myCard.title === card.title) ? { ...card, paid: true } : { ...card, paid: false }))
+    }
+  }, [myCardsList])
 
   return (
     <article
@@ -582,8 +601,8 @@ const App: React.FC = () => {
             <CardsList
               onSelectCard={handleShareCard}
               cards={activeTab.id === 1 ? cardsList : myCardsList}
-              userCoins={0}
-              userSalary={0}
+              userCoins={data2.coins}
+              userSalary={data2.salary}
             />
           </Box>
         </Box>
@@ -594,6 +613,7 @@ const App: React.FC = () => {
         onClose={handleClearAndCloseModal}
         isView={showShare}
         onClickBuyCard={onClickBuyCard}
+        coins={data2.coins}
       />
 
       <Container

@@ -136,13 +136,17 @@ export const CardDetailsModal: React.FC<CardDetailsModalProps> = ({
   onClose,
   isView,
   onClickBuyCard,
+  coins,
 }) => {
+
+  console.log('card123: ', card)
+
   return (
     <DetailsModal onClose={onClose} isView={isView} salary={0}>
       {/* Монеты и прибыль */}
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
         <IconCoinBig width={45} height={45} />
-        <Typography sx={{ fontFamily: 'Roboto, sans-serif',fontWeight: '800', fontSize: 30, color: "#C8D5D8", letterSpacing: "1px" }}>{123}</Typography>
+        <Typography sx={{ fontFamily: 'Roboto, sans-serif', fontWeight: '800', fontSize: 30, color: "#C8D5D8", letterSpacing: "1px" }}>{coins}</Typography>
       </Box>
 
       <Divider sx={{ mb: 2, backgroundColor: 'rgba(0, 143, 109, 0.1)' }} />
@@ -200,12 +204,12 @@ export const CardDetailsModal: React.FC<CardDetailsModalProps> = ({
           backgroundColor: '#026850',
           wordWwrap: "break-word",
           textTransform: "none",
-          padding: "16px 0", 
+          padding: "16px 0",
           boxShadow: "-2px -2px 2px rgba(0, 0, 0, 0.25) inset",
         }}
         onClick={() => card && onClickBuyCard && onClickBuyCard(card._id)}
       >
-        Подписаться
+        {card.paid ? 'Куплено' : 'Подписаться'}
       </Button>
     </DetailsModal>
   );

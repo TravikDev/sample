@@ -10,6 +10,7 @@ export type CardType = {
   price: number;
   dateCreation: string;
   upgradeCost: number;
+  paid?: boolean
   //varind: "default" | "new" | "approved";
 };
 
@@ -42,8 +43,11 @@ export type CardDetailsModalProps = {
     rph: number;
     description: string;
     urlPicture: string;
+    paid?: boolean;
   };
   onClose: () => void;
   isView: boolean;
   onClickBuyCard?: (cardId: number) => void;
+  coins: number;
+
 };
