@@ -271,13 +271,15 @@ const App: React.FC = () => {
     /* @ts-ignore */
     const tg = window.Telegram.WebApp;
     const userData = tg?.initDataUnsafe;
+    // const userData = { user: { id: "1" } }
+
     /* @ts-ignore */
     // setUser(JSON.stringify(userData))
     // const queryIdData = tg?.initDataUnsafe?.query_id;
 
     // // Установка данных пользователя и query_id в состояние
     if (userData) {
-      setUser(userData.user.id);
+      setUser(userData.user?.id);
       // setDataSuccess(true)
 
       const fetchData = async () => {
@@ -320,41 +322,45 @@ const App: React.FC = () => {
 
   useEffect(() => {
 
-    const newSocket = io("https://paradoxlive.pro", {
-      transports: ["websocket"],
-      autoConnect: true,
-    })
+    if (user) {
+      const newSocket = io("https://paradoxlive.pro/", {
+        transports: ["websocket"],
+        autoConnect: true,
+        query: { userId: user }
+      })
 
-    setSocket(newSocket)
+      setSocket(newSocket)
 
-    newSocket.on("connect", () => {
-      console.log("Connected to server:", newSocket.id)
-      setSocketId(newSocket.id)
-      setIsConnected(newSocket.connected)
-    })
+      newSocket.on("connect", () => {
+        console.log("Connected to server:", newSocket.id)
+        setSocketId(newSocket.id)
+        setIsConnected(newSocket.connected)
+      })
 
-    newSocket.on("disconnect", () => {
-      console.log("Disconnected from server")
-      setSocketId("")
-      setIsConnected(false)
-    })
+      newSocket.on("disconnect", () => {
+        console.log("Disconnected from server")
+        setSocketId("")
+        setIsConnected(false)
+      })
 
-    newSocket.on("buttonPressAck", (data) => {
-      console.log("data: ", data.result)
-      const { coins, energy } = data.result
-      setData2((state) => ({ ...state, coins, energy }))
-    })
+      newSocket.on("buttonPressAck", (data) => {
+        console.log("data: ", data)
+        const { coins, energy } = data.result
+        setData2((state) => ({ ...state, coins, energy }))
+      })
 
-    newSocket.on("thresholdReached", (data) => {
-      setThresholdMessage(
-        `Threshold reached! Total presses: ${data.pressCount}`
-      )
-    })
+      newSocket.on("thresholdReached", (data) => {
+        setThresholdMessage(
+          `Threshold reached! Total presses: ${data.pressCount}`
+        )
+      })
 
-    return () => {
-      newSocket.close()
+      return () => {
+        newSocket.close()
+      }
+
     }
-  }, [])
+  }, [user])
 
 
   useEffect(() => {
