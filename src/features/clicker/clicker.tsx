@@ -831,7 +831,8 @@ const App: React.FC = () => {
               }}
             >
               {/* {user} */}
-              {JSON.stringify(webApp)}
+              {/* {JSON.stringify(webApp)} */}
+              {JSON.stringify(location)}
               {data2?.coins}
             </Typography>
           </Box>
