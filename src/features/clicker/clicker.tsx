@@ -271,6 +271,7 @@ const App: React.FC = () => {
 
   const [webApp, setWebApp] = useState('')
 
+  console.log(webApp)
   const [user, setUser] = useState(null)
   console.log(user)
 
