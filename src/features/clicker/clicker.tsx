@@ -116,8 +116,8 @@ const App: React.FC = () => {
   const location = useLocation();
 
   console.log('LOCATION: ', location)
-  const queryParams = new URLSearchParams(location.search);
-  console.log('QUERY: ', JSON.stringify(queryParams))
+  // const queryParams = new URLSearchParams(location);
+  // console.log('QUERY: ', JSON.stringify(queryParams))
 
 
   // const userTelegramId = queryParams.get('userId');
@@ -269,6 +269,8 @@ const App: React.FC = () => {
   // const [user, setUser] = useState(null);
   // const [queryId, setQueryId] = useState(null);
 
+  const [webApp, setWebApp] = useState('')
+
   const [user, setUser] = useState(null)
   console.log(user)
 
@@ -276,11 +278,12 @@ const App: React.FC = () => {
     // Получение данных из Telegram WebApp API
     /* @ts-ignore */
     const tg = window.Telegram.WebApp;
-    // const userData = tg?.initDataUnsafe;
-    const userData = { user: { id: "1" } }
+    const userData = tg?.initDataUnsafe;
+    // const userData = { user: { id: "1" } }
+
+    setWebApp(JSON.stringify(userData.user));
 
     /* @ts-ignore */
-    // setUser(JSON.stringify(userData))
     // const queryIdData = tg?.initDataUnsafe?.query_id;
 
     // // Установка данных пользователя и query_id в состояние
@@ -828,7 +831,7 @@ const App: React.FC = () => {
               }}
             >
               {/* {user} */}
-              {JSON.stringify(queryParams)}
+              {JSON.stringify(webApp)}
               {data2?.coins}
             </Typography>
           </Box>
