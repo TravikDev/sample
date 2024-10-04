@@ -7,6 +7,7 @@ import { Box, Typography, Divider } from "@mui/material"
 import { Button } from "@mui/material"
 import YoutubeIcon from "@mui/icons-material/YouTube"
 import { DetailsModal } from "@/shared/ui/DetailsModal"
+import { IconCardPaid } from "@/assets/icons-react/IconCardPaid"
 
 interface IProps {
   onSelectCard: (card: CardType) => void
@@ -58,6 +59,7 @@ export const CardsList = ({ onSelectCard, cards }: IProps) => {
               width: "100%",
               display: "flex",
               flexDirection: "column",
+              position: "relative",
             }}
           >
             <Box sx={{ flexGrow: 1 }}>
@@ -77,6 +79,7 @@ export const CardsList = ({ onSelectCard, cards }: IProps) => {
               >
                 lvl {card.level}
               </Typography>
+            {card.paid && <IconCardPaid style={{position: "absolute", right: 0, top: 0}} />}
             </Box>
             <Divider
               sx={{

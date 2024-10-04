@@ -18,13 +18,11 @@ const CustomButton: React.FC<CustomButtonProps> = ({ children, iconPath }) => {
         borderRadius: '20px',
         border: '1px solid #413894a4',
         borderBottom: '1px solid rgba(0, 143, 109, 0.2)',
-        // alignItems: 'center',
-        // display: 'inline-flex',
         gap: '15px',
         '&:hover': {
           backgroundColor: '#031E2B',
         },
-        '@media (max-width: 424px)': {
+        '@media (max-width: 426px)': {
           width: "150px",
           padding: "0px",
         },
