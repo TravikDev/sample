@@ -284,16 +284,15 @@ const App: React.FC = () => {
   console.log(user)
   const [referral, setReferral] = useState('')
 
-  const [tg, setTg] = useState('')
+  // const [tg, setTg] = useState('')
 
   useEffect(() => {
     // Получение данных из Telegram WebApp API
     /* @ts-ignore */
-    const tg = window.Telegram.WebApp;
-    const userData = tg.initDataUnsafe;
+    const userData = window.Telegram.WebApp.initDataUnsafe;
     // const userData = { user: { id: "1" } }
 
-    setTg(tg)
+    // setTg(tg)
 
     console.log('USER DATA: ', userData)
     // setWebApp(JSON.stringify(userData.user));
