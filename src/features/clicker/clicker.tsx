@@ -136,11 +136,13 @@ const App: React.FC = () => {
 
   const [clicks, setClicks] = useState(0)
   const [floatNumbers, setFloatNumbers] = useState<FloatNumber[]>([])
-  const [drawerBloggersOpen, setDrawerBloggersOpen] = useState(false)
+  // const [drawerBloggersOpen, setDrawerBloggersOpen] = useState(false)
   const [showShare, setShowShare] = useState(false)
   const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false);
 
-  const [welcomeSalary, setWelcomeSalary] = useState(0);
+  const [welcomeSalary,
+    // setWelcomeSalary
+  ] = useState(0);
 
 
   const toggleSlider = () => {

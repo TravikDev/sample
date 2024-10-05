@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async"
 import FriendsView from "../view/friendsView"
-import { Box } from "@mui/material"
+// import { Box } from "@mui/material"
 // import FriendsView from '../view/friendsView';
 // import FriendsView from '../view/friendsView';
 // import { FriendsView } from '../view';
