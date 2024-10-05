@@ -291,6 +291,7 @@ const App: React.FC = () => {
     const userData = tg?.initDataUnsafe;
     // const userData = { user: { id: "1" } }
 
+    console.log('USER DATA: ', userData)
     // setWebApp(JSON.stringify(userData.user));
 
     // ?tgWebAppStartParam=3334
