@@ -1046,7 +1046,7 @@ const App: React.FC = () => {
               }}
             >
               {/* {user} */}
-              {/* {JSON.stringify(webApp)} */}
+              {JSON.stringify(user)}
               {/* {JSON.stringify(location)} */}
               {/* //TODO "" */}
               {JSON.stringify(referral)}
