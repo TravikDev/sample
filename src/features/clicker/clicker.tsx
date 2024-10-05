@@ -269,11 +269,12 @@ const App: React.FC = () => {
   // const [user, setUser] = useState(null);
   // const [queryId, setQueryId] = useState(null);
 
-  const [webApp, setWebApp] = useState('')
+  // const [webApp, setWebApp] = useState('')
 
-  console.log(webApp)
+  // console.log(webApp)
   const [user, setUser] = useState(null)
   console.log(user)
+  const [referral, setReferral] = useState('')
 
   useEffect(() => {
     // Получение данных из Telegram WebApp API
@@ -282,7 +283,46 @@ const App: React.FC = () => {
     const userData = tg?.initDataUnsafe;
     // const userData = { user: { id: "1" } }
 
-    setWebApp(JSON.stringify(userData.user));
+    // setWebApp(JSON.stringify(userData.user));
+
+    // ?tgWebAppStartParam=3334
+    const regex = /[\?&]tgWebAppStartParam=(\d+)/; // Регулярное выражение для поиска числа
+    const match = location.search.match(regex); // Ищем совпадение в строке параметров
+
+    if (match) {
+      const startParamNumber = match[1]; // Извлекаем только число
+      console.log(`Число из tgWebAppStartParam: ${startParamNumber}`);
+
+      setReferral(startParamNumber)
+      // Set Referral 
+
+      // const fetchData = async () => {
+      //   try {
+      //     const response = await fetch(`http://localhost:3501/users/getRefUsers/${startParamNumber}`)
+      //     if (!response.ok) {
+      //       throw new Error("Network response was not ok")
+      //     }
+      //     const jsonData = await response.json()
+      //     console.log(jsonData)
+
+      //     if (jsonData) {
+      //       setReferral(jsonData)
+      //     }
+
+      //   } catch (err) {
+      //     setError2(err) // Устанавливаем ошибку в случае неудачи
+      //   } finally {
+      //     setLoading(false) // Отключаем индикатор загрузки
+      //   }
+      // }
+
+      // fetchData()
+
+
+    } else {
+      console.log('tgWebAppStartParam не найден');
+    }
+
 
     /* @ts-ignore */
     // const queryIdData = tg?.initDataUnsafe?.query_id;
@@ -292,6 +332,8 @@ const App: React.FC = () => {
       /* @ts-ignore */
       setUser(userData.user?.id);
       // setDataSuccess(true)
+
+      // ---------------------- REGISTER!!!!
 
       const fetchData = async () => {
         try {
@@ -833,7 +875,8 @@ const App: React.FC = () => {
             >
               {/* {user} */}
               {/* {JSON.stringify(webApp)} */}
-              {JSON.stringify(location)}
+              {/* {JSON.stringify(location)} */}
+              {JSON.stringify(referral)}
               {data2?.coins}
             </Typography>
           </Box>
