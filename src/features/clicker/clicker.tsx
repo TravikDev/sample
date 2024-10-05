@@ -350,7 +350,7 @@ const App: React.FC = () => {
               {
                 method: 'POST',
                 body: JSON.stringify({
-                  id: userData?.user?.id || 0,
+                  id: (userData?.user?.id).toString() || "0",
                   username: userData?.user?.username || 'Guest',
                 })
               })
