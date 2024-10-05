@@ -377,6 +377,45 @@ const App: React.FC = () => {
       setUser(userData.user?.id);
 
     } else {
+
+      if (userData.user?.id) {
+
+        /* @ts-ignore */
+        // setDataSuccess(true)
+
+        // ---------------------- REGISTER!!!!
+
+        const fetchData = async () => {
+          try {
+            const response = await fetch(`https://paradoxlive.pro/users/update`,
+              {
+                method: 'POST',
+                body: JSON.stringify({
+                  id: (userData?.user?.id).toString() || "0",
+                  username: userData?.user?.username || 'Guest',
+                })
+              })
+            if (!response.ok) {
+              throw new Error("Network response was not ok")
+            }
+            const jsonData = await response.json()
+            console.log(jsonData)
+            setData2(jsonData) // Устанавливаем полученные данные в состояние
+
+            setProgress(jsonData.result?.energy)
+
+          } catch (err) {
+            setError2(err) // Устанавливаем ошибку в случае неудачи
+          } finally {
+            setLoading(false) // Отключаем индикатор загрузки
+          }
+        }
+
+        fetchData()
+
+        
+      }
+
       console.log('tgWebAppStartParam не найден');
     }
     // if (queryIdData) {
