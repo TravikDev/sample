@@ -309,35 +309,11 @@ const App: React.FC = () => {
       setReferral(startParamNumber)
       // Set Referral 
 
-      // const fetchData = async () => {
-      //   try {
-      //     const response = await fetch(`https://paradoxlive.pro/users/getRefUsers/${startParamNumber}`)
-      //     if (!response.ok) {
-      //       throw new Error("Network response was not ok")
-      //     }
-      //     const jsonData = await response.json()
-      //     console.log(jsonData)
-
-      //     if (jsonData) {
-      //       setReferral(jsonData)
-      //     }
-
-      //   } catch (err) {
-      //     setError2(err) // Устанавливаем ошибку в случае неудачи
-      //   } finally {
-      //     setLoading(false) // Отключаем индикатор загрузки
-      //   }
-      // }
-
-      // fetchData()
-
-
-
       /* @ts-ignore */
       // const queryIdData = tg?.initDataUnsafe?.query_id;
 
       // // Установка данных пользователя и query_id в состояние
-      if (userData.user?.id) {
+      if (userData.user.id && userData.user.username) {
 
         /* @ts-ignore */
         // setDataSuccess(true)
@@ -350,8 +326,8 @@ const App: React.FC = () => {
               {
                 method: 'POST',
                 body: JSON.stringify({
-                  id: (userData?.user?.id).toString() || "0",
-                  username: userData?.user?.username || 'Guest',
+                  idTelegram: (userData.user.id).toString() || "0",
+                  username: userData.user.username || 'Guest',
                 })
               })
             if (!response.ok) {
@@ -374,11 +350,11 @@ const App: React.FC = () => {
 
       }
 
-      setUser(userData.user?.id);
+      setUser(userData.user.id);
 
     } else {
 
-      if (userData.user?.id) {
+      if (userData.user.id) {
 
         /* @ts-ignore */
         // setDataSuccess(true)
@@ -391,8 +367,8 @@ const App: React.FC = () => {
               {
                 method: 'POST',
                 body: JSON.stringify({
-                  id: (userData?.user?.id).toString() || "0",
-                  username: userData?.user?.username || 'Guest',
+                  idTelegram: (userData.user.id).toString() || "0",
+                  username: userData.user.username || 'Guest',
                 })
               })
             if (!response.ok) {
@@ -413,7 +389,7 @@ const App: React.FC = () => {
 
         fetchData()
 
-        
+
       }
 
       console.log('tgWebAppStartParam не найден');
@@ -1091,7 +1067,7 @@ const App: React.FC = () => {
               }}
             >
               {/* {user} */}
-              {JSON.stringify(tg)}
+              {/* {JSON.stringify(tg)} */}
               {JSON.stringify(user)}
               {/* {JSON.stringify(location)} */}
               {/* //TODO "" */}
