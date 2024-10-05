@@ -290,7 +290,7 @@ const App: React.FC = () => {
     // Получение данных из Telegram WebApp API
     /* @ts-ignore */
     const tg = window.Telegram.WebApp;
-    const userData = tg?.initDataUnsafe;
+    const userData = tg.initDataUnsafe;
     // const userData = { user: { id: "1" } }
 
     setTg(tg)
@@ -338,8 +338,8 @@ const App: React.FC = () => {
 
       // // Установка данных пользователя и query_id в состояние
       if (userData.user?.id) {
+
         /* @ts-ignore */
-        setUser(userData.user?.id);
         // setDataSuccess(true)
 
         // ---------------------- REGISTER!!!!
@@ -350,7 +350,7 @@ const App: React.FC = () => {
               {
                 method: 'POST',
                 body: JSON.stringify({
-                  idTelegram: userData?.user?.id || 0,
+                  id: userData?.user?.id || 0,
                   username: userData?.user?.username || 'Guest',
                 })
               })
@@ -374,6 +374,7 @@ const App: React.FC = () => {
 
       }
 
+      setUser(userData.user?.id);
 
     } else {
       console.log('tgWebAppStartParam не найден');
@@ -381,6 +382,7 @@ const App: React.FC = () => {
     // if (queryIdData) {
     //   setQueryId(queryIdData);
     // }
+
 
     // // При желании можно также инициализировать Telegram WebApp
     // tg.ready();  // Сообщаем Telegram, что приложение готово к работе
