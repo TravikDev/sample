@@ -57,8 +57,8 @@ function CardsView() {
                     </div>
                 )}
             </div> */}
-            <Box sx={{ display: 'flex', width: '100%' }}>
-                <Box sx={{ margin: 'auto', textAlign: 'center', paddingTop: 15 }}>
+            <Box className='main-bg' sx={{ display: 'flex', width: '100%' }}>
+                <Box sx={{ margin: 'auto', textAlign: 'center', padding: '400px 0'}}>
                     <span style={{ color: 'white', fontSize: '32px', fontWeight: 700, textAlign: 'center' }}>Скоро &nbsp; <br />
                         <div className="gradient-stroke-text">откроется!</div>
                     </span>

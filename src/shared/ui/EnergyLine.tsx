@@ -37,6 +37,10 @@ export const EnergyBar: React.FC<EnergyBarProps> = ({ energy }) => {
       position="absolute"
       bottom="4.5%"
       right="8%"
+      sx={{
+        "@media (max-height: 760px)": { bottom: "2%" },
+        "@media (max-height: 700px)": { bottom: "0.5%" },
+      }}
     >
       <EnergyProgress
         variant="determinate"
@@ -44,14 +48,14 @@ export const EnergyBar: React.FC<EnergyBarProps> = ({ energy }) => {
         sx={{
           width: "90%",
           "& .MuiLinearProgress-bar": {
-            transition: "transform 0.7s ease", // Анимация изменения 
+            transition: "transform 0.7s ease", // Анимация изменения
           },
         }}
       />
 
       <Box
         component="img"
-        src={EnergyIconPng} 
+        src={EnergyIconPng}
         alt="Energy Icon"
         sx={{
           position: "relative",
@@ -73,7 +77,7 @@ export const EnergyBar: React.FC<EnergyBarProps> = ({ energy }) => {
         fontSize={21}
         sx={{
           "@media (min-width: 475px)": { right: "-7%" },
-          "@media (max-width: 530px)": { right: "-11%" },
+          "@media (max-width: 530px)": { right: "-9%" },
           "@media (min-width: 725px)": { right: "-4.5%" },
         }}
       >

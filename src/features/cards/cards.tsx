@@ -9,12 +9,14 @@ import YoutubeIcon from "@mui/icons-material/YouTube"
 import { DetailsModal } from "@/shared/ui/DetailsModal"
 import { IconCardPaid } from "@/assets/icons-react/IconCardPaid"
 
-interface IProps {
+type IProps = {
   onSelectCard: (card: CardType) => void
   cards: CardType[]
   userCoins: number
   userSalary: number
 }
+
+
 
 export const CardsList = ({ onSelectCard, cards }: IProps) => {
   console.log("cards: ", cards)
@@ -37,7 +39,7 @@ export const CardsList = ({ onSelectCard, cards }: IProps) => {
             borderRadius: "16px",
             backgroundColor: "primary.main",
             border: "1px solid #008f6d",
-            borderBottom: "0",
+            borderBottom: 0,
             background: "#031E2B",
             // borderColor: card.variant === 'approved' ? 'green' : card.variant === 'new' ? 'blue' : 'grey',
             padding: "16px",
@@ -217,3 +219,4 @@ export const CardDetailsModal: React.FC<CardDetailsModalProps> = ({
     </DetailsModal>
   );
 };
+

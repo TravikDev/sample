@@ -35,6 +35,7 @@ export const WelcomeModal: React.FC<DetailsModalProps> = ({
         }}
       >
         <img src={WalletImg} width={148} height={148} />
+        {/* div className="gradient-stroke-text" */}
         <Typography
           sx={{
             fontFamily: "Inter, sans-serif",

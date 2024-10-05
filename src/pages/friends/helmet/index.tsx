@@ -1,5 +1,6 @@
-import { Helmet } from 'react-helmet-async';
-import FriendsView from '../view/friendsView';
+import { Helmet } from "react-helmet-async"
+import FriendsView from "../view/friendsView"
+import { Box } from "@mui/material"
 // import FriendsView from '../view/friendsView';
 // import FriendsView from '../view/friendsView';
 // import { FriendsView } from '../view';
@@ -9,9 +10,9 @@ import FriendsView from '../view/friendsView';
 // ----------------------------------------------------------------------
 
 const metadata = {
-  title: 'MetaData Title',
-  description: 'MetaData Description'
-};
+  title: "MetaData Title",
+  description: "MetaData Description",
+}
 
 export default function Page() {
   return (
@@ -23,5 +24,5 @@ export default function Page() {
 
       <FriendsView />
     </>
-  );
+  )
 }

@@ -125,7 +125,8 @@ const App: React.FC = () => {
   const dispatch = useDispatch()
 
   const [isOpen, setIsOpen] = useState(false)
-  const [isOpen2] = useState(false)
+  const [isOpen2, setIsOpen2] = useState(false)
+  const [isOpen3] = useState(false)
   const [progress, setProgress] = React.useState(0)
   const [socket, setSocket] = useState<Socket | null>(null)
   const [socketId, setSocketId] = useState<string | undefined>("")
@@ -145,10 +146,15 @@ const App: React.FC = () => {
   const toggleSlider = () => {
     setIsOpen(!isOpen)
   }
+  const toggleSlider2 = () => {
+    setIsOpen2(!isOpen2)
+  }
 
   const handleBackgroundClick = () => {
     if (isOpen) {
       setIsOpen(false)
+    } else if (isOpen2) {
+      setIsOpen2(false)
     }
   }
 
@@ -511,6 +517,36 @@ const App: React.FC = () => {
 
 
   useEffect(() => {
+    if (isOpen2 === true) {
+      const fetchData = async () => {
+        try {
+          const response = await fetch("http://localhost:3501/cards")
+          if (!response.ok) {
+            throw new Error("Network response was not ok")
+          }
+          const jsonData = await response.json()
+          console.log("json Cards:", jsonData)
+          setCardsList(jsonData)
+          // setData2(jsonData); // Устанавливаем полученные данные в состояние
+          return jsonData
+        } catch (err) {
+          setError2(err) // Устанавливаем ошибку в случае неудачи
+        } finally {
+          setLoading(false) // Отключаем индикатор загрузки
+        }
+      }
+      /* @ts-ignore */
+      // const res = result()
+
+      const response = fetchData()
+      const response2 = fetchDataMyCards()
+
+      console.log("cards:", response)
+      console.log("my cards:", response2)
+    }
+  }, [isOpen2])
+
+  useEffect(() => {
     console.log('transform')
     if (myCardsList && data2._id) {
       console.log('transform2')
@@ -519,10 +555,12 @@ const App: React.FC = () => {
   }, [myCardsList])
 
   return (
+    
     <article
       style={{ position: "relative", height: "100%", overflow: "hidden" }}
     >
-      {(isOpen || isOpen2) && (
+      
+      {(isOpen || isOpen2 || isOpen3) && (
         <div
           className="slider-background"
           onClick={handleBackgroundClick}
@@ -535,8 +573,8 @@ const App: React.FC = () => {
         onClose={handleCloseWelcomeModal}
         salary={welcomeSalary}
       />
-
-      <Box className={`slider ${isOpen ? "open" : ""}`} sx={{}}>
+      
+      <Box className={`slider ${isOpen  ? "open" : ""}`}>
         <Box
           sx={{
             color: "#fff",
@@ -557,6 +595,7 @@ const App: React.FC = () => {
               <IconCloseModal style={{ width: "25px", height: "25px" }} />
             </IconButton>
           </Box>
+          
           <Box
             sx={{
               paddingInline: "35px",
@@ -656,6 +695,129 @@ const App: React.FC = () => {
           </Box>
         </Box>
       </Box>
+      
+      <Box className={`slider ${isOpen2  ? "open" : ""}`}>
+        <Box
+          sx={{
+            color: "#fff",
+            gap: 2,
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "flex-end",
+              paddingBlock: 1,
+              height: 22,
+            }}
+          >
+            <IconButton onClick={handleBackgroundClick}>
+              <IconCloseModal style={{ width: "25px", height: "25px" }} />
+            </IconButton>
+          </Box>
+          
+          <Box
+            sx={{
+              paddingInline: "35px",
+              gap: 1,
+              display: "flex",
+              flexDirection: "column",
+              height: "80vh",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                height: 40,
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <IconCoinBig width={44} height={44} />
+                <Typography sx={{ fontWeight: "800", fontSize: 30, paddingLeft: 1 }}>
+                  {data2.coins}
+                </Typography>
+              </Box>
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <Typography
+                  sx={{ fontSize: "10px", fontWeight: 200, lineHeight: 1, opacity: 0.6 }}
+                >
+                  Прибыль в час
+
+                </Typography>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography sx={{ fontWeight: 600, lineHeight: 1 }}>
+                    +{data2.salary}
+                  </Typography>
+                  <IconCoin width={25} height={25} />
+                </Box>
+              </Box>
+            </Box>
+
+            <Divider
+              sx={{ color: "#333", backgroundColor: "rgba(0, 143, 109, 0.1)" }}
+            />
+
+            <Box
+              sx={{
+                display: "flex",
+                flex: 1,
+                borderRadius: "8px",
+                backgroundColor: "rgba(27, 46, 55, 0.5)",
+                p: "4px",
+                gap: 1,
+                maxHeight: "33px",
+                justifyContent: "space-between",
+              }}
+            >
+              {cardsCategoriesList.map((cat) => (
+                <Box
+                  key={cat.id}
+                  onClick={() => setActiveTab(cat)}
+                  sx={{
+                    paddingInline: "15px",
+                    paddingBlock: "8px",
+                    borderRadius: "6px",
+                    flex: 1,
+                    display: "flex",
+                    justifyContent: "center",
+                    fontSize: 14,
+                    letterSpacing: "0.3px",
+                    backgroundColor:
+                      cat.id === activeTab.id ? "#008F6E" : "transparent",
+                  }}
+                >
+                  {cat.title}
+                </Box>
+              ))}
+
+            </Box>
+
+            <CardsList
+              onSelectCard={handleShareCard}
+              cards={activeTab.id === 1 ? cardsList : myCardsList}
+              userCoins={data2.coins}
+              userSalary={data2.salary}
+            />
+          </Box>
+        </Box>
+      </Box>
+
 
       <CardDetailsModal
         card={selectedCard}
@@ -813,7 +975,7 @@ const App: React.FC = () => {
             sx={{
               display: "flex",
               flexDirection: "row",
-              gap: "15px",
+              gap: "10px",
               justifyContent: "space-between",
               width: "100%",
               // '@media (max-width: 424px)': {
@@ -823,15 +985,16 @@ const App: React.FC = () => {
           >
             <Box
               sx={{ zIndex: 50, position: "relative" }}
+              // onClick={() => setDrawerBloggersOpen(!drawerBloggersOpen)}
               onClick={toggleSlider}
             >
-              <CustomButton iconPath={teamIcon}>Команда</CustomButton>
+              <CustomButton iconPath={blogerIcon}>Блогеры</CustomButton>
             </Box>
             <Box
               sx={{ zIndex: 50, position: "relative" }}
-              onClick={() => setDrawerBloggersOpen(!drawerBloggersOpen)}
+              onClick={toggleSlider2}
             >
-              <CustomButton iconPath={blogerIcon}>Блогеры</CustomButton>
+              <CustomButton iconPath={teamIcon}>Команда</CustomButton>
             </Box>
           </List>
         </Container>
@@ -876,6 +1039,7 @@ const App: React.FC = () => {
               {/* {user} */}
               {/* {JSON.stringify(webApp)} */}
               {/* {JSON.stringify(location)} */}
+              {/* //TODO "" */}
               {JSON.stringify(referral)}
               {data2?.coins}
             </Typography>

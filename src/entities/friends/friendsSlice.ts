@@ -38,12 +38,7 @@ const initialState: Friend[] = [
     },
     {
         _id: 5,
-        idTelegram: 4230194837,
-        avatar: "2 New Title",
-    },
-    {
-        _id: 6,
-        idTelegram: 4230194837,
+        idTelegram: 5029384023,
         avatar: "2 New Title",
     },
 ]

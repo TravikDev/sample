@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { Box, Modal, Slide } from "@mui/material"
 import { IconButton } from "@mui/material"
 import CloseIcon from "@mui/icons-material/Close"
@@ -6,7 +6,7 @@ import CloseIcon from "@mui/icons-material/Close"
 export interface DetailsModalProps {
   onClose: () => void;
   isView: boolean;
-  salary: number;
+  salary?: number;
   children?: React.ReactNode; // Изменяемый контент
 }
 
@@ -58,4 +58,22 @@ export const DetailsModal: React.FC<DetailsModalProps> = ({ onClose, isView, sal
       </Slide>
     </Modal>
   );
+};
+
+export const useModal = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpen = () => {
+    setIsOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
+  return {
+    isOpen,
+    handleOpen,
+    handleClose,
+  };
 };
