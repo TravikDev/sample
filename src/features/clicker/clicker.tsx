@@ -284,12 +284,16 @@ const App: React.FC = () => {
   console.log(user)
   const [referral, setReferral] = useState('')
 
+  const [tg, setTg] = useState('')
+
   useEffect(() => {
     // Получение данных из Telegram WebApp API
     /* @ts-ignore */
     const tg = window.Telegram.WebApp;
     const userData = tg?.initDataUnsafe;
     // const userData = { user: { id: "1" } }
+
+    setTg(tg)
 
     console.log('USER DATA: ', userData)
     // setWebApp(JSON.stringify(userData.user));
@@ -333,7 +337,7 @@ const App: React.FC = () => {
       // const queryIdData = tg?.initDataUnsafe?.query_id;
 
       // // Установка данных пользователя и query_id в состояние
-      if (userData) {
+      if (userData.user?.id) {
         /* @ts-ignore */
         setUser(userData.user?.id);
         // setDataSuccess(true)
@@ -346,8 +350,8 @@ const App: React.FC = () => {
               {
                 method: 'POST',
                 body: JSON.stringify({
-                  idTelegram: userData.user?.id,
-                  username: userData.user?.username,
+                  idTelegram: userData?.user?.id || 0,
+                  username: userData?.user?.username || 'Guest',
                 })
               })
             if (!response.ok) {
@@ -1046,6 +1050,7 @@ const App: React.FC = () => {
               }}
             >
               {/* {user} */}
+              {JSON.stringify(tg)}
               {JSON.stringify(user)}
               {/* {JSON.stringify(location)} */}
               {/* //TODO "" */}
