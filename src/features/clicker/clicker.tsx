@@ -233,7 +233,7 @@ const App: React.FC = () => {
     const body = JSON.stringify({ userId: data2._id, cardId })
 
     try {
-      const response = await fetch("http://localhost:3501/user-cards/assign", {
+      const response = await fetch("https://paradoxlive.pro/user-cards/assign", {
         method: 'POST', body, headers: {
           "Content-Type": "application/json",
         }
@@ -304,7 +304,7 @@ const App: React.FC = () => {
 
       // const fetchData = async () => {
       //   try {
-      //     const response = await fetch(`http://localhost:3501/users/getRefUsers/${startParamNumber}`)
+      //     const response = await fetch(`https://paradoxlive.pro/users/getRefUsers/${startParamNumber}`)
       //     if (!response.ok) {
       //       throw new Error("Network response was not ok")
       //     }
@@ -325,46 +325,52 @@ const App: React.FC = () => {
       // fetchData()
 
 
+
+      /* @ts-ignore */
+      // const queryIdData = tg?.initDataUnsafe?.query_id;
+
+      // // Установка данных пользователя и query_id в состояние
+      if (userData) {
+        /* @ts-ignore */
+        setUser(userData.user?.id);
+        // setDataSuccess(true)
+
+        // ---------------------- REGISTER!!!!
+
+        const fetchData = async () => {
+          try {
+            const response = await fetch(`https://paradoxlive.pro/users/update/${startParamNumber}`,
+              {
+                method: 'POST',
+                body: JSON.stringify({
+                  idTelegram: userData.user?.id,
+                  username: userData.user?.username,
+                })
+              })
+            if (!response.ok) {
+              throw new Error("Network response was not ok")
+            }
+            const jsonData = await response.json()
+            console.log(jsonData)
+            setData2(jsonData) // Устанавливаем полученные данные в состояние
+
+            setProgress(jsonData.result?.energy)
+
+          } catch (err) {
+            setError2(err) // Устанавливаем ошибку в случае неудачи
+          } finally {
+            setLoading(false) // Отключаем индикатор загрузки
+          }
+        }
+
+        fetchData()
+
+      }
+
+
     } else {
       console.log('tgWebAppStartParam не найден');
     }
-
-
-    /* @ts-ignore */
-    // const queryIdData = tg?.initDataUnsafe?.query_id;
-
-    // // Установка данных пользователя и query_id в состояние
-    if (userData) {
-      /* @ts-ignore */
-      setUser(userData.user?.id);
-      // setDataSuccess(true)
-
-      // ---------------------- REGISTER!!!!
-
-      const fetchData = async () => {
-        try {
-          const response = await fetch(`http://localhost:3501/users/telegram/${userData.user.id}`)
-          if (!response.ok) {
-            throw new Error("Network response was not ok")
-          }
-          const jsonData = await response.json()
-          console.log(jsonData)
-          setData2(jsonData) // Устанавливаем полученные данные в состояние
-
-          setProgress(jsonData.result?.energy)
-
-        } catch (err) {
-          setError2(err) // Устанавливаем ошибку в случае неудачи
-        } finally {
-          setLoading(false) // Отключаем индикатор загрузки
-        }
-      }
-
-      fetchData()
-
-    }
-
-
     // if (queryIdData) {
     //   setQueryId(queryIdData);
     // }
@@ -379,7 +385,7 @@ const App: React.FC = () => {
 
   const fetchDataMyCards = async () => {
     try {
-      const response = await fetch(`http://localhost:3501/user-cards/${data2._id}`)
+      const response = await fetch(`https://paradoxlive.pro/user-cards/${data2._id}`)
       if (!response.ok) {
         throw new Error("Network response was not ok")
       }
@@ -403,7 +409,7 @@ const App: React.FC = () => {
   useEffect(() => {
 
     if (user) {
-      const newSocket = io("http://localhost:3501/", {
+      const newSocket = io("https://paradoxlive.pro/", {
         transports: ["websocket"],
         autoConnect: true,
         query: { userId: user }
@@ -443,31 +449,31 @@ const App: React.FC = () => {
   }, [user])
 
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    const welcomeModalShown = sessionStorage.getItem("welcomeModalShown");
-    if (!welcomeModalShown) {
+  //   const welcomeModalShown = sessionStorage.getItem("welcomeModalShown");
+  //   if (!welcomeModalShown) {
 
-      if (user) {
-        const fetchData = async () => {
-          try {
-            const response = await fetch(`http://localhost:3501/users/update/${data2._id}`, { method: 'POST' })
-            if (!response.ok) {
-              throw new Error("Network response was not ok")
-            }
-            const jsonData = await response.json()
-            console.log(jsonData)
-            setWelcomeSalary(jsonData)
+  //     if (user) {
+  //       const fetchData = async () => {
+  //         try {
+  //           const response = await fetch(`https://paradoxlive.pro/users/update/${data2._id}`, { method: 'POST' })
+  //           if (!response.ok) {
+  //             throw new Error("Network response was not ok")
+  //           }
+  //           const jsonData = await response.json()
+  //           console.log(jsonData)
+  //           setWelcomeSalary(jsonData)
 
-          } catch (err) {
-            setError2(err)
-          }
-        }
+  //         } catch (err) {
+  //           setError2(err)
+  //         }
+  //       }
 
-        fetchData()
-      }
-    }
-  }, [user]);
+  //       fetchData()
+  //     }
+  //   }
+  // }, [user]);
 
   useEffect(() => {
     if (welcomeSalary) setIsWelcomeModalOpen(true);
@@ -489,7 +495,7 @@ const App: React.FC = () => {
     if (isOpen === true) {
       const fetchData = async () => {
         try {
-          const response = await fetch("http://localhost:3501/cards")
+          const response = await fetch("https://paradoxlive.pro/cards")
           if (!response.ok) {
             throw new Error("Network response was not ok")
           }
@@ -520,7 +526,7 @@ const App: React.FC = () => {
     if (isOpen2 === true) {
       const fetchData = async () => {
         try {
-          const response = await fetch("http://localhost:3501/cards")
+          const response = await fetch("https://paradoxlive.pro/cards")
           if (!response.ok) {
             throw new Error("Network response was not ok")
           }
@@ -555,11 +561,11 @@ const App: React.FC = () => {
   }, [myCardsList])
 
   return (
-    
+
     <article
       style={{ position: "relative", height: "100%", overflow: "hidden" }}
     >
-      
+
       {(isOpen || isOpen2 || isOpen3) && (
         <div
           className="slider-background"
@@ -573,8 +579,8 @@ const App: React.FC = () => {
         onClose={handleCloseWelcomeModal}
         salary={welcomeSalary}
       />
-      
-      <Box className={`slider ${isOpen  ? "open" : ""}`}>
+
+      <Box className={`slider ${isOpen ? "open" : ""}`}>
         <Box
           sx={{
             color: "#fff",
@@ -595,7 +601,7 @@ const App: React.FC = () => {
               <IconCloseModal style={{ width: "25px", height: "25px" }} />
             </IconButton>
           </Box>
-          
+
           <Box
             sx={{
               paddingInline: "35px",
@@ -695,8 +701,8 @@ const App: React.FC = () => {
           </Box>
         </Box>
       </Box>
-      
-      <Box className={`slider ${isOpen2  ? "open" : ""}`}>
+
+      <Box className={`slider ${isOpen2 ? "open" : ""}`}>
         <Box
           sx={{
             color: "#fff",
@@ -717,7 +723,7 @@ const App: React.FC = () => {
               <IconCloseModal style={{ width: "25px", height: "25px" }} />
             </IconButton>
           </Box>
-          
+
           <Box
             sx={{
               paddingInline: "35px",
