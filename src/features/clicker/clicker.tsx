@@ -286,10 +286,16 @@ const App: React.FC = () => {
 
   // const [tg, setTg] = useState('')
 
+  // @ts-ignore
+  const userData = window.Telegram.WebApp.initDataUnsafe;
+  const userProfile = {
+    idTelegram: userData.user.id,
+    username: userData.user.username,
+  }
+
   useEffect(() => {
     // Получение данных из Telegram WebApp API
     /* @ts-ignore */
-    const userData = window.Telegram.WebApp.initDataUnsafe;
     // const userData = { user: { id: "1" } }
 
     // setTg(tg)
@@ -312,7 +318,8 @@ const App: React.FC = () => {
       // const queryIdData = tg?.initDataUnsafe?.query_id;
 
       // // Установка данных пользователя и query_id в состояние
-      if (userData.user.id && userData.user.username) {
+      // if (userData.user.id && userData.user.username) {
+      if (userProfile.idTelegram && userProfile.username) {
 
         /* @ts-ignore */
         // setDataSuccess(true)
@@ -321,13 +328,13 @@ const App: React.FC = () => {
 
         const fetchData = async () => {
           try {
-            // const response = await fetch(`https://paradoxlive.pro/users/update/${startParamNumber}`,
-            const response = await fetch(`https://paradoxlive.pro/users/update/${(userData.user.id).toString()}`,
+            const response = await fetch(`https://paradoxlive.pro/users/update/${startParamNumber}`,
+              // const response = await fetch(`https://paradoxlive.pro/users/update/${(userData.user.id).toString()}`,
               {
                 method: 'POST',
                 body: JSON.stringify({
-                  idTelegram: (userData.user.id).toString() || "0",
-                  username: userData.user.username || 'Guest',
+                  idTelegram: (userProfile.idTelegram).toString() || "0",
+                  username: userProfile.username || 'Guest',
                 })
               })
             if (!response.ok) {
