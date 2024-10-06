@@ -293,6 +293,9 @@ const App: React.FC = () => {
     username: userData.user.username,
   }
 
+  const [userProf] = useState(userProfile)
+
+
   useEffect(() => {
     // Получение данных из Telegram WebApp API
     /* @ts-ignore */
@@ -361,7 +364,7 @@ const App: React.FC = () => {
 
     } else {
 
-      if (userData.user.id) {
+      if (userProfile.idTelegram && userProfile.username) {
 
         /* @ts-ignore */
         // setDataSuccess(true)
@@ -1087,6 +1090,8 @@ const App: React.FC = () => {
             >
               {/* {user} */}
               {/* {JSON.stringify(tg)} */}
+              {JSON.stringify(userProf)}
+              <br />
               {JSON.stringify(user)}
               {/* {JSON.stringify(location)} */}
               {/* //TODO "" */}
