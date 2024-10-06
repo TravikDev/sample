@@ -179,9 +179,7 @@ const App: React.FC = () => {
   const [showShare, setShowShare] = useState(false)
   const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false);
 
-  const [welcomeSalary,
-    // setWelcomeSalary
-  ] = useState(0);
+  const [welcomeSalary, setWelcomeSalary] = useState(0);
 
 
   const toggleSlider = () => {
@@ -433,8 +431,8 @@ const App: React.FC = () => {
               }
               const jsonData = await response.json()
               console.log(jsonData)
-              setData2(jsonData) // Устанавливаем полученные данные в состояние
-
+              setData2(jsonData.user) // Устанавливаем полученные данные в состояние
+              setWelcomeSalary(jsonData.salary)
               setProgress(jsonData.result?.energy)
 
             } catch (err) {
@@ -479,7 +477,7 @@ const App: React.FC = () => {
               const jsonData = await response.json()
               console.log(jsonData)
               setData2(jsonData) // Устанавливаем полученные данные в состояние
-
+              setWelcomeSalary(jsonData.salary)
               setProgress(jsonData.result?.energy)
 
             } catch (err) {

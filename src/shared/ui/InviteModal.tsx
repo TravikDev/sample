@@ -26,7 +26,7 @@ export const InviteModal: React.FC<InviteModalProps> = ({
           Пригласить друга
         </Typography>
         <Typography sx={{ fontSize: '14px', fontWeight: '800' }}>
-          {`https://t.me/taptoy_bot/ParadoxTestLive?startapp=${userData.user.id}`}
+          {`https://t.me/LiveParadox_Bot/paradox?startapp=${userData.user.id}`}
         </Typography>
       </Box>
 
