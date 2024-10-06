@@ -343,8 +343,8 @@ const App: React.FC = () => {
 
           let refExist = sessionStorage.getItem('ref');
           if (!refExist) {
-            sessionStorage.setItem('ref', startParamNumber);
-            refExist = startParamNumber
+            sessionStorage.setItem('ref', userData.start_param);
+            refExist = userData.start_param
           }
 
           // ---------------------- REGISTER!!!!
