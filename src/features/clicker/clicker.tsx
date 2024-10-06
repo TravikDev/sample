@@ -1115,13 +1115,13 @@ const App: React.FC = () => {
             >
               {/* {user} */}
               {/* {JSON.stringify(tg)} */}
-              {JSON.stringify(JSON.stringify(consoleLog))}
+              {/* {JSON.stringify(JSON.stringify(consoleLog))} */}
               {/* {JSON.stringify(userProf)} */}
               <br />
-              {JSON.stringify(user)}
+              {/* {JSON.stringify(user)} */}
               {/* {JSON.stringify(location)} */}
               {/* //TODO "" */}
-              {JSON.stringify(referral)}
+              {/* {JSON.stringify(referral)} */}
               {data2?.coins}
             </Typography>
           </Box>
