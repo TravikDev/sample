@@ -306,133 +306,17 @@ const App: React.FC = () => {
     setUser(userProfile.idTelegram)
   }, [])
 
-  useEffect(() => {
-    // Получение данных из Telegram WebApp API
-    /* @ts-ignore */
-    // const userData = { user: { id: "1" } }
+  // useEffect(() => {
+  //   // Получение данных из Telegram WebApp API
+  //   /* @ts-ignore */
+  //   // const userData = { user: { id: "1" } }
 
-    // setTg(tg)
-
-    console.log('USER DATA: ', userData)
-    // setWebApp(JSON.stringify(userData.user));
-
-    setConsoleLog(JSON.stringify(userData))
-    // ?tgWebAppStartParam=3334
-    const regex = /[\?&]tgWebAppStartParam=(\d+)/; // Регулярное выражение для поиска числа
-    const match = location.search.match(regex); // Ищем совпадение в строке параметров
+  //   // setTg(tg)
 
 
-
-    if (user) {
-      if (match) {
-        const startParamNumber = match[1]; // Извлекаем только число
-        console.log(`Число из tgWebAppStartParam: ${startParamNumber}`);
-
-        setReferral(startParamNumber)
-        // Set Referral 
-
-        /* @ts-ignore */
-        // const queryIdData = tg?.initDataUnsafe?.query_id;
-
-        // // Установка данных пользователя и query_id в состояние
-        // if (userData.user.id && userData.user.username) {
-        if (userProfile.idTelegram && userProfile.username) {
-
-          /* @ts-ignore */
-          // setDataSuccess(true)
-
-          let refExist = sessionStorage.getItem('ref');
-          if (!refExist) {
-            sessionStorage.setItem('ref', userData.start_param);
-            refExist = userData.start_param
-          }
-
-          // ---------------------- REGISTER!!!!
-
-          const fetchData = async () => {
-            try {
-              const response = await fetch(`https://paradoxlive.pro/users/update/${refExist}`,
-                // const response = await fetch(`https://paradoxlive.pro/users/update/${(userData.user.id).toString()}`,
-                {
-                  method: 'POST',
-                  body: JSON.stringify({
-                    idTelegram: (userProfile.idTelegram).toString() || "0",
-                    username: userProfile.username || 'Guest',
-                  })
-                })
-              if (!response.ok) {
-                throw new Error("Network response was not ok")
-              }
-              const jsonData = await response.json()
-              console.log(jsonData)
-              setData2(jsonData) // Устанавливаем полученные данные в состояние
-
-              setProgress(jsonData.result?.energy)
-
-            } catch (err) {
-              setError2(err) // Устанавливаем ошибку в случае неудачи
-            } finally {
-              setLoading(false) // Отключаем индикатор загрузки
-            }
-          }
-
-          fetchData()
-
-        }
-
-
-      } else {
-
-        if (userProfile.idTelegram && userProfile.username) {
-
-          /* @ts-ignore */
-          // setDataSuccess(true)
-
-          // ---------------------- REGISTER!!!!
-
-          const fetchData = async () => {
-            try {
-              const response = await fetch(`https://paradoxlive.pro/users/update`,
-                {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json', // Установите правильный Content-Type
-                  },
-                  body: JSON.stringify({
-                    idTelegram: (userData.user.id).toString() || "0",
-                    username: userData.user.username || 'Guest',
-                  })
-                })
-              if (!response.ok) {
-                throw new Error("Network response was not ok")
-              }
-              const jsonData = await response.json()
-              console.log(jsonData)
-              setData2(jsonData) // Устанавливаем полученные данные в состояние
-
-              setProgress(jsonData.result?.energy)
-
-            } catch (err) {
-              setError2(err) // Устанавливаем ошибку в случае неудачи
-            } finally {
-              setLoading(false) // Отключаем индикатор загрузки
-            }
-          }
-
-          fetchData()
-
-        }
-
-        console.log('tgWebAppStartParam не найден');
-      }
-      // if (queryIdData) {
-      //   setQueryId(queryIdData);
-      // }
-
-    }
-    // // При желании можно также инициализировать Telegram WebApp
-    // tg.ready();  // Сообщаем Telegram, что приложение готово к работе
-  }, [user]);
+  //   // // При желании можно также инициализировать Telegram WebApp
+  //   // tg.ready();  // Сообщаем Telegram, что приложение готово к работе
+  // }, [user]);
 
   // useEffect(() => {
 
@@ -485,6 +369,129 @@ const App: React.FC = () => {
         console.log("Connected to server:", newSocket.id)
         setSocketId(newSocket.id)
         setIsConnected(newSocket.connected)
+
+        // --------------------------------------------------------
+
+        console.log('USER DATA: ', userData)
+        // setWebApp(JSON.stringify(userData.user));
+
+        setConsoleLog(JSON.stringify(userData))
+        // ?tgWebAppStartParam=3334
+        const regex = /[\?&]tgWebAppStartParam=(\d+)/; // Регулярное выражение для поиска числа
+        const match = location.search.match(regex); // Ищем совпадение в строке параметров
+
+
+
+        if (user) {
+          if (match) {
+            const startParamNumber = match[1]; // Извлекаем только число
+            console.log(`Число из tgWebAppStartParam: ${startParamNumber}`);
+
+            setReferral(startParamNumber)
+            // Set Referral 
+
+            /* @ts-ignore */
+            // const queryIdData = tg?.initDataUnsafe?.query_id;
+
+            // // Установка данных пользователя и query_id в состояние
+            // if (userData.user.id && userData.user.username) {
+            if (userProfile.idTelegram && userProfile.username) {
+
+              /* @ts-ignore */
+              // setDataSuccess(true)
+
+              let refExist = sessionStorage.getItem('ref');
+              if (!refExist) {
+                sessionStorage.setItem('ref', userData.start_param);
+                refExist = userData.start_param
+              }
+
+              // ---------------------- REGISTER!!!!
+
+              const fetchData = async () => {
+                try {
+                  const response = await fetch(`https://paradoxlive.pro/users/update/${refExist}`,
+                    // const response = await fetch(`https://paradoxlive.pro/users/update/${(userData.user.id).toString()}`,
+                    {
+                      method: 'POST',
+                      body: JSON.stringify({
+                        idTelegram: user || "0",
+                        username: userProfile.username || 'Guest',
+                      })
+                    })
+                  if (!response.ok) {
+                    throw new Error("Network response was not ok")
+                  }
+                  const jsonData = await response.json()
+                  console.log(jsonData)
+                  setData2(jsonData) // Устанавливаем полученные данные в состояние
+
+                  setProgress(jsonData.result?.energy)
+
+                } catch (err) {
+                  setError2(err) // Устанавливаем ошибку в случае неудачи
+                } finally {
+                  setLoading(false) // Отключаем индикатор загрузки
+                }
+              }
+
+              fetchData()
+
+            }
+
+
+          } else {
+
+            if (userProfile.idTelegram && userProfile.username) {
+
+              /* @ts-ignore */
+              // setDataSuccess(true)
+
+              // ---------------------- REGISTER!!!!
+
+              const fetchData = async () => {
+                try {
+                  const response = await fetch(`https://paradoxlive.pro/users/update`,
+                    {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json', // Установите правильный Content-Type
+                      },
+                      body: JSON.stringify({
+                        idTelegram: (userData.user.id).toString() || "0",
+                        username: userData.user.username || 'Guest',
+                      })
+                    })
+                  if (!response.ok) {
+                    throw new Error("Network response was not ok")
+                  }
+                  const jsonData = await response.json()
+                  console.log(jsonData)
+                  setData2(jsonData) // Устанавливаем полученные данные в состояние
+
+                  setProgress(jsonData.result?.energy)
+
+                } catch (err) {
+                  setError2(err) // Устанавливаем ошибку в случае неудачи
+                } finally {
+                  setLoading(false) // Отключаем индикатор загрузки
+                }
+              }
+
+              fetchData()
+
+            }
+
+            console.log('tgWebAppStartParam не найден');
+          }
+          // if (queryIdData) {
+          //   setQueryId(queryIdData);
+          // }
+
+        }
+
+        // ------------------------------------------------------
+
       })
 
       newSocket.on("disconnect", () => {
