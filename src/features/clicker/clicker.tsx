@@ -290,8 +290,8 @@ const App: React.FC = () => {
   // const [tg, setTg] = useState('')
 
   const userProfile = {
-    idTelegram: userData.user.id,
-    username: userData.user.username,
+    idTelegram: userData.user?.id,
+    username: userData.user?.username,
   }
 
   // @ts-ignore
@@ -1117,7 +1117,6 @@ const App: React.FC = () => {
               {/* {JSON.stringify(tg)} */}
               {/* {JSON.stringify(JSON.stringify(consoleLog))} */}
               {/* {JSON.stringify(userProf)} */}
-              <br />
               {/* {JSON.stringify(user)} */}
               {/* {JSON.stringify(location)} */}
               {/* //TODO "" */}
