@@ -414,9 +414,12 @@ const App: React.FC = () => {
                     // const response = await fetch(`https://paradoxlive.pro/users/update/${(userData.user.id).toString()}`,
                     {
                       method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json', // Установите правильный Content-Type
+                      },
                       body: JSON.stringify({
                         idTelegram: user || "0",
-                        username: userProfile.username || 'Guest',
+                        username: userProfile.username || 'Guest2',
                       })
                     })
                   if (!response.ok) {
