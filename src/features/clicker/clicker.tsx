@@ -295,8 +295,9 @@ const App: React.FC = () => {
   }
 
   // @ts-ignore
-  window.Telegram.WebApp.showAlert(userProfile);
+  // window.Telegram.WebApp.showAlert(userProfile);
 
+  
   const [userProf] = useState(userProfile)
 
   useEffect(() => {
