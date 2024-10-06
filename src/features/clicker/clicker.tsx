@@ -34,6 +34,9 @@ import ImgStar from "@/assets/Star_img.png"
 import { EnergyBar } from "@/shared/ui/EnergyLine"
 import { WelcomeModal } from "@/shared/ui/WelcomeModal"
 
+// @ts-ignore
+const userData = window.Telegram.WebApp.initDataUnsafe;
+
 type User = {
   _id: number
   idTelegram: number
@@ -286,9 +289,6 @@ const App: React.FC = () => {
 
   // const [tg, setTg] = useState('')
 
-  // @ts-ignore
-  const userData = window.Telegram.WebApp.initDataUnsafe;
-
   const userProfile = {
     idTelegram: userData.user.id,
     username: userData.user.username,
@@ -318,6 +318,7 @@ const App: React.FC = () => {
     const match = location.search.match(regex); // Ищем совпадение в строке параметров
 
 
+
     if (user) {
       if (match) {
         const startParamNumber = match[1]; // Извлекаем только число
@@ -336,11 +337,17 @@ const App: React.FC = () => {
           /* @ts-ignore */
           // setDataSuccess(true)
 
+          let refExist = sessionStorage.getItem('ref');
+          if (!refExist) {
+            sessionStorage.setItem('ref', startParamNumber);
+            refExist = startParamNumber
+          }
+
           // ---------------------- REGISTER!!!!
 
           const fetchData = async () => {
             try {
-              const response = await fetch(`https://paradoxlive.pro/users/update/${startParamNumber}`,
+              const response = await fetch(`https://paradoxlive.pro/users/update/${refExist}`,
                 // const response = await fetch(`https://paradoxlive.pro/users/update/${(userData.user.id).toString()}`,
                 {
                   method: 'POST',
