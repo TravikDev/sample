@@ -297,8 +297,10 @@ const App: React.FC = () => {
   // @ts-ignore
   // window.Telegram.WebApp.showAlert(userProfile);
 
-  
+
   const [userProf] = useState(userProfile)
+
+  const [consoleLog, setConsoleLog] = useState('')
 
   useEffect(() => {
     setUser(userProfile.idTelegram)
@@ -314,6 +316,7 @@ const App: React.FC = () => {
     console.log('USER DATA: ', userData)
     // setWebApp(JSON.stringify(userData.user));
 
+    setConsoleLog(location.search)
     // ?tgWebAppStartParam=3334
     const regex = /[\?&]tgWebAppStartParam=(\d+)/; // Регулярное выражение для поиска числа
     const match = location.search.match(regex); // Ищем совпадение в строке параметров
@@ -1105,7 +1108,8 @@ const App: React.FC = () => {
             >
               {/* {user} */}
               {/* {JSON.stringify(tg)} */}
-              {JSON.stringify(userProf)}
+              {JSON.stringify(JSON.stringify(consoleLog))}
+              {/* {JSON.stringify(userProf)} */}
               <br />
               {JSON.stringify(user)}
               {/* {JSON.stringify(location)} */}
