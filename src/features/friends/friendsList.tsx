@@ -42,7 +42,7 @@ export const FriendsList = () => {
 
 				setData2(jsonData) // Устанавливаем полученные данные в состояние
 
-				setRefsList(jsonData.referralUsers)
+				setRefsList(jsonData.referralUsersJSON)
 
 				setDataIsSuccess(true)
 			} catch (err) {
