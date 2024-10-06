@@ -105,7 +105,7 @@ export const CardsList = ({ onSelectCard, cards }: IProps) => {
                     paddingBottom: "3px",
                   }}
                 >
-                  {card.price}
+                  {card.upgradeCost}
                 </Typography>
                 <IconCoin width={25} height={25} />
               </Box>
@@ -123,7 +123,7 @@ export const CardsList = ({ onSelectCard, cards }: IProps) => {
                       letterSpacing: ".8px",
                     }}
                   >
-                    +{card.rph}
+                    +{card.salary}
                   </Typography>
                   <IconCoin width={25} height={25} />
                 </Box>
