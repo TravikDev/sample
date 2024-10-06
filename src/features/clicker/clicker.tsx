@@ -476,7 +476,7 @@ const App: React.FC = () => {
               }
               const jsonData = await response.json()
               console.log(jsonData)
-              setData2(jsonData) // Устанавливаем полученные данные в состояние
+              setData2(jsonData.user) // Устанавливаем полученные данные в состояние
               setWelcomeSalary(jsonData.salary)
               setProgress(jsonData.result?.energy)
 
