@@ -483,7 +483,7 @@ const App: React.FC = () => {
 
   const fetchDataMyCards = async () => {
     try {
-      const response = await fetch(`https://paradoxlive.pro/user-cards/${data2._id}`)
+      const response = await fetch(`https://paradoxlive.pro/user-cards/${data2._id}/bloggers`)
       if (!response.ok) {
         throw new Error("Network response was not ok")
       }
@@ -602,7 +602,7 @@ const App: React.FC = () => {
     if (isOpen === true) {
       const fetchData = async () => {
         try {
-          const response = await fetch("https://paradoxlive.pro/cards")
+          const response = await fetch("https://paradoxlive.pro/cards/bloggers")
           if (!response.ok) {
             throw new Error("Network response was not ok")
           }
