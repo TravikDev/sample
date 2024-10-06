@@ -214,12 +214,12 @@ export const CardDetailsModal: React.FC<CardDetailsModalProps> = ({
           boxShadow: "-2px -2px 2px rgba(0, 0, 0, 0.25) inset",
         }}
         onClick={() => {
-          card.paid && onClickUpdateCard ? onClickUpdateCard(card._id)
-            : card && onClickBuyCard && onClickBuyCard(card._id)
+          card.paid ? onClickUpdateCard(card._id)
+            : onClickBuyCard(card._id)
         }
         }
       >
-        {card.paid ? 'Куплено' : 'Подписаться'}
+        {card.paid ? 'Улучшить' : 'Подписаться'}
       </Button>
     </DetailsModal>
   );
