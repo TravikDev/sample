@@ -329,34 +329,34 @@ const App: React.FC = () => {
 
         // ---------------------- REGISTER!!!!
 
-        const fetchData = async () => {
-          try {
-            const response = await fetch(`https://paradoxlive.pro/users/update/${startParamNumber}`,
-              // const response = await fetch(`https://paradoxlive.pro/users/update/${(userData.user.id).toString()}`,
-              {
-                method: 'POST',
-                body: JSON.stringify({
-                  idTelegram: (userProfile.idTelegram).toString() || "0",
-                  username: userProfile.username || 'Guest',
-                })
-              })
-            if (!response.ok) {
-              throw new Error("Network response was not ok")
-            }
-            const jsonData = await response.json()
-            console.log(jsonData)
-            setData2(jsonData) // Устанавливаем полученные данные в состояние
+        // const fetchData = async () => {
+        //   try {
+        //     const response = await fetch(`https://paradoxlive.pro/users/update/${startParamNumber}`,
+        //       // const response = await fetch(`https://paradoxlive.pro/users/update/${(userData.user.id).toString()}`,
+        //       {
+        //         method: 'POST',
+        //         body: JSON.stringify({
+        //           idTelegram: (userProfile.idTelegram).toString() || "0",
+        //           username: userProfile.username || 'Guest',
+        //         })
+        //       })
+        //     if (!response.ok) {
+        //       throw new Error("Network response was not ok")
+        //     }
+        //     const jsonData = await response.json()
+        //     console.log(jsonData)
+        //     setData2(jsonData) // Устанавливаем полученные данные в состояние
 
-            setProgress(jsonData.result?.energy)
+        //     setProgress(jsonData.result?.energy)
 
-          } catch (err) {
-            setError2(err) // Устанавливаем ошибку в случае неудачи
-          } finally {
-            setLoading(false) // Отключаем индикатор загрузки
-          }
-        }
+        //   } catch (err) {
+        //     setError2(err) // Устанавливаем ошибку в случае неудачи
+        //   } finally {
+        //     setLoading(false) // Отключаем индикатор загрузки
+        //   }
+        // }
 
-        fetchData()
+        // fetchData()
 
       }
 
@@ -364,46 +364,46 @@ const App: React.FC = () => {
 
     } else {
 
-      if (userProfile.idTelegram && userProfile.username) {
+      // if (userProfile.idTelegram && userProfile.username) {
 
-        /* @ts-ignore */
-        // setDataSuccess(true)
+      //   /* @ts-ignore */
+      //   // setDataSuccess(true)
 
-        // ---------------------- REGISTER!!!!
+      //   // ---------------------- REGISTER!!!!
 
-        const fetchData = async () => {
-          try {
-            const response = await fetch(`https://paradoxlive.pro/users/update`,
-              {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json', // Установите правильный Content-Type
-                },
-                body: JSON.stringify({
-                  idTelegram: (userData.user.id).toString() || "0",
-                  username: userData.user.username || 'Guest',
-                })
-              })
-            if (!response.ok) {
-              throw new Error("Network response was not ok")
-            }
-            const jsonData = await response.json()
-            console.log(jsonData)
-            setData2(jsonData) // Устанавливаем полученные данные в состояние
+      //   const fetchData = async () => {
+      //     try {
+      //       const response = await fetch(`https://paradoxlive.pro/users/update`,
+      //         {
+      //           method: 'POST',
+      //           headers: {
+      //             'Content-Type': 'application/json', // Установите правильный Content-Type
+      //           },
+      //           body: JSON.stringify({
+      //             idTelegram: (userData.user.id).toString() || "0",
+      //             username: userData.user.username || 'Guest',
+      //           })
+      //         })
+      //       if (!response.ok) {
+      //         throw new Error("Network response was not ok")
+      //       }
+      //       const jsonData = await response.json()
+      //       console.log(jsonData)
+      //       setData2(jsonData) // Устанавливаем полученные данные в состояние
 
-            setProgress(jsonData.result?.energy)
+      //       setProgress(jsonData.result?.energy)
 
-          } catch (err) {
-            setError2(err) // Устанавливаем ошибку в случае неудачи
-          } finally {
-            setLoading(false) // Отключаем индикатор загрузки
-          }
-        }
+      //     } catch (err) {
+      //       setError2(err) // Устанавливаем ошибку в случае неудачи
+      //     } finally {
+      //       setLoading(false) // Отключаем индикатор загрузки
+      //     }
+      //   }
 
-        fetchData()
-        setUser(userData.user.id);
+      //   fetchData()
+      //   setUser(userData.user.id);
 
-      }
+      // }
 
       console.log('tgWebAppStartParam не найден');
     }
