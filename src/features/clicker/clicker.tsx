@@ -952,7 +952,7 @@ const App: React.FC = () => {
 
             <CardsList
               onSelectCard={handleShareCard}
-              cards={activeTab.id === 1 ? cardsList : myCardsList}
+              cards={activeTab.id === 1 ? cardsPartyList : myCardsPartyList}
               userCoins={data2.coins}
               userSalary={data2.salary}
             />
