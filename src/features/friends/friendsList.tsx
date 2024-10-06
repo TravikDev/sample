@@ -57,7 +57,7 @@ export const FriendsList = () => {
 	}, [])
 
 	if (dataIsSuccess) {
-		return <>{refsList.map(friend => (
+		return <>{Array.isArray(refsList) && refsList.length > 0 ? refsList.map(friend => (
 			<>
 				<Box
 					sx={{
@@ -137,7 +137,7 @@ export const FriendsList = () => {
 				</Box>
 			</>
 		)
-		)}</>
+		) : (<div>No friends!</div>)}</>
 	} else if (dataIsLoading) {
 		return <>Loading...</>
 	} else if (dataIsError) {
