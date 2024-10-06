@@ -94,37 +94,37 @@ const defaultMyCard = [
 ]
 
 
-const defaultPartyCard = [{
-  _id: 1,
-  title: "NewCard",
-  description: "description",
-  level: 1,
-  salary: 10,
-  rph: 1,
-  progress: 0,
-  urlPicture: "http://google.com",
-  price: 100,
-  dateCreation: "1",
-  upgradeCost: 0,
-  paid: false
-}]
+// const defaultPartyCard = [{
+//   _id: 1,
+//   title: "NewCard",
+//   description: "description",
+//   level: 1,
+//   salary: 10,
+//   rph: 1,
+//   progress: 0,
+//   urlPicture: "http://google.com",
+//   price: 100,
+//   dateCreation: "1",
+//   upgradeCost: 0,
+//   paid: false
+// }]
 
-const defaultMyPartyCard = [
-  {
-    _id: 1,
-    title: "NewCard",
-    description: "description",
-    level: 1,
-    salary: 10,
-    rph: 1,
-    progress: 0,
-    urlPicture: "http://google.com",
-    price: 100,
-    dateCreation: "1",
-    upgradeCost: 0,
-    // paid: false,
-  },
-]
+// const defaultMyPartyCard = [
+//   {
+//     _id: 1,
+//     title: "NewCard",
+//     description: "description",
+//     level: 1,
+//     salary: 10,
+//     rph: 1,
+//     progress: 0,
+//     urlPicture: "http://google.com",
+//     price: 100,
+//     dateCreation: "1",
+//     upgradeCost: 0,
+//     // paid: false,
+//   },
+// ]
 
 
 const defaultCategories = [
