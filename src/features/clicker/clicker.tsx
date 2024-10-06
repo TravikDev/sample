@@ -322,7 +322,7 @@ const App: React.FC = () => {
         const fetchData = async () => {
           try {
             // const response = await fetch(`https://paradoxlive.pro/users/update/${startParamNumber}`,
-              const response = await fetch(`https://paradoxlive.pro/users/update/${(userData.user.id).toString()}`,
+            const response = await fetch(`https://paradoxlive.pro/users/update/${(userData.user.id).toString()}`,
               {
                 method: 'POST',
                 body: JSON.stringify({
@@ -435,12 +435,12 @@ const App: React.FC = () => {
 
   useEffect(() => {
 
-    if (user) {
+    if (user && user !== "") {
 
       // INIT
 
 
-      
+
 
       // SOCKETS
 
