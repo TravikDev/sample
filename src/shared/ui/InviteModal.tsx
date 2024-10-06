@@ -3,6 +3,9 @@ import { Box, Typography } from "@mui/material"
 import { Button } from "@mui/material"
 import { DetailsModal } from "@/shared/ui/DetailsModal"
 
+// @ts-ignore
+const userData = window.Telegram.WebApp.initDataUnsafe;
+
 type InviteModalProps = {
   onClose: () => void;
   isView: boolean;
@@ -15,18 +18,19 @@ export const InviteModal: React.FC<InviteModalProps> = ({
 }) => {
   return (
     <DetailsModal onClose={onClose} isView={isView}>
-      <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column',
+      <Box sx={{
+        display: 'flex', alignItems: 'center', flexDirection: 'column',
         textAlign: 'center', gap: '30px',
-       }}>
+      }}>
         <Typography className='gradient-stroke-text' sx={{ fontSize: '25px', fontWeight: '800' }}>
           Пригласить друга
         </Typography>
         <Typography sx={{ fontSize: '14px', fontWeight: '800' }}>
-          {`t.me/ParadoxBot/app?startapp=onetime{telegramId}`}
+          {`https://t.me/taptoy_bot/ParadoxTestLive?startapp=${userData.user.id}`}
         </Typography>
       </Box>
-      
-        <Button
+
+      <Button
         onClick={onClose}
         fullWidth
         variant="contained"
