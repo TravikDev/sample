@@ -643,11 +643,11 @@ const App: React.FC = () => {
       // const res = result()
 
       const response = fetchData()
-      const response2 = fetchDataMyCards()
+      // const response2 = fetchDataMyCards()
       const response3 = fetchDataMyPartyCards()
 
       console.log("cards:", response)
-      console.log("my cards:", response2)
+      // console.log("my cards:", response2)
       console.log("my cards:", response3)
     }
   }, [isOpen])
@@ -677,11 +677,11 @@ const App: React.FC = () => {
 
       const response = fetchData()
       const response2 = fetchDataMyCards()
-      const response3 = fetchDataMyPartyCards()
+      // const response3 = fetchDataMyPartyCards()
 
       console.log("cards:", response)
       console.log("my cards:", response2)
-      console.log("my cards:", response3)
+      // console.log("my cards:", response3)
     }
   }, [isOpen2])
 
