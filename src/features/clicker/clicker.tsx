@@ -106,6 +106,7 @@ const defaultPartyCard = [{
   price: 100,
   dateCreation: "1",
   upgradeCost: 0,
+  category: 'party',
   paid: false
 }]
 
@@ -121,6 +122,7 @@ const defaultMyPartyCard = [
     urlPicture: "http://google.com",
     price: 100,
     dateCreation: "1",
+    category: 'party',
     upgradeCost: 0,
     // paid: false,
   },
@@ -635,7 +637,7 @@ const App: React.FC = () => {
           setError2(err) // Устанавливаем ошибку в случае неудачи
         } finally {
           setLoading(false) // Отключаем индикатор загрузки
-        } 
+        }
       }
       /* @ts-ignore */
       // const res = result()
