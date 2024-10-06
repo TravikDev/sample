@@ -48,6 +48,7 @@ export type CardDetailsModalProps = {
   onClose: () => void;
   isView: boolean;
   onClickBuyCard?: (cardId: number) => void;
+  onClickUpdateCard?: (cardId: number) => void;
   coins: number;
 
 };

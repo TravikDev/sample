@@ -299,6 +299,33 @@ const App: React.FC = () => {
     }
   }
 
+  const onClickUpdateCard = async (cardId: number) => {
+
+    // const body = JSON.stringify({ userId: data2._id, cardId })
+
+    try {
+      const response = await fetch(`https://paradoxlive.pro/user-cards/upgrade/${data2._id}/${cardId}`, {
+        method: 'POST',
+      })
+      if (!response.ok) {
+        throw new Error("Network response was not ok")
+      }
+      const jsonData = await response.json()
+      // console.log('ResultZ: ', jsonData)
+      // console.log("json Cards:", jsonData)
+      setData2(jsonData); // Устанавливаем полученные данные в состояние
+      return jsonData
+      // const filteredData = jsonData.map((card: IUserCardType) => card.card)
+      // setMyCardsList(filteredData)
+      // return jsonData
+    } catch (err) {
+      setError2(err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+
   const handleShareCard = (card: CardType) => {
     setSelectedCard(card)
     setShowShare(true)
@@ -968,6 +995,7 @@ const App: React.FC = () => {
         onClose={handleClearAndCloseModal}
         isView={showShare}
         onClickBuyCard={onClickBuyCard}
+        onClickUpdateCard={onClickUpdateCard}
         coins={data2.coins}
       />
 

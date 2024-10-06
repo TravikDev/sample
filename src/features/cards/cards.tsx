@@ -81,7 +81,7 @@ export const CardsList = ({ onSelectCard, cards }: IProps) => {
               >
                 lvl {card.level}
               </Typography>
-            {card.paid && <IconCardPaid style={{position: "absolute", right: 0, top: 0}} />}
+              {card.paid && <IconCardPaid style={{ position: "absolute", right: 0, top: 0 }} />}
             </Box>
             <Divider
               sx={{
@@ -141,6 +141,7 @@ export const CardDetailsModal: React.FC<CardDetailsModalProps> = ({
   onClose,
   isView,
   onClickBuyCard,
+  onClickUpdateCard,
   coins,
 }) => {
 
@@ -212,7 +213,11 @@ export const CardDetailsModal: React.FC<CardDetailsModalProps> = ({
           padding: "16px 0",
           boxShadow: "-2px -2px 2px rgba(0, 0, 0, 0.25) inset",
         }}
-        onClick={() => card && onClickBuyCard && onClickBuyCard(card._id)}
+        onClick={() => {
+          card.paid && onClickUpdateCard ? onClickUpdateCard(card._id)
+            : card && onClickBuyCard && onClickBuyCard(card._id)
+        }
+        }
       >
         {card.paid ? 'Куплено' : 'Подписаться'}
       </Button>
