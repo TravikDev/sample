@@ -57,87 +57,88 @@ export const FriendsList = () => {
 	}, [])
 
 	if (dataIsSuccess) {
-		return <>{Array.isArray(refsList) && refsList.length > 0 ? refsList.map(friend => (
-			<>
-				<Box
-					sx={{
-						display: "flex",
-						justifyContent: "space-between",
-						width: "100%",
-						height: "95%",
-					}}
-				>
-					{/* border: '1px rgba(205, 254, 100, 0.20) solid', borderBottom: '0', borderRadius: 20 */}
-					<div
-						className="element-border"
-						style={{
-							width: "80%",
-							margin: "auto",
-							padding: 1,
-							height: 64,
+		return <>{Array.isArray(refsList) && refsList.length > 0
+			? refsList.map(friend => (
+				<>
+					<Box
+						sx={{
+							display: "flex",
+							justifyContent: "space-between",
+							width: "100%",
+							height: "95%",
 						}}
 					>
+						{/* border: '1px rgba(205, 254, 100, 0.20) solid', borderBottom: '0', borderRadius: 20 */}
 						<div
+							className="element-border"
 							style={{
-								backgroundColor: "#021B26",
-								borderRadius: 20,
+								width: "80%",
+								margin: "auto",
+								padding: 1,
 								height: 64,
-								display: "flex",
-								flexDirection: "row",
-								width: "100%",
-								alignItems: "center",
 							}}
 						>
-							<Box
-								sx={{
-									margin: 1,
+							<div
+								style={{
+									backgroundColor: "#021B26",
+									borderRadius: 20,
+									height: 64,
 									display: "flex",
 									flexDirection: "row",
-									gap: 1,
+									width: "100%",
+									alignItems: "center",
 								}}
 							>
-								<Avatar src={GiftBox} />
-								<Box>
-									<Typography sx={{ fontSize: 14, color: "white" }}>
-										{friend}
-									</Typography>
-									{/* <img src={IconFriendUser} /> */}
-									<Box
-										sx={{
-											display: "flex",
-											flexDirection: "row",
-											alignItems: "center",
-										}}
-									>
-										<IconFriendUser />
-										<Typography sx={{ fontSize: 14, color: "#838D90" }}>
-											0
+								<Box
+									sx={{
+										margin: 1,
+										display: "flex",
+										flexDirection: "row",
+										gap: 1,
+									}}
+								>
+									<Avatar src={GiftBox} />
+									<Box>
+										<Typography sx={{ fontSize: 14, color: "white" }}>
+											{friend}
 										</Typography>
+										{/* <img src={IconFriendUser} /> */}
+										<Box
+											sx={{
+												display: "flex",
+												flexDirection: "row",
+												alignItems: "center",
+											}}
+										>
+											<IconFriendUser />
+											<Typography sx={{ fontSize: 14, color: "#838D90" }}>
+												0
+											</Typography>
+										</Box>
 									</Box>
 								</Box>
-							</Box>
-							<Box
-								sx={{
-									display: "flex",
-									flexDirection: "row",
-									position: "absolute",
-									right: "10px",
-									top: "10px",
-									gap: "3px",
-								}}
-							>
-								<Typography sx={{ color: "white" }}>+1000</Typography>
-								<IconCoin width={25} height={25} />
-							</Box>
+								<Box
+									sx={{
+										display: "flex",
+										flexDirection: "row",
+										position: "absolute",
+										right: "10px",
+										top: "10px",
+										gap: "3px",
+									}}
+								>
+									<Typography sx={{ color: "white" }}>+1000</Typography>
+									<IconCoin width={25} height={25} />
+								</Box>
+							</div>
 						</div>
-					</div>
-					{/* <div style={{ width: '80%', margin: 'auto', padding: 1, height: 64 }} className='element-border'>
+						{/* <div style={{ width: '80%', margin: 'auto', padding: 1, height: 64 }} className='element-border'>
 							<div style={{ backgroundColor: '#000', borderRadius: 20, height: 64 }}>ggg</div>
 						</div> */}
-				</Box>
-			</>
-		)
-		) : (<div>No friends!</div>)}</>
+					</Box>
+				</>
+			))
+			: (<Box sx={{ width: '100%', display: 'flex', justifyItems: 'center', color: 'white' }}>No friends!</Box>)}</>
 	} else if (dataIsLoading) {
 		return <>Loading...</>
 	} else if (dataIsError) {
