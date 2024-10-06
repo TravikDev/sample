@@ -57,7 +57,7 @@ export const FriendsList = () => {
 	}, [])
 
 	if (dataIsSuccess) {
-		return <><Box
+		return <Box sx={{ width: '100%' }}><Box
 			sx={{
 				display: "flex",
 				justifyContent: "space-around",
@@ -178,7 +178,7 @@ export const FriendsList = () => {
 							</Box>
 						</>
 					))
-					: (<Box sx={{ width: '100%', display: 'flex', justifyItems: 'center', color: 'white' }}>No friends!</Box>)}</Box></>
+					: (<Box sx={{ width: '100%', display: 'flex', justifyItems: 'center', color: 'white' }}><br />У вас нет приглашенных друзей</Box>)}</Box></Box>
 	} else if (dataIsLoading) {
 		return <>Loading...</>
 	} else if (dataIsError) {

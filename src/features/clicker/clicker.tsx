@@ -93,6 +93,40 @@ const defaultMyCard = [
   },
 ]
 
+
+const defaultPartyCard = [{
+  _id: 1,
+  title: "NewCard",
+  description: "description",
+  level: 1,
+  salary: 10,
+  rph: 1,
+  progress: 0,
+  urlPicture: "http://google.com",
+  price: 100,
+  dateCreation: "1",
+  upgradeCost: 0,
+  paid: false
+}]
+
+const defaultMyPartyCard = [
+  {
+    _id: 1,
+    title: "NewCard",
+    description: "description",
+    level: 1,
+    salary: 10,
+    rph: 1,
+    progress: 0,
+    urlPicture: "http://google.com",
+    price: 100,
+    dateCreation: "1",
+    upgradeCost: 0,
+    // paid: false,
+  },
+]
+
+
 const defaultCategories = [
   { id: 1, title: "Все" },
   { id: 2, title: "Мои" },
@@ -166,8 +200,10 @@ const App: React.FC = () => {
 
 
   const [cardsList, setCardsList] = useState(defaultCard)
+  const [cardsPartyList, setPartyList] = useState(defaultPartyCard)
 
   const [myCardsList, setMyCardsList] = useState(defaultMyCard)
+  const [myCardsPartyList, setCardsPartyList] = useState(defaultMyPartyCard)
 
   const [selectedCard, setSelectedCard] = useState<CardType>(cardsList[0])
 
@@ -464,6 +500,26 @@ const App: React.FC = () => {
     }
   }
 
+  
+  // const fetchDataMyPartyCards = async () => {
+  //   try {
+  //     const response = await fetch(`https://paradoxlive.pro/user-cards/${data2._id}`)
+  //     if (!response.ok) {
+  //       throw new Error("Network response was not ok")
+  //     }
+  //     const jsonData = await response.json()
+  //     console.log("json Cards:", jsonData)
+  //     const filteredData = jsonData.map((card: IUserCardType) => card.card)
+  //     setMyCardsList(filteredData.map((data: any) => ({ ...data, paid: true })))
+  //     return jsonData
+  //     // setData2(jsonData); // Устанавливаем полученные данные в состояние
+  //   } catch (err) {
+  //     setError2(err) // Устанавливаем ошибку в случае неудачи
+  //   } finally {
+  //     setLoading(false) // Отключаем индикатор загрузки
+  //   }
+  // }
+
 
   // }, [user])
 
@@ -566,7 +622,7 @@ const App: React.FC = () => {
     if (isOpen === true) {
       const fetchData = async () => {
         try {
-          const response = await fetch("https://paradoxlive.pro/cards")
+          const response = await fetch("https://paradoxlive.pro/cards/category/party")
           if (!response.ok) {
             throw new Error("Network response was not ok")
           }
@@ -597,7 +653,7 @@ const App: React.FC = () => {
     if (isOpen2 === true) {
       const fetchData = async () => {
         try {
-          const response = await fetch("https://paradoxlive.pro/cards")
+          const response = await fetch("https://paradoxlive.pro/cards/category/bloggers")
           if (!response.ok) {
             throw new Error("Network response was not ok")
           }
