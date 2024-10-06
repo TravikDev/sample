@@ -633,7 +633,7 @@ const App: React.FC = () => {
     if (isOpen2 === true) {
       const fetchData = async () => {
         try {
-          const response = await fetch("https://paradoxlive.pro/cards")
+          const response = await fetch("https://paradoxlive.pro/cards/party")
           if (!response.ok) {
             throw new Error("Network response was not ok")
           }
