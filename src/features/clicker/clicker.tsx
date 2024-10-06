@@ -285,7 +285,7 @@ const App: React.FC = () => {
   // console.log(webApp)
   const [user, setUser] = useState(null)
   console.log(user)
-  const [referral, setReferral] = useState('')
+  // const [referral, setReferral] = useState('')
 
   // const [tg, setTg] = useState('')
 
@@ -300,7 +300,7 @@ const App: React.FC = () => {
 
   const [userProf] = useState(userProfile)
 
-  const [consoleLog, setConsoleLog] = useState('')
+  // const [consoleLog, setConsoleLog] = useState('')
 
   useEffect(() => {
     setUser(userProfile.idTelegram)
@@ -316,7 +316,7 @@ const App: React.FC = () => {
     console.log('USER DATA: ', userData)
     // setWebApp(JSON.stringify(userData.user));
 
-    setConsoleLog(JSON.stringify(userData))
+    // setConsoleLog(JSON.stringify(userData))
     // ?tgWebAppStartParam=3334
     const regex = /[\?&]tgWebAppStartParam=(\d+)/; // Регулярное выражение для поиска числа
     const match = location.search.match(regex); // Ищем совпадение в строке параметров
@@ -328,7 +328,7 @@ const App: React.FC = () => {
         const startParamNumber = match[1]; // Извлекаем только число
         console.log(`Число из tgWebAppStartParam: ${startParamNumber}`);
 
-        setReferral(startParamNumber)
+        // setReferral(startParamNumber)
         // Set Referral 
 
         /* @ts-ignore */
