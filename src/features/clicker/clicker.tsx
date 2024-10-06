@@ -516,8 +516,8 @@ const App: React.FC = () => {
       }
       const jsonData = await response.json()
       console.log("json Cards:", jsonData)
-      const filteredData = jsonData.map((card: IUserCardType) => ({ ...card.card }))
-      setMyCardsList(filteredData.map((data: any) => ({ ...data, paid: true, salary: data.salary, level: data.level, upgradeCost: data.upgradeCost })))
+      const filteredData = jsonData.map((card: IUserCardType) => ({ ...card.card, salary: card.salary, level: card.level, upgradeCost: card.upgradeCost }))
+      setMyCardsList(filteredData.map((data: any) => ({ ...data, paid: true })))
       return jsonData
       // setData2(jsonData); // Устанавливаем полученные данные в состояние
     } catch (err) {
@@ -536,8 +536,8 @@ const App: React.FC = () => {
       }
       const jsonData = await response.json()
       console.log("json Cards:", jsonData)
-      const filteredData = jsonData.map((card: IUserCardType) => ({ ...card.card }))
-      setMyCardsPartyList(filteredData.map((data: any) => ({ ...data, paid: true, salary: data.salary, level: data.level, upgradeCost: data.upgradeCost })))
+      const filteredData = jsonData.map((card: IUserCardType) => ({ ...card.card, salary: card.salary, level: card.level, upgradeCost: card.upgradeCost }))
+      setMyCardsPartyList(filteredData.map((data: any) => ({ ...data, paid: true })))
       return jsonData
       // setData2(jsonData); // Устанавливаем полученные данные в состояние
     } catch (err) {
