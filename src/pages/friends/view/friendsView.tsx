@@ -17,6 +17,8 @@ import { useModal } from "@/shared/ui/DetailsModal"
 import { InviteModal } from "@/shared/ui/InviteModal"
 import { FriendsList } from "@/features/friends"
 
+
+
 const Welcome = () => (
   <Box
     sx={{
@@ -270,47 +272,9 @@ function FriendsView() {
       </Box> */}
       <Bonuses />
       <Box sx={{ display: "flex", gap: 1, flexDirection: "column" }}>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-around",
-            gap: "50px",
-            width: "100%",
-            "@media (min-width: 530px)": { gap: "100px" },
-            "@media (min-width: 700px)": { gap: "220px" },
-          }}
-        >
-          <Typography sx={{ color: "white", fontWeight: "500", fontSize: 18, letterSpacing: '0.5px', }}>
-            Ваши друзья
-          </Typography>
-          <Typography
-            sx={{ color: "#838D90", fontWeight: "500", fontSize: 14 }}
-          >
-            N друга
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            overflowY: "auto",
-            display: "flex",
-            flexDirection: "column",
-            gap: "10px",
-            marginBottom: "10px",
-            // TODO: сделать нефиксированную высоту для списка друзей
-            minHeight: "450px",
-            '@media (min-width: 740px)': {
-              minHeight: '630px'
-            },
-            '@media (min-width: 910px)': {
-              minHeight: '850px'
-            },
-          }}
-        >
 
-          <FriendsList />
 
-        </Box>
-        {/* <FriendsList /> */}
+        <FriendsList />
         {/* <PostAdd /> */}
         {/* <PostsList /> */}
       </Box>

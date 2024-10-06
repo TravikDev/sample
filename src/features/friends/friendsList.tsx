@@ -57,88 +57,128 @@ export const FriendsList = () => {
 	}, [])
 
 	if (dataIsSuccess) {
-		return <>{Array.isArray(refsList) && refsList.length > 0
-			? refsList.map(friend => (
-				<>
-					<Box
-						sx={{
-							display: "flex",
-							justifyContent: "space-between",
-							width: "100%",
-							height: "95%",
-						}}
-					>
-						{/* border: '1px rgba(205, 254, 100, 0.20) solid', borderBottom: '0', borderRadius: 20 */}
-						<div
-							className="element-border"
-							style={{
-								width: "80%",
-								margin: "auto",
-								padding: 1,
-								height: 64,
-							}}
-						>
-							<div
-								style={{
-									backgroundColor: "#021B26",
-									borderRadius: 20,
-									height: 64,
+		return <><Box
+			sx={{
+				display: "flex",
+				justifyContent: "space-around",
+				gap: "50px",
+				width: "100%",
+				"@media (min-width: 530px)": { gap: "100px" },
+				"@media (min-width: 700px)": { gap: "220px" },
+			}}
+		>
+			<Typography sx={{ color: "white", fontWeight: "500", fontSize: 18, letterSpacing: '0.5px', }}>
+				Ваши друзья
+			</Typography>
+			<Typography
+				sx={{ color: "#838D90", fontWeight: "500", fontSize: 14 }}
+			>
+				{Array.isArray(refsList) && refsList.length > 0 ? refsList.length : 0} друзей
+			</Typography>
+		</Box>
+			<Box
+				sx={{
+					overflowY: "auto",
+					display: "flex",
+					flexDirection: "column",
+					gap: "10px",
+					marginBottom: "10px",
+					// TODO: сделать нефиксированную высоту для списка друзей
+					minHeight: "450px",
+					'@media (min-width: 740px)': {
+						minHeight: '630px'
+					},
+					'@media (min-width: 910px)': {
+						minHeight: '850px'
+					},
+				}}
+			>
+
+
+
+				{Array.isArray(refsList) && refsList.length > 0
+					? refsList.map(friend => (
+						<>
+
+							<Box
+								sx={{
 									display: "flex",
-									flexDirection: "row",
+									justifyContent: "space-between",
 									width: "100%",
-									alignItems: "center",
+									height: "95%",
 								}}
 							>
-								<Box
-									sx={{
-										margin: 1,
-										display: "flex",
-										flexDirection: "row",
-										gap: 1,
+								{/* border: '1px rgba(205, 254, 100, 0.20) solid', borderBottom: '0', borderRadius: 20 */}
+								<div
+									className="element-border"
+									style={{
+										width: "80%",
+										margin: "auto",
+										padding: 1,
+										height: 64,
 									}}
 								>
-									<Avatar src={GiftBox} />
-									<Box>
-										<Typography sx={{ fontSize: 14, color: "white" }}>
-											{friend}
-										</Typography>
-										{/* <img src={IconFriendUser} /> */}
+									<div
+										style={{
+											backgroundColor: "#021B26",
+											borderRadius: 20,
+											height: 64,
+											display: "flex",
+											flexDirection: "row",
+											width: "100%",
+											alignItems: "center",
+										}}
+									>
+										<Box
+											sx={{
+												margin: 1,
+												display: "flex",
+												flexDirection: "row",
+												gap: 1,
+											}}
+										>
+											<Avatar src={GiftBox} />
+											<Box>
+												<Typography sx={{ fontSize: 14, color: "white" }}>
+													{friend}
+												</Typography>
+												{/* <img src={IconFriendUser} /> */}
+												<Box
+													sx={{
+														display: "flex",
+														flexDirection: "row",
+														alignItems: "center",
+													}}
+												>
+													<IconFriendUser />
+													<Typography sx={{ fontSize: 14, color: "#838D90" }}>
+														0
+													</Typography>
+												</Box>
+											</Box>
+										</Box>
 										<Box
 											sx={{
 												display: "flex",
 												flexDirection: "row",
-												alignItems: "center",
+												position: "absolute",
+												right: "10px",
+												top: "10px",
+												gap: "3px",
 											}}
 										>
-											<IconFriendUser />
-											<Typography sx={{ fontSize: 14, color: "#838D90" }}>
-												0
-											</Typography>
+											<Typography sx={{ color: "white" }}>+1000</Typography>
+											<IconCoin width={25} height={25} />
 										</Box>
-									</Box>
-								</Box>
-								<Box
-									sx={{
-										display: "flex",
-										flexDirection: "row",
-										position: "absolute",
-										right: "10px",
-										top: "10px",
-										gap: "3px",
-									}}
-								>
-									<Typography sx={{ color: "white" }}>+1000</Typography>
-									<IconCoin width={25} height={25} />
-								</Box>
-							</div>
-						</div>
-						{/* <div style={{ width: '80%', margin: 'auto', padding: 1, height: 64 }} className='element-border'>
+									</div>
+								</div>
+								{/* <div style={{ width: '80%', margin: 'auto', padding: 1, height: 64 }} className='element-border'>
 							<div style={{ backgroundColor: '#000', borderRadius: 20, height: 64 }}>ggg</div>
 						</div> */}
-					</Box>
-				</>
-			))
-			: (<Box sx={{ width: '100%', display: 'flex', justifyItems: 'center', color: 'white' }}>No friends!</Box>)}</>
+							</Box>
+						</>
+					))
+					: (<Box sx={{ width: '100%', display: 'flex', justifyItems: 'center', color: 'white' }}>No friends!</Box>)}</Box></>
 	} else if (dataIsLoading) {
 		return <>Loading...</>
 	} else if (dataIsError) {
