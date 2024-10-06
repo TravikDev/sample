@@ -288,6 +288,9 @@ const App: React.FC = () => {
 
   // @ts-ignore
   const userData = window.Telegram.WebApp.initDataUnsafe;
+  // @ts-ignore
+  window.Telegram.WebApp.showAlert(userData);
+
   const userProfile = {
     idTelegram: userData.user.id,
     username: userData.user.username,
@@ -312,6 +315,7 @@ const App: React.FC = () => {
     // ?tgWebAppStartParam=3334
     const regex = /[\?&]tgWebAppStartParam=(\d+)/; // Регулярное выражение для поиска числа
     const match = location.search.match(regex); // Ищем совпадение в строке параметров
+
 
     if (user) {
       if (match) {
