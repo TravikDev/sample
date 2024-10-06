@@ -622,7 +622,7 @@ const App: React.FC = () => {
     if (isOpen === true) {
       const fetchData = async () => {
         try {
-          const response = await fetch("https://paradoxlive.pro/cards/bloggers")
+          const response = await fetch("https://paradoxlive.pro/cards/category/bloggers")
           if (!response.ok) {
             throw new Error("Network response was not ok")
           }
@@ -635,7 +635,7 @@ const App: React.FC = () => {
           setError2(err) // Устанавливаем ошибку в случае неудачи
         } finally {
           setLoading(false) // Отключаем индикатор загрузки
-        }
+        } 
       }
       /* @ts-ignore */
       // const res = result()
@@ -653,7 +653,7 @@ const App: React.FC = () => {
     if (isOpen2 === true) {
       const fetchData = async () => {
         try {
-          const response = await fetch("https://paradoxlive.pro/cards/party")
+          const response = await fetch("https://paradoxlive.pro/cards/category/party")
           if (!response.ok) {
             throw new Error("Network response was not ok")
           }
