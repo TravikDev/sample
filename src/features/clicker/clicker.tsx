@@ -1210,7 +1210,8 @@ const App: React.FC = () => {
               {/* {JSON.stringify(tg)} */}
               {/* {JSON.stringify(JSON.stringify(consoleLog))} */}
               {/* {JSON.stringify(userProf)} */}
-              {/* {JSON.stringify(data2)} */}
+              {JSON.stringify(data2)}
+              {JSON.stringify(welcomeSalary)}
               {/* {JSON.stringify(location)} */}
               {/* //TODO "" */}
               {/* {JSON.stringify(referral)} */}
