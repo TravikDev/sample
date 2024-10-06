@@ -139,7 +139,7 @@ const defaultData = {
   idTelegram: 0,
   username: "Guest",
   level: 1,
-  salary: 1100,
+  salary: -1,
   rating: 0,
   energy: 0,
   coins: 0,
