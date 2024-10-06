@@ -516,7 +516,7 @@ const App: React.FC = () => {
       }
       const jsonData = await response.json()
       console.log("json Cards:", jsonData)
-      const filteredData = jsonData.map((card: IUserCardType) => card.card)
+      const filteredData = jsonData.map((card: IUserCardType) => ({ ...card.card, salary: card.salary, level: card.level, upgradeCost: card.upgradeCost }))
       setMyCardsList(filteredData.map((data: any) => ({ ...data, paid: true })))
       return jsonData
       // setData2(jsonData); // Устанавливаем полученные данные в состояние
@@ -536,7 +536,7 @@ const App: React.FC = () => {
       }
       const jsonData = await response.json()
       console.log("json Cards:", jsonData)
-      const filteredData = jsonData.map((card: IUserCardType) => card.card)
+      const filteredData = jsonData.map((card: IUserCardType) => ({ ...card.card, salary: card.salary, level: card.level, upgradeCost: card.upgradeCost }))
       setMyCardsPartyList(filteredData.map((data: any) => ({ ...data, paid: true })))
       return jsonData
       // setData2(jsonData); // Устанавливаем полученные данные в состояние
