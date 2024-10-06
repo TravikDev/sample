@@ -288,13 +288,14 @@ const App: React.FC = () => {
 
   // @ts-ignore
   const userData = window.Telegram.WebApp.initDataUnsafe;
-  // @ts-ignore
-  window.Telegram.WebApp.showAlert(userData);
 
   const userProfile = {
     idTelegram: userData.user.id,
     username: userData.user.username,
   }
+
+  // @ts-ignore
+  window.Telegram.WebApp.showAlert(userProfile);
 
   const [userProf] = useState(userProfile)
 
