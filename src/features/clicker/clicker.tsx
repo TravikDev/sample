@@ -94,37 +94,37 @@ const defaultMyCard = [
 ]
 
 
-// const defaultPartyCard = [{
-//   _id: 1,
-//   title: "NewCard",
-//   description: "description",
-//   level: 1,
-//   salary: 10,
-//   rph: 1,
-//   progress: 0,
-//   urlPicture: "http://google.com",
-//   price: 100,
-//   dateCreation: "1",
-//   upgradeCost: 0,
-//   paid: false
-// }]
+const defaultPartyCard = [{
+  _id: 1,
+  title: "NewCard",
+  description: "description",
+  level: 1,
+  salary: 10,
+  rph: 1,
+  progress: 0,
+  urlPicture: "http://google.com",
+  price: 100,
+  dateCreation: "1",
+  upgradeCost: 0,
+  paid: false
+}]
 
-// const defaultMyPartyCard = [
-//   {
-//     _id: 1,
-//     title: "NewCard",
-//     description: "description",
-//     level: 1,
-//     salary: 10,
-//     rph: 1,
-//     progress: 0,
-//     urlPicture: "http://google.com",
-//     price: 100,
-//     dateCreation: "1",
-//     upgradeCost: 0,
-//     // paid: false,
-//   },
-// ]
+const defaultMyPartyCard = [
+  {
+    _id: 1,
+    title: "NewCard",
+    description: "description",
+    level: 1,
+    salary: 10,
+    rph: 1,
+    progress: 0,
+    urlPicture: "http://google.com",
+    price: 100,
+    dateCreation: "1",
+    upgradeCost: 0,
+    // paid: false,
+  },
+]
 
 
 const defaultCategories = [
@@ -200,10 +200,10 @@ const App: React.FC = () => {
 
 
   const [cardsList, setCardsList] = useState(defaultCard)
-  // const [cardsPartyList, setPartyList] = useState(defaultPartyCard)
+  const [cardsPartyList, setCardsPartyList] = useState(defaultPartyCard)
 
   const [myCardsList, setMyCardsList] = useState(defaultMyCard)
-  // const [myCardsPartyList, setCardsPartyList] = useState(defaultMyCard)
+  const [myCardsPartyList, setMyCardsPartyList] = useState(defaultMyPartyCard)
 
   const [selectedCard, setSelectedCard] = useState<CardType>(cardsList[0])
 
@@ -501,6 +501,26 @@ const App: React.FC = () => {
   }
 
 
+  const fetchDataMyPartyCards = async () => {
+    try {
+      const response = await fetch(`https://paradoxlive.pro/user-cards/${data2._id}/party`)
+      if (!response.ok) {
+        throw new Error("Network response was not ok")
+      }
+      const jsonData = await response.json()
+      console.log("json Cards:", jsonData)
+      const filteredData = jsonData.map((card: IUserCardType) => card.card)
+      setMyCardsPartyList(filteredData.map((data: any) => ({ ...data, paid: true })))
+      return jsonData
+      // setData2(jsonData); // Устанавливаем полученные данные в состояние
+    } catch (err) {
+      setError2(err) // Устанавливаем ошибку в случае неудачи
+    } finally {
+      setLoading(false) // Отключаем индикатор загрузки
+    }
+  }
+
+
   // }, [user])
 
 
@@ -639,7 +659,7 @@ const App: React.FC = () => {
           }
           const jsonData = await response.json()
           console.log("json Cards:", jsonData)
-          setCardsList(jsonData)
+          setCardsPartyList(jsonData)
           // setData2(jsonData); // Устанавливаем полученные данные в состояние
           return jsonData
         } catch (err) {
@@ -652,7 +672,7 @@ const App: React.FC = () => {
       // const res = result()
 
       const response = fetchData()
-      const response2 = fetchDataMyCards()
+      const response2 = fetchDataMyPartyCards()
 
       console.log("cards:", response)
       console.log("my cards:", response2)
@@ -666,6 +686,15 @@ const App: React.FC = () => {
       setCardsList(state => state.map(card => myCardsList.find(myCard => myCard.title === card.title) ? { ...card, paid: true } : { ...card, paid: false }))
     }
   }, [myCardsList])
+
+
+  useEffect(() => {
+    console.log('transform')
+    if (myCardsPartyList && data2._id) {
+      console.log('transform2')
+      setCardsPartyList(state => state.map(card => myCardsList.find(myCard => myCard.title === card.title) ? { ...card, paid: true } : { ...card, paid: false }))
+    }
+  }, [myCardsPartyList])
 
   return (
 
