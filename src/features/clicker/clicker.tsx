@@ -316,7 +316,7 @@ const App: React.FC = () => {
     console.log('USER DATA: ', userData)
     // setWebApp(JSON.stringify(userData.user));
 
-    setConsoleLog(location.pathname)
+    setConsoleLog(JSON.stringify(userData))
     // ?tgWebAppStartParam=3334
     const regex = /[\?&]tgWebAppStartParam=(\d+)/; // Регулярное выражение для поиска числа
     const match = location.search.match(regex); // Ищем совпадение в строке параметров
