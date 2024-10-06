@@ -719,7 +719,7 @@ const App: React.FC = () => {
     console.log('transform')
     if (myCardsPartyList && data2._id) {
       console.log('transform2')
-      setCardsPartyList(state => state.map(card => myCardsList.find(myCard => myCard.title === card.title) ? { ...card, paid: true } : { ...card, paid: false }))
+      setCardsPartyList(state => state.map(card => myCardsPartyList.find(myCard => myCard.title === card.title) ? { ...card, paid: true } : { ...card, paid: false }))
     }
   }, [myCardsPartyList])
 
