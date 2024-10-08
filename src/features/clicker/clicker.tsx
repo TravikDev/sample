@@ -130,8 +130,8 @@ const defaultMyPartyCard = [
 
 
 const defaultCategories = [
-  { id: 1, title: "Все" },
-  { id: 2, title: "Мои" },
+  { id: 1, title: "Новые" },
+  { id: 2, title: "Добавленные" },
 ]
 
 const defaultData = {
@@ -1155,17 +1155,18 @@ const App: React.FC = () => {
           >
             <Box
               sx={{ zIndex: 50, position: "relative" }}
+              onClick={toggleSlider2}
+            >
+              <CustomButton iconPath={teamIcon}>Команда</CustomButton>
+            </Box>
+            <Box
+              sx={{ zIndex: 50, position: "relative" }}
               // onClick={() => setDrawerBloggersOpen(!drawerBloggersOpen)}
               onClick={toggleSlider}
             >
               <CustomButton iconPath={blogerIcon}>Блогеры</CustomButton>
             </Box>
-            <Box
-              sx={{ zIndex: 50, position: "relative" }}
-              onClick={toggleSlider2}
-            >
-              <CustomButton iconPath={teamIcon}>Команда</CustomButton>
-            </Box>
+
           </List>
         </Container>
 

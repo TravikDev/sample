@@ -16,6 +16,20 @@ export const InviteModal: React.FC<InviteModalProps> = ({
   onClose,
   isView,
 }) => {
+
+
+
+  const handleCopy = (text: string) => {
+    navigator.clipboard.writeText(text)
+      .then(() => {
+        // alert("Текст скопирован!");
+      })
+      .catch((error) => {
+        console.error("Ошибка при копировании: ", error);
+      });
+  };
+
+
   return (
     <DetailsModal onClose={onClose} isView={isView}>
       <Box sx={{
@@ -31,7 +45,7 @@ export const InviteModal: React.FC<InviteModalProps> = ({
       </Box>
 
       <Button
-        onClick={onClose}
+        onClick={() => { handleCopy(`https://t.me/LiveParadox_Bot/paradox?startapp=${userData.user.id}`); onClose() }}
         fullWidth
         variant="contained"
         color="primary"
@@ -52,7 +66,7 @@ export const InviteModal: React.FC<InviteModalProps> = ({
         Скопировать
       </Button>
 
-    </DetailsModal>
+    </DetailsModal >
   );
 };
 

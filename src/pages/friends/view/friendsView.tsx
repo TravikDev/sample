@@ -17,6 +17,8 @@ import { useModal } from "@/shared/ui/DetailsModal"
 import { InviteModal } from "@/shared/ui/InviteModal"
 import { FriendsList } from "@/features/friends"
 
+// @ts-ignore
+const userData = window.Telegram.WebApp.initDataUnsafe;
 
 
 const Welcome = () => (
@@ -169,6 +171,16 @@ const Bonuses = () => (
 const Invites = () => {
   const { isOpen, handleOpen, handleClose } = useModal();
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText(`https://t.me/LiveParadox_Bot/paradox?startapp=${userData.user.id}`)
+      .then(() => {
+        alert("Текст скопирован!");
+      })
+      .catch((error) => {
+        console.error("Ошибка при копировании: ", error);
+      });
+  };
+
   return (
     <Box
       className="main-bg"
@@ -228,6 +240,7 @@ const Invites = () => {
           <Button
             variant="contained"
             sx={{ width: "5%", borderRadius: "16px", backgroundColor: "#008F6E" }}
+            onClick={() => handleCopy()}
           >
             <IconInvite />
           </Button>

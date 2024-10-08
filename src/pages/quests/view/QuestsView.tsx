@@ -19,7 +19,7 @@ import IconPr from "@/assets/icons/tasks/Pr.png"
 import IconFr from "@/assets/icons/tasks/Fr.png"
 import IconYtb from "@/assets/icons/tasks/Ytb.png"
 import IconTg from "@/assets/icons/tasks/Tg.png"
-import IconCal from "@/assets/icons/tasks/Cal.png"
+// import IconCal from "@/assets/icons/tasks/Cal.png"
 
 import { IconRightArrow } from "@/assets/icons-react/IconRightArrow"
 
@@ -287,92 +287,92 @@ const QuestsEvents = ({
   </>
 )
 
-const QuestsAnotherEvents = ({
-  quests,
-  title,
-}: {
-  quests: Quest[]
-  title: string
-}) => (
-  <>
-    <Box sx={{ display: "flex", gap: 0, flexDirection: "column" }}>
-      <Bonuses title={title} />
+// const QuestsAnotherEvents = ({
+//   quests,
+//   title,
+// }: {
+//   quests: Quest[]
+//   title: string
+// }) => (
+//   <>
+//     <Box sx={{ display: "flex", gap: 0, flexDirection: "column" }}>
+//       <Bonuses title={title} />
 
-      {quests.map((quest: Quest) => (
-        <>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              width: "100%",
-              height: "95%",
-            }}
-          >
-            <div
-              style={{ width: "80%", margin: "auto", padding: 1, height: 64 }}
-              // className='element-border'
-            >
-              <div
-                style={{
-                  backgroundColor: "#182830",
-                  borderRadius: 20,
-                  height: 64,
-                  display: "flex",
-                  flexDirection: "row",
-                  width: "100%",
-                  alignItems: "center",
-                  border: '2px rgba(205, 254, 100, 0.20) solid',
-                  borderBottom: 0,
-                }}
-              >
-                <Box
-                  sx={{
-                    margin: 1,
-                    display: "flex",
-                    flexDirection: "row",
-                    gap: 1,
-                    alignItems: "center",
-                  }}
-                >
-                  <Avatar src={IconCal} />
-                  <Box sx={{ display: "flex", flexDirection: "column" }}>
-                    <Typography
-                      sx={{ fontSize: 14, color: "white", fontWeight: 400 }}
-                    >
-                      Забери ежедневную награду!
-                    </Typography>
+//       {quests.map((quest: Quest) => (
+//         <>
+//           <Box
+//             sx={{
+//               display: "flex",
+//               justifyContent: "space-between",
+//               width: "100%",
+//               height: "95%",
+//             }}
+//           >
+//             <div
+//               style={{ width: "80%", margin: "auto", padding: 1, height: 64 }}
+//               // className='element-border'
+//             >
+//               <div
+//                 style={{
+//                   backgroundColor: "#182830",
+//                   borderRadius: 20,
+//                   height: 64,
+//                   display: "flex",
+//                   flexDirection: "row",
+//                   width: "100%",
+//                   alignItems: "center",
+//                   border: '2px rgba(205, 254, 100, 0.20) solid',
+//                   borderBottom: 0,
+//                 }}
+//               >
+//                 <Box
+//                   sx={{
+//                     margin: 1,
+//                     display: "flex",
+//                     flexDirection: "row",
+//                     gap: 1,
+//                     alignItems: "center",
+//                   }}
+//                 >
+//                   <Avatar src={IconCal} />
+//                   <Box sx={{ display: "flex", flexDirection: "column" }}>
+//                     <Typography
+//                       sx={{ fontSize: 14, color: "white", fontWeight: 400 }}
+//                     >
+//                       Забери ежедневную награду!
+//                     </Typography>
 
-                    <Box sx={{ display: "flex", flexDirection: "row" }}>
-                      <IconCoin width={25} height={25} />
-                      <Typography sx={{ color: "white" }}>
-                        +{quest.salary}
-                      </Typography>
-                    </Box>
-                  </Box>
-                  <IconRightArrow />
-                  {/* <Box>
-                                    <img src={IconFriendUser} />
-                                    <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                                        <IconFriendUser />
-                                        <Typography sx={{ fontSize: 14, color: '#838D90' }}>0</Typography>
-                                    </Box>
-                                </Box> */}
-                </Box>
-              </div>
-            </div>
-            {/* <div style={{ width: '80%', margin: 'auto', padding: 1, height: 64 }} className='element-border'>
-      <div style={{ backgroundColor: '#000', borderRadius: 20, height: 64 }}>ggg</div>
-    </div> */}
-          </Box>
-        </>
-      ))}
+//                     <Box sx={{ display: "flex", flexDirection: "row" }}>
+//                       <IconCoin width={25} height={25} />
+//                       <Typography sx={{ color: "white" }}>
+//                         +{quest.salary}
+//                       </Typography>
+//                     </Box>
+//                   </Box>
+//                   <IconRightArrow />
+//                   {/* <Box>
+//                                     <img src={IconFriendUser} />
+//                                     <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+//                                         <IconFriendUser />
+//                                         <Typography sx={{ fontSize: 14, color: '#838D90' }}>0</Typography>
+//                                     </Box>
+//                                 </Box> */}
+//                 </Box>
+//               </div>
+//             </div>
+//             {/* <div style={{ width: '80%', margin: 'auto', padding: 1, height: 64 }} className='element-border'>
+//       <div style={{ backgroundColor: '#000', borderRadius: 20, height: 64 }}>ggg</div>
+//     </div> */}
+//           </Box>
+//         </>
+//       ))}
 
-      {/* <FriendsList /> */}
-      {/* <PostAdd /> */}
-      {/* <PostsList /> */}
-    </Box>
-  </>
-)
+//       {/* <FriendsList /> */}
+//       {/* <PostAdd /> */}
+//       {/* <PostsList /> */}
+//     </Box>
+//   </>
+// )
 
 function QuestsView() {
   const friends = useSelector((state: any) => state.quests)
@@ -451,10 +451,10 @@ function QuestsView() {
         </Box>
 
         {/* {console.log(quests)} */}
-        <QuestsAnotherEvents
+        {/* <QuestsAnotherEvents
           quests={quests.slice(-1)}
           title="Ежедневные награды"
-        />
+        /> */}
         <QuestsEvents quests={quests} title="Список заданий" />
       </Box>
     </div>

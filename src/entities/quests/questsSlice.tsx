@@ -15,22 +15,22 @@ export interface QuestsState {
 // }
 
 const initialState: Quest[] = [
-    {
-        _id: '0',
-        userId: '0',
-        title: "Собери 3 ежедневные награды",
-        content: "4 Some Content",
-        salary: 1000,
-        date: sub(new Date(), { minutes: 10 }).toISOString(),
-    },
-    {
-        _id: '1',
-        userId: '1',
-        title: "Подписаться на нас и Telegram",
-        content: "Some Content",
-        salary: 123,
-        date: sub(new Date(), { minutes: 10 }).toISOString(),
-    },
+    // {
+    //     _id: '0',
+    //     userId: '0',
+    //     title: "Собери 3 ежедневные награды",
+    //     content: "4 Some Content",
+    //     salary: 1000,
+    //     date: sub(new Date(), { minutes: 10 }).toISOString(),
+    // },
+    // {
+    //     _id: '1',
+    //     userId: '1',
+    //     title: "Подписаться на нас и Telegram",
+    //     content: "Some Content",
+    //     salary: 123,
+    //     date: sub(new Date(), { minutes: 10 }).toISOString(),
+    // },
     {
         _id: '2',
         userId: '2',
@@ -47,14 +47,14 @@ const initialState: Quest[] = [
         salary: 2111,
         date: sub(new Date(), { minutes: 10 }).toISOString(),
     },
-    {
-        _id: '4',
-        userId: '4',
-        title: "Собери 3 ежедневные награды",
-        content: "4 Some Content",
-        salary: 1000,
-        date: sub(new Date(), { minutes: 10 }).toISOString(),
-    }
+    // {
+    //     _id: '4',
+    //     userId: '4',
+    //     title: "Собери 3 ежедневные награды",
+    //     content: "4 Some Content",
+    //     salary: 1000,
+    //     date: sub(new Date(), { minutes: 10 }).toISOString(),
+    // }
     // {
     //     _id: '3',
     //     userId: '3',
