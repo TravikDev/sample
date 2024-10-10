@@ -649,14 +649,14 @@ const App: React.FC = () => {
     if (isOpen === true) {
       const fetchData = async () => {
         try {
-          const response = await fetch("https://paradoxlive.pro/cards/category/bloggers")
+          const response = await fetch(`https://paradoxlive.pro/cards/category/bloggers/${data2._id}`)
           if (!response.ok) {
             throw new Error("Network response was not ok")
           }
           const jsonData = await response.json()
           console.log("json Cards:", jsonData)
-          const result = jsonData.map((card: any) => myCardsList.find(myCard => myCard.title === card.title) ? null : { ...card, paid: false }).filter((card: any) => card !== null)
-          setCardsList(result)
+          // const result = jsonData.map((card: any) => myCardsList.find(myCard => myCard.title === card.title) ? null : { ...card, paid: false }).filter((card: any) => card !== null)
+          setCardsList(jsonData)
           // setData2(jsonData); // Устанавливаем полученные данные в состояние
           return jsonData
         } catch (err) {
@@ -681,14 +681,14 @@ const App: React.FC = () => {
     if (isOpen2 === true) {
       const fetchData = async () => {
         try {
-          const response = await fetch("https://paradoxlive.pro/cards/category/party")
+          const response = await fetch(`https://paradoxlive.pro/cards/category/party/${data2._id}`)
           if (!response.ok) {
             throw new Error("Network response was not ok")
           }
           const jsonData = await response.json()
           console.log("json Cards:", jsonData)
-          const result = jsonData.map((card: any) => myCardsPartyList.find(myCard => myCard.title === card.title) ? null : { ...card, paid: false }).filter((card: any) => card !== null)
-          setCardsPartyList(result)
+          // const result = jsonData.map((card: any) => myCardsPartyList.find(myCard => myCard.title === card.title) ? null : { ...card, paid: false }).filter((card: any) => card !== null)
+          setCardsPartyList(jsonData)
           // setData2(jsonData); // Устанавливаем полученные данные в состояние
           return jsonData
         } catch (err) {
