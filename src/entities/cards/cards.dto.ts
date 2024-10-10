@@ -1,3 +1,5 @@
+import { ICard } from "@/features/clicker";
+
 export type CardType = {
   _id: number;
   title: string;
@@ -36,15 +38,7 @@ export type IUserCardType = {
 }
 
 export type CardDetailsModalProps = {
-  card: {
-    _id: number;
-    title: string;
-    level: number;
-    rph: number;
-    description: string;
-    urlPicture: string;
-    paid?: boolean;
-  };
+  card: ICard;
   onClose: () => void;
   isView: boolean;
   onClickBuyCard: (cardId: number) => void;

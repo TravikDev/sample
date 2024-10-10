@@ -27,7 +27,7 @@ import { CardDetailsModal, CardsList } from "@/features/cards/cards"
 import CustomButton from "@/shared/ui/CustomButton"
 import teamIcon from "@/assets/icons/btns/teamIcon.svg"
 import blogerIcon from "@/assets/icons/btns/blogerIcon.svg"
-import { CardType, IUserCardType } from "@/entities/cards/cards.dto"
+import { IUserCardType } from "@/entities/cards/cards.dto"
 
 import ImgAvatar from "@/assets/9.png"
 import ImgStar from "@/assets/Star_img.png"
@@ -61,37 +61,35 @@ interface FloatNumber {
 
 // -------------------- Init 
 
-const defaultCard = [{
-  _id: 1,
-  title: "NewCard",
-  description: "description",
-  level: 1,
-  salary: 10,
-  rph: 1,
-  progress: 0,
-  urlPicture: "http://google.com",
-  price: 100,
-  dateCreation: "1",
-  upgradeCost: 0,
-  paid: false
-}]
+export type ICard = {
+  _id: number,
+  title: string,
+  description: string,
+  level: number,
+  salary: number,
+  rph: number,
+  progress: number,
+  urlPicture: string,
+  price: number,
+  dateCreation: string,
+  upgradeCost: number,
+  paid?: boolean
+}
 
-const defaultMyCard = [
-  {
-    _id: 1,
-    title: "NewCard",
-    description: "description",
-    level: 1,
-    salary: 10,
-    rph: 1,
-    progress: 0,
-    urlPicture: "http://google.com",
-    price: 100,
-    dateCreation: "1",
-    upgradeCost: 0,
-    // paid: false,
-  },
-]
+// const defaultMyCard = {
+//     _id: 1,
+//     title: "NewCard",
+//     description: "description",
+//     level: 1,
+//     salary: 10,
+//     rph: 1,
+//     progress: 0,
+//     urlPicture: "http://google.com",
+//     price: 100,
+//     dateCreation: "1",
+//     upgradeCost: 0,
+//     // paid: false,
+//   }
 
 
 const defaultPartyCard = [{
@@ -199,13 +197,13 @@ const App: React.FC = () => {
 
 
 
-  const [cardsList, setCardsList] = useState(defaultCard)
+  const [cardsList, setCardsList] = useState<ICard[] | []>([])
   const [cardsPartyList, setCardsPartyList] = useState(defaultPartyCard)
 
-  const [myCardsList, setMyCardsList] = useState(defaultMyCard)
+  const [myCardsList, setMyCardsList] = useState<ICard[] | []>([])
   const [myCardsPartyList, setMyCardsPartyList] = useState(defaultMyPartyCard)
 
-  const [selectedCard, setSelectedCard] = useState<CardType>(cardsList[0])
+  const [selectedCard, setSelectedCard] = useState<ICard>(cardsList[0])
 
   const [cardsCategoriesList] = useState(defaultCategories)
 
@@ -285,8 +283,8 @@ const App: React.FC = () => {
       const jsonData = await response.json()
       // console.log('ResultZ: ', jsonData)
       // console.log("json Cards:", jsonData)
-      setMyCardsList(state => state.filter(card => card._id === cardId))
-      setMyCardsPartyList(state => state.filter(card => card._id === cardId))
+      setMyCardsList(state => state.filter(card => card._id !== cardId))
+      setMyCardsPartyList(state => state.filter(card => card._id !== cardId))
       setData2(jsonData); // Устанавливаем полученные данные в состояние
       return jsonData
       // const filteredData = jsonData.map((card: IUserCardType) => card.card)
@@ -326,7 +324,7 @@ const App: React.FC = () => {
   }
 
 
-  const handleShareCard = (card: CardType) => {
+  const handleShareCard = (card: ICard) => {
     setSelectedCard(card)
     setShowShare(true)
   }

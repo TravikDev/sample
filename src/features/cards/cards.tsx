@@ -8,10 +8,11 @@ import { Button } from "@mui/material"
 import YoutubeIcon from "@mui/icons-material/YouTube"
 import { DetailsModal } from "@/shared/ui/DetailsModal"
 import { IconCardPaid } from "@/assets/icons-react/IconCardPaid"
+import { ICard } from "../clicker"
 
 type IProps = {
-  onSelectCard: (card: CardType) => void
-  cards: CardType[]
+  onSelectCard: (card: ICard) => void
+  cards: ICard[]
   userCoins: number
   userSalary: number
 }
@@ -146,82 +147,86 @@ export const CardDetailsModal: React.FC<CardDetailsModalProps> = ({
 }) => {
 
   console.log('card123: ', card)
+  if (card) {
+    return (
+      <DetailsModal onClose={onClose} isView={isView} salary={0}>
+        {/* Монеты и прибыль */}
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+          <IconCoinBig width={45} height={45} />
+          <Typography sx={{ fontFamily: 'Roboto, sans-serif', fontWeight: '800', fontSize: 30, color: "#C8D5D8", letterSpacing: "1px" }}>{coins}</Typography>
+        </Box>
 
-  return (
-    <DetailsModal onClose={onClose} isView={isView} salary={0}>
-      {/* Монеты и прибыль */}
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-        <IconCoinBig width={45} height={45} />
-        <Typography sx={{ fontFamily: 'Roboto, sans-serif', fontWeight: '800', fontSize: 30, color: "#C8D5D8", letterSpacing: "1px" }}>{coins}</Typography>
-      </Box>
+        <Divider sx={{ mb: 2, backgroundColor: 'rgba(0, 143, 109, 0.1)' }} />
 
-      <Divider sx={{ mb: 2, backgroundColor: 'rgba(0, 143, 109, 0.1)' }} />
-
-      {/* Информация о карточке */}
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <img
-          src={card?.urlPicture}
-          alt="card image"
-          style={{ width: 150, height: 150, objectFit: 'cover', borderRadius: 12 }}
-        />
-        <Box sx={{ ml: 3 }}>
-          <Typography variant="h5" sx={{ fontWeight: 'bold', textTransform: 'capitalize', mb: 1 }}>
-            {card?.title}
-          </Typography>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-            <YoutubeIcon sx={{ fill: "#b91f1f" }} />
-            <Typography variant="body2" sx={{ color: 'gray', textDecoration: 'underline', margin: "3px 0" }}>
-              Автор не указан
+        {/* {card.} */}
+        {/* Информация о карточке */}
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <img
+            src={card?.urlPicture}
+            alt="card image"
+            style={{ width: 150, height: 150, objectFit: 'cover', borderRadius: 12 }}
+          />
+          <Box sx={{ ml: 3 }}>
+            <Typography variant="h5" sx={{ fontWeight: 'bold', textTransform: 'capitalize', mb: 1 }}>
+              {card?.title}
             </Typography>
-          </Box>
-          <Box>
-            <Typography variant="body2" sx={{ color: 'white', opacity: 0.6, marginTop: '15px' }}>
-              Прибыль в час
-            </Typography>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                +{card?.rph}
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+              <YoutubeIcon sx={{ fill: "#b91f1f" }} />
+              <Typography variant="body2" sx={{ color: 'gray', textDecoration: 'underline', margin: "3px 0" }}>
+                Автор не указан
               </Typography>
-              <img src={coinIcon} alt="coin" style={{ width: 20, height: 20 }} />
+            </Box>
+            <Box>
+              <Typography variant="body2" sx={{ color: 'white', opacity: 0.6, marginTop: '15px' }}>
+                Прибыль в час
+              </Typography>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+                  +{card?.rph}
+                </Typography>
+                <img src={coinIcon} alt="coin" style={{ width: 20, height: 20 }} />
+              </Box>
             </Box>
           </Box>
         </Box>
-      </Box>
 
-      {/* Описание карточки */}
-      <Box sx={{ mt: "40px" }}>
-        <Typography variant="body2" sx={{ color: 'white', opacity: 0.6, textAlign: 'center' }}>
-          {card?.description}
-        </Typography>
-      </Box>
+        {/* Описание карточки */}
+        <Box sx={{ mt: "40px" }}>
+          <Typography variant="body2" sx={{ color: 'white', opacity: 0.6, textAlign: 'center' }}>
+            {card?.description}
+          </Typography>
+        </Box>
 
-      {/* Кнопка */}
-      <Button
-        fullWidth
-        variant="contained"
-        color="primary"
-        sx={{
-          mt: "52px",
-          height: 56,
-          fontWeight: '600',
-          letterSpacing: '1px',
-          borderRadius: '16px',
-          fontSize: '18px',
-          backgroundColor: '#026850',
-          wordWwrap: "break-word",
-          textTransform: "none",
-          padding: "16px 0",
-          boxShadow: "-2px -2px 2px rgba(0, 0, 0, 0.25) inset",
-        }}
-        onClick={() => {
-          card.paid ? onClickUpdateCard(card._id)
-            : onClickBuyCard(card._id)
-        }
-        }
-      >
-        {card.paid ? 'Улучшить' : 'Подписаться'}
-      </Button>
-    </DetailsModal>
-  );
+        {/* Кнопка */}
+        <Button
+          fullWidth
+          variant="contained"
+          color="primary"
+          sx={{
+            mt: "52px",
+            height: 56,
+            fontWeight: '600',
+            letterSpacing: '1px',
+            borderRadius: '16px',
+            fontSize: '18px',
+            backgroundColor: '#026850',
+            wordWwrap: "break-word",
+            textTransform: "none",
+            padding: "16px 0",
+            boxShadow: "-2px -2px 2px rgba(0, 0, 0, 0.25) inset",
+          }}
+          onClick={() => {
+            card.paid ? onClickUpdateCard(card._id)
+              : onClickBuyCard(card._id)
+          }
+          }
+        >
+          {card.paid ? 'Улучшить' : 'Подписаться'}
+        </Button>
+      </DetailsModal>
+
+    );
+
+  }
 };
 
