@@ -655,7 +655,8 @@ const App: React.FC = () => {
           }
           const jsonData = await response.json()
           console.log("json Cards:", jsonData)
-          setCardsList(jsonData)
+          const result = jsonData.map((card: any) => myCardsList.find(myCard => myCard.title === card.title) ? null : { ...card, paid: false }).filter((card: any) => card !== null)
+          setCardsList(result)
           // setData2(jsonData); // Устанавливаем полученные данные в состояние
           return jsonData
         } catch (err) {
@@ -686,7 +687,8 @@ const App: React.FC = () => {
           }
           const jsonData = await response.json()
           console.log("json Cards:", jsonData)
-          setCardsPartyList(jsonData)
+          const result = jsonData.map((card: any) => myCardsPartyList.find(myCard => myCard.title === card.title) ? null : { ...card, paid: false }).filter((card: any) => card !== null)
+          setCardsPartyList(result)
           // setData2(jsonData); // Устанавливаем полученные данные в состояние
           return jsonData
         } catch (err) {
@@ -706,22 +708,22 @@ const App: React.FC = () => {
     }
   }, [isOpen2])
 
-  useEffect(() => {
-    console.log('transform')
-    if (myCardsList && data2._id) {
-      console.log('transform2')
-      setCardsList(state => state.map(card => myCardsList.find(myCard => myCard.title === card.title) ? null : { ...card, paid: false }).filter(card => card !== null))
-    }
-  }, [myCardsList])
+  // useEffect(() => {
+  //   console.log('transform')
+  //   if (myCardsList && data2._id) {
+  //     console.log('transform2')
+  //     setCardsList(state => state.map(card => myCardsList.find(myCard => myCard.title === card.title) ? null : { ...card, paid: false }).filter(card => card !== null))
+  //   }
+  // }, [myCardsList])
 
 
-  useEffect(() => {
-    console.log('transform')
-    if (myCardsPartyList && data2._id) {
-      console.log('transform2')
-      setCardsPartyList(state => state.map(card => myCardsPartyList.find(myCard => myCard.title === card.title) ? null : { ...card, paid: false }).filter(card => card !== null))
-    }
-  }, [myCardsPartyList])
+  // useEffect(() => {
+  //   console.log('transform')
+  //   if (myCardsPartyList && data2._id) {
+  //     console.log('transform2')
+  //     // setCardsPartyList()
+  //   }
+  // }, [myCardsPartyList])
 
   return (
 
