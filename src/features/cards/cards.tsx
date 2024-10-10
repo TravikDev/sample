@@ -1,6 +1,6 @@
 import React from "react"
 import coinIcon from "@/assets/Coin.svg"
-import { CardDetailsModalProps, CardType } from "@/entities/cards/cards.dto"
+import { CardDetailsModalProps } from "@/entities/cards/cards.dto"
 import IconCoinBig from "@/assets/icons-react/CoinBig"
 import IconCoin from "@/assets/icons-react/Coin"
 import { Box, Typography, Divider } from "@mui/material"
