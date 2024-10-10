@@ -285,6 +285,8 @@ const App: React.FC = () => {
       const jsonData = await response.json()
       // console.log('ResultZ: ', jsonData)
       // console.log("json Cards:", jsonData)
+      setMyCardsList(state => state.filter(card => card._id === cardId))
+      setMyCardsPartyList(state => state.filter(card => card._id === cardId))
       setData2(jsonData); // Устанавливаем полученные данные в состояние
       return jsonData
       // const filteredData = jsonData.map((card: IUserCardType) => card.card)
