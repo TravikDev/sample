@@ -37,6 +37,12 @@ import { WelcomeModal } from "@/shared/ui/WelcomeModal"
 // @ts-ignore
 const userData = window.Telegram.WebApp.initDataUnsafe;
 
+// @ts-ignore
+window.Telegram.WebApp.ready(function () {
+  // @ts-ignore
+  window.Telegram.WebApp.expand();
+});
+
 type User = {
   _id: number
   idTelegram: number
@@ -375,11 +381,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
 
-    // @ts-ignore
-    window.Telegram.WebApp.ready(function () {
-      // @ts-ignore
-      window.Telegram.WebApp.expand();
-    });
+
 
     setUser(userProfile.idTelegram)
   }, [])
