@@ -36,7 +36,8 @@ enableMocking().then(() => {
                 <Provider store={store}>
                     {/* <ApiProvider api={apiSlice}> */}
                     <BrowserRouter basename={CONFIG.site.basePath}>
-                        <Router />
+                        { /* @ts-ignore */}
+                        {window?.Telegram.WebApp.platform === "Web" ? <div>Доступ запрещен!</div> : <Router />}
                     </BrowserRouter>
                     {/* </ApiProvider> */}
                 </Provider>
