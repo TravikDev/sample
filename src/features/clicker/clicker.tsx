@@ -36,7 +36,8 @@ import { WelcomeModal } from "@/shared/ui/WelcomeModal"
 
 // @ts-ignore
 const userData = window.Telegram.WebApp.initDataUnsafe;
-
+// @ts-ignore
+const platform = window?.Telegram.WebApp.platform
 // @ts-ignore
 window.Telegram.WebApp.ready(function () {
   // @ts-ignore
@@ -1234,6 +1235,7 @@ const App: React.FC = () => {
               {/* {JSON.stringify(welcomeSalary)} */}
               {/* {JSON.stringify(location)} */}
               {/* //TODO "" */}
+              {platform}
               {/* {JSON.stringify(referral)} */}
               {data2?.coins}
             </Typography>
