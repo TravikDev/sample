@@ -64,6 +64,7 @@ interface FloatNumber {
 export type ICard = {
   _id: number,
   title: string,
+  descriptionShort: string,
   description: string,
   level: number,
   salary: number,
@@ -95,6 +96,7 @@ export type ICard = {
 const defaultPartyCard = [{
   _id: 1,
   title: "NewCard",
+  descriptionShort: "short description",
   description: "description",
   level: 1,
   salary: 10,
@@ -112,6 +114,7 @@ const defaultMyPartyCard = [
   {
     _id: 1,
     title: "NewCard",
+    descriptionShort: "short description",
     description: "description",
     level: 1,
     salary: 10,

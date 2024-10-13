@@ -80,6 +80,11 @@ export const CardsList = ({ onSelectCard, cards }: IProps) => {
               <Typography
                 sx={{ fontSize: "12px", color: "#FFE881", marginBottom: "8px" }}
               >
+                {card.descriptionShort}
+              </Typography>
+              <Typography
+                sx={{ fontSize: "12px", color: "#FFE881", marginBottom: "8px" }}
+              >
                 lvl {card.level}
               </Typography>
               {card.paid && <IconCardPaid style={{ position: "absolute", right: 0, top: 0 }} />}
