@@ -97,7 +97,7 @@ export const FriendsList = () => {
 
 
 				{Array.isArray(refsList) && refsList.length > 0
-					? refsList.map(friend => (
+					? refsList.map((friend: { idTelegram: string, username: string }) => (
 						<>
 
 							<Box
@@ -140,7 +140,7 @@ export const FriendsList = () => {
 											<Avatar src={GiftBox} />
 											<Box>
 												<Typography sx={{ fontSize: 14, color: "white" }}>
-													{friend}
+													{friend.username}
 												</Typography>
 												{/* <img src={IconFriendUser} /> */}
 												<Box
