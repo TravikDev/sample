@@ -365,7 +365,19 @@ const App: React.FC = () => {
 
   // const [consoleLog, setConsoleLog] = useState('')
 
+
+
+
+  // USE EFFECT INIT
+
   useEffect(() => {
+
+    // @ts-ignore
+    window.Telegram.WebApp.ready(function () {
+      // @ts-ignore
+      window.Telegram.WebApp.expand();
+    });
+
     setUser(userProfile.idTelegram)
   }, [])
 

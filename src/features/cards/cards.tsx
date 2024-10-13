@@ -182,7 +182,7 @@ export const CardDetailsModal: React.FC<CardDetailsModalProps> = ({
               </Typography>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                  +{card?.rph}
+                  +{card?.salary}
                 </Typography>
                 <img src={coinIcon} alt="coin" style={{ width: 20, height: 20 }} />
               </Box>
