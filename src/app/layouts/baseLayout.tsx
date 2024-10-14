@@ -9,13 +9,20 @@ type PropsChildrenOnly = {
 // @ts-ignore
 const platform = window?.Telegram.WebApp.platform
 export const BaseLayout = ({ children }: PropsChildrenOnly) => {
-    if (platform === 'ios' || platform === 'android') {
-        return <>
-            {/* <TelegramLoginComponent /> */}
-            <Main>{children}</Main>
-            <Footer />
-        </>
-    } else {
-        <div><p style={{ color: 'white' }}>Игра доступна только для ios или android!</p></div>
-    }
+    // if (platform === 'ios' || platform === 'android') {
+    //     return <>
+    //         {/* <TelegramLoginComponent /> */}
+    //         <Main>{children}</Main>
+    //         <Footer />
+    //     </>
+    // } else {
+    //     <div><p style={{ color: 'white' }}>Игра доступна только для ios или android!</p></div>
+    // }
+
+    return <>
+        {/* <TelegramLoginComponent /> */}
+        <Main>{children}</Main>
+        <Footer />
+    </>
+
 }

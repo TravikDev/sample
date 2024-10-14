@@ -295,7 +295,7 @@ const App: React.FC = () => {
       // console.log("json Cards:", jsonData)
       setMyCardsList(state => state.filter(card => card._id !== cardId))
       setMyCardsPartyList(state => state.filter(card => card._id !== cardId))
-      setData2(jsonData); // Устанавливаем полученные данные в состояние
+      setData2(jsonData);
       return jsonData
       // const filteredData = jsonData.map((card: IUserCardType) => card.card)
       // setMyCardsList(filteredData)
@@ -381,9 +381,6 @@ const App: React.FC = () => {
   // USE EFFECT INIT
 
   useEffect(() => {
-
-
-
     setUser(userProfile.idTelegram)
   }, [])
 
@@ -417,7 +414,7 @@ const App: React.FC = () => {
 
         // // Установка данных пользователя и query_id в состояние
         // if (userData.user.id && userData.user.username) {
-        if (userProfile.idTelegram && userProfile.username) {
+        if (userProfile.idTelegram) {
 
           /* @ts-ignore */
           // setDataSuccess(true)
@@ -441,7 +438,7 @@ const App: React.FC = () => {
                   },
                   body: JSON.stringify({
                     idTelegram: (userProfile.idTelegram).toString() || "0",
-                    username: userProfile.username || 'Guest',
+                    username: userProfile?.username || 'Guest',
                   })
                 })
               if (!response.ok) {
@@ -486,7 +483,7 @@ const App: React.FC = () => {
                   },
                   body: JSON.stringify({
                     idTelegram: (userData.user.id).toString() || "0",
-                    username: userData.user.username || 'Guest',
+                    username: userData.user?.username || 'Guest',
                   })
                 })
               if (!response.ok) {
@@ -657,8 +654,7 @@ const App: React.FC = () => {
 
       /* @ts-ignore */
       // const res = result()
-
-      const response = fetchDataMyCards()
+      fetchDataMyCards()
     }
   }, [activeTab])
 
