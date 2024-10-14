@@ -105,41 +105,41 @@ export type ICard = {
 //   }
 
 
-const defaultPartyCard = [{
-  _id: 1,
-  title: "NewCard",
-  descriptionShort: "short description",
-  description: "description",
-  level: 1,
-  salary: 10,
-  rph: 1,
-  progress: 0,
-  urlPicture: "http://google.com",
-  price: 100,
-  dateCreation: "1",
-  upgradeCost: 0,
-  category: 'party',
-  paid: false
-}]
+// const defaultPartyCard = [{
+//   _id: 1,
+//   title: "NewCard",
+//   descriptionShort: "short description",
+//   description: "description",
+//   level: 1,
+//   salary: 10,
+//   rph: 1,
+//   progress: 0,
+//   urlPicture: "http://google.com",
+//   price: 100,
+//   dateCreation: "1",
+//   upgradeCost: 0,
+//   category: 'party',
+//   paid: false
+// }]
 
-const defaultMyPartyCard = [
-  {
-    _id: 1,
-    title: "NewCard",
-    descriptionShort: "short description",
-    description: "description",
-    level: 1,
-    salary: 10,
-    rph: 1,
-    progress: 0,
-    urlPicture: "http://google.com",
-    price: 100,
-    dateCreation: "1",
-    category: 'party',
-    upgradeCost: 0,
-    // paid: false,
-  },
-]
+// const defaultMyPartyCard = [
+//   {
+//     _id: 1,
+//     title: "NewCard",
+//     descriptionShort: "short description",
+//     description: "description",
+//     level: 1,
+//     salary: 10,
+//     rph: 1,
+//     progress: 0,
+//     urlPicture: "http://google.com",
+//     price: 100,
+//     dateCreation: "1",
+//     category: 'party',
+//     upgradeCost: 0,
+//     // paid: false,
+//   },
+// ]
 
 
 const defaultCategories = [
