@@ -33,7 +33,7 @@ export const CardsList = ({ onSelectCard, cards }: IProps) => {
         paddingBottom: "64px"
       }}
     >
-      {cards.map((card) => (
+      {Array.isArray(cards) && cards.length > 0 ? cards.map((card) => (
         <Box
           key={card._id}
           sx={{
@@ -77,11 +77,11 @@ export const CardsList = ({ onSelectCard, cards }: IProps) => {
               >
                 {card.title}
               </Typography>
-              <Typography
+              {card.descriptionShort && <Typography
                 sx={{ fontSize: "12px", color: "#FFE881", marginBottom: "8px" }}
               >
                 {card.descriptionShort}
-              </Typography>
+              </Typography>}
               <Typography
                 sx={{ fontSize: "12px", color: "#FFE881", marginBottom: "8px" }}
               >
@@ -111,7 +111,7 @@ export const CardsList = ({ onSelectCard, cards }: IProps) => {
                     paddingBottom: "3px",
                   }}
                 >
-                  {card.upgradeCost}
+                  {card.upgradeCost || card.price}
                 </Typography>
                 <IconCoin width={25} height={25} />
               </Box>
@@ -136,8 +136,9 @@ export const CardsList = ({ onSelectCard, cards }: IProps) => {
               </Box>
             </Box>
           </Box>
-        </Box>
-      ))}
+        </Box>))
+        : <Box sx={{ width: '100%', textAlign: 'center' }}>Карточки отсутствуют</Box>
+      }
     </Box>
   )
 }

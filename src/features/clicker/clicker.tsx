@@ -35,8 +35,13 @@ import { EnergyBar } from "@/shared/ui/EnergyLine"
 import { WelcomeModal } from "@/shared/ui/WelcomeModal"
 
 // @ts-ignore
-const userData = window.Telegram.WebApp.initDataUnsafe;
-
+// const userData = window.Telegram.WebApp.initDataUnsafe;
+const userData = {
+  user: {
+    id: "6646659616",
+    username: 'Guest'
+  },
+}
 
 // @ts-ignore
 window.Telegram.WebApp.ready(function () {
@@ -208,10 +213,10 @@ const App: React.FC = () => {
 
 
   const [cardsList, setCardsList] = useState<ICard[] | []>([])
-  const [cardsPartyList, setCardsPartyList] = useState(defaultPartyCard)
+  const [cardsPartyList, setCardsPartyList] = useState<ICard[] | []>([])
 
   const [myCardsList, setMyCardsList] = useState<ICard[] | []>([])
-  const [myCardsPartyList, setMyCardsPartyList] = useState(defaultMyPartyCard)
+  const [myCardsPartyList, setMyCardsPartyList] = useState<ICard[] | []>([])
 
   const [selectedCard, setSelectedCard] = useState<ICard>(cardsList[0])
 
@@ -294,11 +299,11 @@ const App: React.FC = () => {
       // console.log('ResultZ: ', jsonData)
       // console.log("json Cards:", jsonData)
 
-      setMyCardsList([])
-      setMyCardsPartyList([])
+      // setMyCardsList([])
+      // setMyCardsPartyList([])
 
-      setMyCardsList(state => state.filter(card => card._id === cardId))
-      setMyCardsPartyList(state => state.filter(card => card._id === cardId))
+      setCardsList(state => state.filter(card => card._id !== cardId))
+      setCardsPartyList(state => state.filter(card => card._id !== cardId))
       setData2(jsonData);
       return jsonData
       // const filteredData = jsonData.map((card: IUserCardType) => card.card)
@@ -324,8 +329,10 @@ const App: React.FC = () => {
       }
       const jsonData = await response.json()
       // console.log('ResultZ: ', jsonData)
-      // console.log("json Cards:", jsonData)
-      setData2(jsonData); // Устанавливаем полученные данные в состояние
+      console.log("json Cards:", jsonData)
+      setMyCardsList(state => state.map(card => card._id === selectedCard._id ? { ...jsonData.userCard.card, salary: jsonData.userCard.salary, upgradeCost: jsonData.userCard.upgradeCost, level: jsonData.userCard.level, } : card))
+      setMyCardsPartyList(state => state.map(card => card._id === selectedCard._id ? { ...jsonData.userCard.card, salary: jsonData.userCard.salary, upgradeCost: jsonData.userCard.upgradeCost, level: jsonData.userCard.level, } : card))
+      setData2({ ...jsonData.user }); // Устанавливаем полученные данные в состояние
       return jsonData
       // const filteredData = jsonData.map((card: IUserCardType) => card.card)
       // setMyCardsList(filteredData)
@@ -367,7 +374,7 @@ const App: React.FC = () => {
   // const [tg, setTg] = useState('')
 
   const userProfile = {
-    idTelegram: userData.user?.id,
+    idTelegram: (userData.user?.id).toString(),
     username: userData.user?.username,
   }
 
@@ -387,6 +394,10 @@ const App: React.FC = () => {
   useEffect(() => {
     setUser(userProfile.idTelegram)
   }, [])
+
+  useEffect(() => {
+    console.log('CARD LIST: ', cardsList, cardsPartyList, myCardsList, myCardsPartyList)
+  }, [cardsList, cardsPartyList])
 
   useEffect(() => {
     // Получение данных из Telegram WebApp API
@@ -689,6 +700,8 @@ const App: React.FC = () => {
       const response = fetchData()
       const response2 = fetchDataMyCards()
 
+      setActiveTab({ id: 1, title: "Новые" })
+
       console.log("cards:", response)
       console.log("my cards:", response2)
     }
@@ -720,6 +733,8 @@ const App: React.FC = () => {
 
       const response = fetchData()
       const response2 = fetchDataMyPartyCards()
+
+      setActiveTab({ id: 1, title: "Новые" })
 
       console.log("cards:", response)
       console.log("my cards:", response2)
