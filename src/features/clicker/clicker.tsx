@@ -35,13 +35,13 @@ import { EnergyBar } from "@/shared/ui/EnergyLine"
 import { WelcomeModal } from "@/shared/ui/WelcomeModal"
 
 // @ts-ignore
-// const userData = window.Telegram.WebApp.initDataUnsafe;
-const userData = {
-  user: {
-    id: "6646659616",
-    username: 'Guest'
-  },
-}
+const userData = window.Telegram.WebApp.initDataUnsafe;
+// const userData = {
+//   user: {
+//     id: "6646659616",
+//     username: 'Guest'
+//   },
+// }
 
 // @ts-ignore
 window.Telegram.WebApp.ready(function () {
