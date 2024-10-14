@@ -179,11 +179,11 @@ const App: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpen2, setIsOpen2] = useState(false)
   const [isOpen3] = useState(false)
-  const [progress, setProgress] = React.useState(0)
+  // const [progress, setProgress] = React.useState(0)
   const [socket, setSocket] = useState<Socket | null>(null)
   const [socketId, setSocketId] = useState<string | undefined>("")
-  const [isConnected, setIsConnected] = useState(false)
-  const [thresholdMessage, setThresholdMessage] = useState("")
+  // const [isConnected, setIsConnected] = useState(false)
+  // const [thresholdMessage, setThresholdMessage] = useState("")
 
 
   const [clicks, setClicks] = useState(0)
@@ -231,7 +231,7 @@ const App: React.FC = () => {
   const [error2, setError2] = useState<unknown | null>(null)
 
   console.log(loading, error2)
-  console.log(progress, isConnected, thresholdMessage,)
+  // console.log(progress, isConnected, thresholdMessage,)
 
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -416,7 +416,7 @@ const App: React.FC = () => {
 
 
 
-    if (user) {
+    if (user && userProfile.idTelegram) {
       if (match) {
         const startParamNumber = match[1]; // Извлекаем только число
         console.log(`Число из tgWebAppStartParam: ${startParamNumber}`);
@@ -429,54 +429,53 @@ const App: React.FC = () => {
 
         // // Установка данных пользователя и query_id в состояние
         // if (userData.user.id && userData.user.username) {
-        if (userProfile.idTelegram) {
 
-          /* @ts-ignore */
-          // setDataSuccess(true)
+        /* @ts-ignore */
+        // setDataSuccess(true)
 
-          let refExist = sessionStorage.getItem('ref');
-          if (!refExist) {
-            sessionStorage.setItem('ref', userData.start_param);
-            refExist = userData.start_param
-          }
-
-          // ---------------------- REGISTER!!!!
-
-          const fetchData = async () => {
-            try {
-              const response = await fetch(`https://paradoxlive.pro/users/update/${refExist}`,
-                // const response = await fetch(`https://paradoxlive.pro/users/update/${(userData.user.id).toString()}`,
-                {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json', // Установите правильный Content-Type
-                  },
-                  body: JSON.stringify({
-                    idTelegram: (userProfile.idTelegram).toString() || "0",
-                    username: userProfile?.username || 'Guest',
-                  })
-                })
-              if (!response.ok) {
-                throw new Error("Network response was not ok")
-              }
-              const jsonData = await response.json()
-              console.log(jsonData)
-              setData2(jsonData.user) // Устанавливаем полученные данные в состояние
-              setWelcomeSalary(jsonData.salary)
-              setProgress(jsonData.result?.energy)
-
-            } catch (err) {
-              setError2(err) // Устанавливаем ошибку в случае неудачи
-            } finally {
-              setLoading(false) // Отключаем индикатор загрузки
-            }
-          }
-
-          fetchData()
-
-          setUser(userData.user.id)
-
+        let refExist = sessionStorage.getItem('ref');
+        if (!refExist) {
+          sessionStorage.setItem('ref', userData.start_param);
+          refExist = userData.start_param
         }
+
+        // ---------------------- REGISTER!!!!
+
+        const fetchData = async () => {
+          try {
+            const response = await fetch(`https://paradoxlive.pro/users/update/${refExist}`,
+              // const response = await fetch(`https://paradoxlive.pro/users/update/${(userData.user.id).toString()}`,
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json', // Установите правильный Content-Type
+                },
+                body: JSON.stringify({
+                  idTelegram: (userProfile.idTelegram).toString() || "0",
+                  username: userProfile?.username || 'Guest',
+                })
+              })
+            if (!response.ok) {
+              throw new Error("Network response was not ok")
+            }
+            const jsonData = await response.json()
+            console.log(jsonData)
+            setData2(jsonData.user) // Устанавливаем полученные данные в состояние
+            setWelcomeSalary(jsonData.salary)
+            // setProgress(jsonData.result?.energy)
+
+          } catch (err) {
+            setError2(err) // Устанавливаем ошибку в случае неудачи
+          } finally {
+            setLoading(false) // Отключаем индикатор загрузки
+          }
+        }
+
+        fetchData()
+
+        setUser(userData.user.id)
+
+        // }
 
 
       } else {
@@ -508,7 +507,7 @@ const App: React.FC = () => {
               console.log(jsonData)
               setData2(jsonData.user) // Устанавливаем полученные данные в состояние
               setWelcomeSalary(jsonData.salary)
-              setProgress(jsonData.result?.energy)
+              // setProgress(jsonData.result?.energy)
 
             } catch (err) {
               setError2(err) // Устанавливаем ошибку в случае неудачи
@@ -604,13 +603,13 @@ const App: React.FC = () => {
       newSocket.on("connect", () => {
         console.log("Connected to server:", newSocket.id)
         setSocketId(newSocket.id)
-        setIsConnected(newSocket.connected)
+        // setIsConnected(newSocket.connected)
       })
 
       newSocket.on("disconnect", () => {
         console.log("Disconnected from server")
         setSocketId("")
-        setIsConnected(false)
+        // setIsConnected(false)
       })
 
       newSocket.on("buttonPressAck", (data) => {
@@ -620,9 +619,9 @@ const App: React.FC = () => {
       })
 
       newSocket.on("thresholdReached", (data) => {
-        setThresholdMessage(
-          `Threshold reached! Total presses: ${data.pressCount}`
-        )
+        // setThresholdMessage(
+        //   `Threshold reached! Total presses: ${data.pressCount}`
+        // )
       })
 
       return () => {
@@ -670,7 +669,9 @@ const App: React.FC = () => {
       /* @ts-ignore */
       // const res = result()
       fetchDataMyCards()
+      fetchDataMyPartyCards()
     }
+
   }, [activeTab])
 
 
