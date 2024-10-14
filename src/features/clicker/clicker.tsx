@@ -293,10 +293,10 @@ const App: React.FC = () => {
       const jsonData = await response.json()
       // console.log('ResultZ: ', jsonData)
       // console.log("json Cards:", jsonData)
-      fetchDataMyCards()
-      fetchDataMyPartyCards()
-      setMyCardsList(state => state.filter(card => card._id !== cardId))
-      setMyCardsPartyList(state => state.filter(card => card._id !== cardId))
+      setMyCardsList([])
+      setMyCardsPartyList([])
+      // setMyCardsList(state => state.filter(card => card._id !== cardId))
+      // setMyCardsPartyList(state => state.filter(card => card._id !== cardId))
       setData2(jsonData);
       return jsonData
       // const filteredData = jsonData.map((card: IUserCardType) => card.card)
