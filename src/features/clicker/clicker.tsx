@@ -293,10 +293,12 @@ const App: React.FC = () => {
       const jsonData = await response.json()
       // console.log('ResultZ: ', jsonData)
       // console.log("json Cards:", jsonData)
+
       setMyCardsList([])
       setMyCardsPartyList([])
-      // setMyCardsList(state => state.filter(card => card._id !== cardId))
-      // setMyCardsPartyList(state => state.filter(card => card._id !== cardId))
+
+      setMyCardsList(state => state.filter(card => card._id === cardId))
+      setMyCardsPartyList(state => state.filter(card => card._id === cardId))
       setData2(jsonData);
       return jsonData
       // const filteredData = jsonData.map((card: IUserCardType) => card.card)
@@ -468,7 +470,7 @@ const App: React.FC = () => {
 
       } else {
 
-        if (userProfile.idTelegram && userProfile.username) {
+        if (userProfile.idTelegram) {
 
           /* @ts-ignore */
           // setDataSuccess(true)
