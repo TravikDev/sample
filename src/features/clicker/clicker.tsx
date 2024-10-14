@@ -618,11 +618,11 @@ const App: React.FC = () => {
         setData2((state) => ({ ...state, coins, energy }))
       })
 
-      newSocket.on("thresholdReached", (data) => {
-        // setThresholdMessage(
-        //   `Threshold reached! Total presses: ${data.pressCount}`
-        // )
-      })
+      // newSocket.on("thresholdReached", (data) => {
+      //   // setThresholdMessage(
+      //   //   `Threshold reached! Total presses: ${data.pressCount}`
+      //   // )
+      // })
 
       return () => {
         newSocket.close()
