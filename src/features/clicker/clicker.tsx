@@ -34,18 +34,19 @@ import ImgStar from "@/assets/Star_img.png"
 import { EnergyBar } from "@/shared/ui/EnergyLine"
 import { WelcomeModal } from "@/shared/ui/WelcomeModal"
 
+console.log('GG: ', import.meta.env.VITE_API_URL)
 // @ts-ignore
 const userData = window.Telegram.WebApp.initDataUnsafe;
 // const userData = {
 //   user: {
 //     id: "6646659616",
-//     username: 'Guest'
+//     username: 'travikvlad'
 //   },
 // }
 
 // @ts-ignore
 window.Telegram.WebApp.ready(function () {
-  // @ts-ignore
+  // @ts-ignoreW
   window.Telegram.WebApp.expand();
 });
 
@@ -83,64 +84,13 @@ export type ICard = {
   rph: number,
   progress: number,
   urlPicture: string,
+  urlUser: string,
+  urlUserTitle: string,
   price: number,
   dateCreation: string,
   upgradeCost: number,
   paid?: boolean
 }
-
-// const defaultMyCard = {
-//     _id: 1,
-//     title: "NewCard",
-//     description: "description",
-//     level: 1,
-//     salary: 10,
-//     rph: 1,
-//     progress: 0,
-//     urlPicture: "http://google.com",
-//     price: 100,
-//     dateCreation: "1",
-//     upgradeCost: 0,
-//     // paid: false,
-//   }
-
-
-// const defaultPartyCard = [{
-//   _id: 1,
-//   title: "NewCard",
-//   descriptionShort: "short description",
-//   description: "description",
-//   level: 1,
-//   salary: 10,
-//   rph: 1,
-//   progress: 0,
-//   urlPicture: "http://google.com",
-//   price: 100,
-//   dateCreation: "1",
-//   upgradeCost: 0,
-//   category: 'party',
-//   paid: false
-// }]
-
-// const defaultMyPartyCard = [
-//   {
-//     _id: 1,
-//     title: "NewCard",
-//     descriptionShort: "short description",
-//     description: "description",
-//     level: 1,
-//     salary: 10,
-//     rph: 1,
-//     progress: 0,
-//     urlPicture: "http://google.com",
-//     price: 100,
-//     dateCreation: "1",
-//     category: 'party',
-//     upgradeCost: 0,
-//     // paid: false,
-//   },
-// ]
-
 
 const defaultCategories = [
   { id: 1, title: "Новые" },
@@ -167,28 +117,16 @@ const App: React.FC = () => {
 
   const location = useLocation();
 
-  console.log('LOCATION: ', location)
-  // const queryParams = new URLSearchParams(location);
-  // console.log('QUERY: ', JSON.stringify(queryParams))
-
-
-  // const userTelegramId = queryParams.get('userId');
-
   const dispatch = useDispatch()
 
   const [isOpen, setIsOpen] = useState(false)
   const [isOpen2, setIsOpen2] = useState(false)
   const [isOpen3] = useState(false)
-  // const [progress, setProgress] = React.useState(0)
   const [socket, setSocket] = useState<Socket | null>(null)
   const [socketId, setSocketId] = useState<string | undefined>("")
-  // const [isConnected, setIsConnected] = useState(false)
-  // const [thresholdMessage, setThresholdMessage] = useState("")
-
 
   const [clicks, setClicks] = useState(0)
   const [floatNumbers, setFloatNumbers] = useState<FloatNumber[]>([])
-  // const [drawerBloggersOpen, setDrawerBloggersOpen] = useState(false)
   const [showShare, setShowShare] = useState(false)
   const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false);
 
@@ -226,13 +164,12 @@ const App: React.FC = () => {
 
   const [data2, setData2] = useState<User>(defaultData)
 
-  // const [dataSuccess, setDataSuccess] = useState(false)
   const [loading, setLoading] = useState(true)
   const [error2, setError2] = useState<unknown | null>(null)
 
-  console.log(loading, error2)
-  // console.log(progress, isConnected, thresholdMessage,)
+  const [isUserUpdated, setIsUserUpdated] = useState(false)
 
+  console.log(loading, error2)
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
@@ -246,7 +183,6 @@ const App: React.FC = () => {
 
     let newEnergy = data2.energy - 1;
     if (newEnergy < 0) newEnergy = 0;
-    // setData2((prev) => ({ ...prev, energy: newEnergy }));
 
     if (!data2.energy) z = 0;
     const newFloatNumber: FloatNumber = {
@@ -266,28 +202,13 @@ const App: React.FC = () => {
 
   };
 
-  const handleButtonPress = () => {
-    if (socket && socket.connected) {
-      socket.emit(
-        "buttonPress",
-        { message: "Button pressed!", id: user },
-        socketId
-      )
-    } else {
-      console.log("Socket is not connected")
-    }
-
-    /* @ts-ignore */
-    handleClick(event)
-  }
-
 
   const onClickBuyCard = async (cardId: number) => {
 
     const body = JSON.stringify({ userId: data2._id, cardId })
 
     try {
-      const response = await fetch("https://paradoxlive.pro/user-cards/assign", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/user-cards/assign`, {
         method: 'POST', body, headers: {
           "Content-Type": "application/json",
         }
@@ -296,19 +217,12 @@ const App: React.FC = () => {
         throw new Error("Network response was not ok")
       }
       const jsonData = await response.json()
-      // console.log('ResultZ: ', jsonData)
-      // console.log("json Cards:", jsonData)
-
-      // setMyCardsList([])
-      // setMyCardsPartyList([])
 
       setCardsList(state => state.filter(card => card._id !== cardId))
       setCardsPartyList(state => state.filter(card => card._id !== cardId))
       setData2(jsonData);
+      handleClearAndCloseModal()
       return jsonData
-      // const filteredData = jsonData.map((card: IUserCardType) => card.card)
-      // setMyCardsList(filteredData)
-      // return jsonData
     } catch (err) {
       setError2(err)
     } finally {
@@ -318,25 +232,21 @@ const App: React.FC = () => {
 
   const onClickUpdateCard = async (cardId: number) => {
 
-    // const body = JSON.stringify({ userId: data2._id, cardId })
-
     try {
-      const response = await fetch(`https://paradoxlive.pro/user-cards/upgrade/${data2._id}/${cardId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/user-cards/upgrade/${data2._id}/${cardId}`, {
         method: 'POST',
       })
       if (!response.ok) {
         throw new Error("Network response was not ok")
       }
       const jsonData = await response.json()
-      // console.log('ResultZ: ', jsonData)
-      console.log("json Cards:", jsonData)
-      setMyCardsList(state => state.map(card => card._id === selectedCard._id ? { ...jsonData.userCard.card, salary: jsonData.userCard.salary, upgradeCost: jsonData.userCard.upgradeCost, level: jsonData.userCard.level, } : card))
-      setMyCardsPartyList(state => state.map(card => card._id === selectedCard._id ? { ...jsonData.userCard.card, salary: jsonData.userCard.salary, upgradeCost: jsonData.userCard.upgradeCost, level: jsonData.userCard.level, } : card))
-      setData2({ ...jsonData.user }); // Устанавливаем полученные данные в состояние
+
+      setMyCardsList(state => state.map(card => card._id === selectedCard._id ? { ...jsonData.userCard.card, salary: jsonData.userCard.salary, upgradeCost: jsonData.userCard.upgradeCost, level: jsonData.userCard.level, paid: true } : card))
+      setMyCardsPartyList(state => state.map(card => card._id === selectedCard._id ? { ...jsonData.userCard.card, salary: jsonData.userCard.salary, upgradeCost: jsonData.userCard.upgradeCost, level: jsonData.userCard.level, paid: true } : card))
+      console.log('CHECK?: ', jsonData)
+      setSelectedCard({ ...jsonData.userCard, paid: true, description: jsonData.userCard.description, _id: jsonData.userCard.card._id })
+      setData2({ ...jsonData.user });
       return jsonData
-      // const filteredData = jsonData.map((card: IUserCardType) => card.card)
-      // setMyCardsList(filteredData)
-      // return jsonData
     } catch (err) {
       setError2(err)
     } finally {
@@ -346,6 +256,7 @@ const App: React.FC = () => {
 
 
   const handleShareCard = (card: ICard) => {
+    console.log('CARD?: ', card)
     setSelectedCard(card)
     setShowShare(true)
   }
@@ -356,60 +267,34 @@ const App: React.FC = () => {
 
   const handleCloseWelcomeModal = () => {
     setIsWelcomeModalOpen(false);
-    sessionStorage.setItem("welcomeModalShown", "true"); // Используем sessionStorage вместо localStorage
+    sessionStorage.setItem("welcomeModalShown", "true");
+    console.log('Session Storage: ', sessionStorage.getItem("welcomeModalShown"))
   };
 
   // ------------------- useEffects
 
-  // const [user, setUser] = useState(null);
-  // const [queryId, setQueryId] = useState(null);
-
-  // const [webApp, setWebApp] = useState('')
-
-  // console.log(webApp)
   const [user, setUser] = useState(null)
-  console.log(user)
-  // const [referral, setReferral] = useState('')
-
-  // const [tg, setTg] = useState('')
 
   const userProfile = {
     idTelegram: (userData.user?.id).toString(),
     username: userData.user?.username,
   }
 
-  // @ts-ignore
-  // window.Telegram.WebApp.showAlert(userProfile);
-
-
-  const [userProf] = useState(userProfile)
-
-  // const [consoleLog, setConsoleLog] = useState('')
-
-
-
-
   // USE EFFECT INIT
 
   useEffect(() => {
+    /* @ts-ignore */
     setUser(userProfile.idTelegram)
   }, [])
 
   useEffect(() => {
-    console.log('CARD LIST: ', cardsList, cardsPartyList, myCardsList, myCardsPartyList)
+    // console.log('CARD LIST: ', cardsList, cardsPartyList, myCardsList, myCardsPartyList)
   }, [cardsList, cardsPartyList])
 
   useEffect(() => {
-    // Получение данных из Telegram WebApp API
-    /* @ts-ignore */
-    // const userData = { user: { id: "1" } }
 
-    // setTg(tg)
+    console.log('SECOND')
 
-    console.log('USER DATA: ', userData)
-    // setWebApp(JSON.stringify(userData.user));
-
-    // setConsoleLog(JSON.stringify(userData))
     // ?tgWebAppStartParam=3334
     const regex = /[\?&]tgWebAppStartParam=(\d+)/; // Регулярное выражение для поиска числа
     const match = location.search.match(regex); // Ищем совпадение в строке параметров
@@ -418,24 +303,17 @@ const App: React.FC = () => {
 
     if (user && userProfile.idTelegram) {
       if (match) {
-        const startParamNumber = match[1]; // Извлекаем только число
-        console.log(`Число из tgWebAppStartParam: ${startParamNumber}`);
+        // const startParamNumber = match[1]; // Извлекаем только число
+        // console.log(`Число из tgWebAppStartParam: ${startParamNumber}`);
 
         // setReferral(startParamNumber)
-        // Set Referral 
 
-        /* @ts-ignore */
-        // const queryIdData = tg?.initDataUnsafe?.query_id;
-
-        // // Установка данных пользователя и query_id в состояние
-        // if (userData.user.id && userData.user.username) {
-
-        /* @ts-ignore */
-        // setDataSuccess(true)
 
         let refExist = sessionStorage.getItem('ref');
         if (!refExist) {
+          /* @ts-ignore */
           sessionStorage.setItem('ref', userData.start_param);
+          /* @ts-ignore */
           refExist = userData.start_param
         }
 
@@ -443,12 +321,11 @@ const App: React.FC = () => {
 
         const fetchData = async () => {
           try {
-            const response = await fetch(`https://paradoxlive.pro/users/update/${refExist}`,
-              // const response = await fetch(`https://paradoxlive.pro/users/update/${(userData.user.id).toString()}`,
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/users/update/${refExist}`,
               {
                 method: 'POST',
                 headers: {
-                  'Content-Type': 'application/json', // Установите правильный Content-Type
+                  'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
                   idTelegram: (userProfile.idTelegram).toString() || "0",
@@ -459,20 +336,23 @@ const App: React.FC = () => {
               throw new Error("Network response was not ok")
             }
             const jsonData = await response.json()
-            console.log(jsonData)
-            setData2(jsonData.user) // Устанавливаем полученные данные в состояние
+            // console.log(jsonData)
+            setData2(jsonData.user)
             setWelcomeSalary(jsonData.salary)
             // setProgress(jsonData.result?.energy)
 
+            setIsUserUpdated(true)
+
+
           } catch (err) {
-            setError2(err) // Устанавливаем ошибку в случае неудачи
+            setError2(err)
           } finally {
-            setLoading(false) // Отключаем индикатор загрузки
+            setLoading(false)
           }
         }
 
         fetchData()
-
+        /* @ts-ignore */
         setUser(userData.user.id)
 
         // }
@@ -482,18 +362,15 @@ const App: React.FC = () => {
 
         if (userProfile.idTelegram) {
 
-          /* @ts-ignore */
-          // setDataSuccess(true)
-
           // ---------------------- REGISTER!!!!
 
           const fetchData = async () => {
             try {
-              const response = await fetch(`https://paradoxlive.pro/users/update`,
+              const response = await fetch(`${import.meta.env.VITE_API_URL}/users/update`,
                 {
                   method: 'POST',
                   headers: {
-                    'Content-Type': 'application/json', // Установите правильный Content-Type
+                    'Content-Type': 'application/json',
                   },
                   body: JSON.stringify({
                     idTelegram: (userData.user.id).toString() || "0",
@@ -504,95 +381,97 @@ const App: React.FC = () => {
                 throw new Error("Network response was not ok")
               }
               const jsonData = await response.json()
-              console.log(jsonData)
-              setData2(jsonData.user) // Устанавливаем полученные данные в состояние
+              setData2(jsonData.user)
               setWelcomeSalary(jsonData.salary)
-              // setProgress(jsonData.result?.energy)
+
+              setIsUserUpdated(true)
+
 
             } catch (err) {
-              setError2(err) // Устанавливаем ошибку в случае неудачи
+              setError2(err)
             } finally {
-              setLoading(false) // Отключаем индикатор загрузки
+              setLoading(false)
             }
           }
 
           fetchData()
-
+          /* @ts-ignore */
           setUser(userData.user.id)
 
         }
 
-        console.log('tgWebAppStartParam не найден');
+
       }
-      // if (queryIdData) {
-      //   setQueryId(queryIdData);
-      // }
 
     }
-    // // При желании можно также инициализировать Telegram WebApp
-    // tg.ready();  // Сообщаем Telegram, что приложение готово к работе
-  }, [user]);
 
-  // useEffect(() => {
+
+  }, [user]);
 
   // ------------------------------ fetch
 
   const fetchDataMyCards = async () => {
     try {
-      const response = await fetch(`https://paradoxlive.pro/user-cards/category/${data2._id}/bloggers`)
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/user-cards/category/${data2._id}/bloggers`)
       if (!response.ok) {
         throw new Error("Network response was not ok")
       }
       const jsonData = await response.json()
-      console.log("json Cards:", jsonData)
       const filteredData = jsonData.map((card: IUserCardType) => ({ ...card.card, salary: card.salary, level: card.level, upgradeCost: card.upgradeCost }))
       setMyCardsList(filteredData.map((data: any) => ({ ...data, paid: true })))
       return jsonData
-      // setData2(jsonData); // Устанавливаем полученные данные в состояние
     } catch (err) {
-      setError2(err) // Устанавливаем ошибку в случае неудачи
+      setError2(err)
     } finally {
-      setLoading(false) // Отключаем индикатор загрузки
+      setLoading(false)
     }
   }
 
 
   const fetchDataMyPartyCards = async () => {
     try {
-      const response = await fetch(`https://paradoxlive.pro/user-cards/category/${data2._id}/party`)
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/user-cards/category/${data2._id}/party`)
       if (!response.ok) {
         throw new Error("Network response was not ok")
       }
       const jsonData = await response.json()
-      console.log("json Cards:", jsonData)
       const filteredData = jsonData.map((card: IUserCardType) => ({ ...card.card, salary: card.salary, level: card.level, upgradeCost: card.upgradeCost }))
       setMyCardsPartyList(filteredData.map((data: any) => ({ ...data, paid: true })))
       return jsonData
-      // setData2(jsonData); // Устанавливаем полученные данные в состояние
     } catch (err) {
-      setError2(err) // Устанавливаем ошибку в случае неудачи
+      setError2(err)
     } finally {
-      setLoading(false) // Отключаем индикатор загрузки
+      setLoading(false)
     }
   }
 
 
-  // }, [user])
+  const handleButtonPress = () => {
+    console.log('SOCKET: ', socket)
+    if (socket && socket.connected) {
+      socket.emit(
+        "buttonPress",
+        { message: "Button pressed!", id: user },
+        socketId
+      )
+    } else {
+    }
+
+    /* @ts-ignore */
+    handleClick(event)
+  }
 
 
   useEffect(() => {
 
-    if (user && user !== "") {
-
-      // INIT
+    if (user && user !== "" && isUserUpdated) {
 
 
-
-
+      console.log('FIRST')
       // SOCKETS
 
 
-      const newSocket = io("https://paradoxlive.pro/", {
+      const newSocket = io(`${import.meta.env.VITE_API_URL}`, {
         transports: ["websocket"],
         autoConnect: true,
         query: { userId: user }
@@ -603,13 +482,11 @@ const App: React.FC = () => {
       newSocket.on("connect", () => {
         console.log("Connected to server:", newSocket.id)
         setSocketId(newSocket.id)
-        // setIsConnected(newSocket.connected)
       })
 
       newSocket.on("disconnect", () => {
         console.log("Disconnected from server")
         setSocketId("")
-        // setIsConnected(false)
       })
 
       newSocket.on("buttonPressAck", (data) => {
@@ -618,56 +495,23 @@ const App: React.FC = () => {
         setData2((state) => ({ ...state, coins, energy }))
       })
 
-      // newSocket.on("thresholdReached", (data) => {
-      //   // setThresholdMessage(
-      //   //   `Threshold reached! Total presses: ${data.pressCount}`
-      //   // )
-      // })
 
       return () => {
         newSocket.close()
       }
 
     }
-  }, [user])
+  }, [isUserUpdated])
 
-
-  // useEffect(() => {
-
-  //   const welcomeModalShown = sessionStorage.getItem("welcomeModalShown");
-  //   if (!welcomeModalShown) {
-
-  //     if (user) {
-  //       const fetchData = async () => {
-  //         try {
-  //           const response = await fetch(`https://paradoxlive.pro/users/update/${data2._id}`, { method: 'POST' })
-  //           if (!response.ok) {
-  //             throw new Error("Network response was not ok")
-  //           }
-  //           const jsonData = await response.json()
-  //           console.log(jsonData)
-  //           setWelcomeSalary(jsonData)
-
-  //         } catch (err) {
-  //           setError2(err)
-  //         }
-  //       }
-
-  //       fetchData()
-  //     }
-  //   }
-  // }, [user]);
 
   useEffect(() => {
-    if (welcomeSalary) setIsWelcomeModalOpen(true);
+    if (+welcomeSalary > 0) setIsWelcomeModalOpen(true);
   }, [welcomeSalary])
 
 
   useEffect(() => {
     if (activeTab.id === 2) {
 
-      /* @ts-ignore */
-      // const res = result()
       fetchDataMyCards()
       fetchDataMyPartyCards()
     }
@@ -679,32 +523,25 @@ const App: React.FC = () => {
     if (isOpen === true) {
       const fetchData = async () => {
         try {
-          const response = await fetch(`https://paradoxlive.pro/cards/category/bloggers/${data2._id}`)
+          const response = await fetch(`${import.meta.env.VITE_API_URL}/cards/category/bloggers/${data2._id}`)
           if (!response.ok) {
             throw new Error("Network response was not ok")
           }
           const jsonData = await response.json()
-          console.log("json Cards:", jsonData)
-          // const result = jsonData.map((card: any) => myCardsList.find(myCard => myCard.title === card.title) ? null : { ...card, paid: false }).filter((card: any) => card !== null)
           setCardsList(jsonData)
-          // setData2(jsonData); // Устанавливаем полученные данные в состояние
           return jsonData
         } catch (err) {
-          setError2(err) // Устанавливаем ошибку в случае неудачи
+          setError2(err)
         } finally {
-          setLoading(false) // Отключаем индикатор загрузки
+          setLoading(false)
         }
       }
-      /* @ts-ignore */
-      // const res = result()
 
-      const response = fetchData()
-      const response2 = fetchDataMyCards()
+      fetchData()
+      fetchDataMyCards()
 
       setActiveTab({ id: 1, title: "Новые" })
 
-      console.log("cards:", response)
-      console.log("my cards:", response2)
     }
   }, [isOpen])
 
@@ -713,55 +550,33 @@ const App: React.FC = () => {
     if (isOpen2 === true) {
       const fetchData = async () => {
         try {
-          const response = await fetch(`https://paradoxlive.pro/cards/category/party/${data2._id}`)
+          const response = await fetch(`${import.meta.env.VITE_API_URL}/cards/category/party/${data2._id}`)
           if (!response.ok) {
             throw new Error("Network response was not ok")
           }
           const jsonData = await response.json()
-          console.log("json Cards:", jsonData)
-          // const result = jsonData.map((card: any) => myCardsPartyList.find(myCard => myCard.title === card.title) ? null : { ...card, paid: false }).filter((card: any) => card !== null)
           setCardsPartyList(jsonData)
-          // setData2(jsonData); // Устанавливаем полученные данные в состояние
           return jsonData
         } catch (err) {
-          setError2(err) // Устанавливаем ошибку в случае неудачи
+          setError2(err)
         } finally {
-          setLoading(false) // Отключаем индикатор загрузки
+          setLoading(false)
         }
       }
-      /* @ts-ignore */
-      // const res = result()
 
-      const response = fetchData()
-      const response2 = fetchDataMyPartyCards()
+      fetchData()
+      fetchDataMyPartyCards()
 
       setActiveTab({ id: 1, title: "Новые" })
 
-      console.log("cards:", response)
-      console.log("my cards:", response2)
     }
   }, [isOpen2])
 
-  // useEffect(() => {
-  //   console.log('transform')
-  //   if (myCardsList && data2._id) {
-  //     console.log('transform2')
-  //     setCardsList(state => state.map(card => myCardsList.find(myCard => myCard.title === card.title) ? null : { ...card, paid: false }).filter(card => card !== null))
-  //   }
-  // }, [myCardsList])
-
-
-  // useEffect(() => {
-  //   console.log('transform')
-  //   if (myCardsPartyList && data2._id) {
-  //     console.log('transform2')
-  //     // setCardsPartyList()
-  //   }
-  // }, [myCardsPartyList])
 
   return (
 
     <article
+      className="main-bg"
       style={{ position: "relative", height: "100%", overflow: "hidden" }}
     >
 
@@ -772,7 +587,6 @@ const App: React.FC = () => {
         ></div>
       )}
 
-      {/* onClose - собирать монеты */}
       <WelcomeModal
         isView={isWelcomeModalOpen}
         onClose={handleCloseWelcomeModal}
@@ -894,6 +708,7 @@ const App: React.FC = () => {
             <CardsList
               onSelectCard={handleShareCard}
               cards={activeTab.id === 1 ? cardsList : myCardsList}
+              isMyCards={activeTab.id === 1 ? false : true}
               userCoins={data2.coins}
               userSalary={data2.salary}
             />
@@ -1016,6 +831,7 @@ const App: React.FC = () => {
             <CardsList
               onSelectCard={handleShareCard}
               cards={activeTab.id === 1 ? cardsPartyList : myCardsPartyList}
+              isMyCards={activeTab.id === 1 ? false : true}
               userCoins={data2.coins}
               userSalary={data2.salary}
             />
@@ -1085,7 +901,6 @@ const App: React.FC = () => {
                     }}
                   >
                     <img src={ImgAvatar} style={{ width: 40, height: 40 }} />
-                    {/* <ImgAvatar /> */}
                     <Box
                       sx={{ display: "flex", alignItems: "center", gap: "4px" }}
                     >
@@ -1161,8 +976,6 @@ const App: React.FC = () => {
                     </Box>
                   </Box>
                 </Box>
-                {/* </Button> */}
-                {/* </Link> */}
               </Box>
             </Box>
           </Container>
@@ -1184,9 +997,6 @@ const App: React.FC = () => {
               gap: "10px",
               justifyContent: "space-between",
               width: "100%",
-              // '@media (max-width: 424px)': {
-              //   paddinLeft: "0px",
-              // }
             }}
           >
             <Box
@@ -1197,7 +1007,6 @@ const App: React.FC = () => {
             </Box>
             <Box
               sx={{ zIndex: 50, position: "relative" }}
-              // onClick={() => setDrawerBloggersOpen(!drawerBloggersOpen)}
               onClick={toggleSlider}
             >
               <CustomButton iconPath={blogerIcon}>Блогеры</CustomButton>
@@ -1220,7 +1029,6 @@ const App: React.FC = () => {
             position: "relative",
           }}
         >
-          {/* <Divider sx={{ color: 'white' }} /> */}
 
           <Box
             sx={{
@@ -1231,27 +1039,14 @@ const App: React.FC = () => {
               justifyContent: "center",
             }}
           >
-            {/* <IconCoinBig  /> */}
-
-            {/* <Box sx={{ color: 'white' }}>{JSON.stringify(userTelegramId)} {JSON.stringify(data2)} {'GG'}</Box> */}
 
             <img src={CoinBig} />
             <Typography
               sx={{
                 fontSize: "40px",
                 fontWeight: "600",
-                // width: '70%'
               }}
             >
-              {/* {user} */}
-              {/* {JSON.stringify(tg)} */}
-              {/* {JSON.stringify(JSON.stringify(consoleLog))} */}
-              {/* {JSON.stringify(userProf)} */}
-              {/* {JSON.stringify(data2)} */}
-              {/* {JSON.stringify(welcomeSalary)} */}
-              {/* {JSON.stringify(location)} */}
-              {/* //TODO "" */}
-              {/* {JSON.stringify(referral)} */}
               {data2?.coins}
             </Typography>
           </Box>
@@ -1287,8 +1082,6 @@ const App: React.FC = () => {
                 justifyContent: "center",
                 alignItems: "center",
                 top: "20%",
-                // pointerEvents: "none"
-                // position: 'absolute'
               }}
               onClick={handleButtonPress}
             >
@@ -1312,43 +1105,15 @@ const App: React.FC = () => {
               }}
             >
               {floatNumber.value ? `+${floatNumber.value}` : "+0"}{" "}
-              {/* Отображаем сохранённое значение кликов */}
+
             </div>
           ))}
         </Box>
-
-        {/* 
-        <div className="progress-container">
-          <div className="progress-bar">
-            <div className="glow-circle"></div>
-          </div>
-        </div> */}
 
         <div style={{ padding: '20px' }}>
           <EnergyBar energy={data2.energy} />
         </div>
 
-
-        {/* 
-        <Box sx={{ width: '100%' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Box sx={{ minWidth: 35 }}>
-              <ElectricBoltRoundedIcon sx={{ color: '#fff' }} />
-            </Box>
-            <Box sx={{ width: '100%', mr: 1 }}>
-              <BorderLinearProgress variant="determinate" value={data2.energy} />
-            </Box>
-            <Box sx={{ minWidth: 35 }}>
-              <Typography variant="body2" color="white">{`${Math.round(
-                data2.energy,
-              )}%`}</Typography>
-            </Box>
-          </Box>
-        </Box> */}
-
-        {/* PR Team */}
-
-        {/* Bloggers */}
       </Container>
 
       <img

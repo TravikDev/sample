@@ -1,4 +1,4 @@
-import React from "react"
+import { useState } from "react"
 import coinIcon from "@/assets/Coin.svg"
 import { CardDetailsModalProps } from "@/entities/cards/cards.dto"
 import IconCoinBig from "@/assets/icons-react/CoinBig"
@@ -13,14 +13,15 @@ import { ICard } from "../clicker"
 type IProps = {
   onSelectCard: (card: ICard) => void
   cards: ICard[]
+  isMyCards: boolean
   userCoins: number
   userSalary: number
 }
 
 
 
-export const CardsList = ({ onSelectCard, cards }: IProps) => {
-  console.log("cards: ", cards)
+export const CardsList = ({ onSelectCard, cards, isMyCards }: IProps) => {
+  console.log("CARDS LIST?: ", cards)
 
   return (
     <Box
@@ -47,7 +48,7 @@ export const CardsList = ({ onSelectCard, cards }: IProps) => {
             display: "flex",
             cursor: "pointer"
           }}
-          onClick={() => onSelectCard(card)}
+          onClick={() => onSelectCard(isMyCards ? { ...card, paid: true } : card)}
         >
           <img
             src={card.urlPicture}
@@ -103,7 +104,7 @@ export const CardsList = ({ onSelectCard, cards }: IProps) => {
                 alignItems: "center",
               }}
             >
-              <Box sx={{ display: "flex", gap: "8px", alignItems: "center" }}>
+              <Box sx={{ display: "flex", gap: "2px", alignItems: "center" }}>
                 <Typography
                   sx={{
                     fontSize: "16px",
@@ -121,7 +122,7 @@ export const CardsList = ({ onSelectCard, cards }: IProps) => {
                 >
                   Прибыль в час
                 </Typography>
-                <Box sx={{ display: "flex", gap: "8px", alignItems: "center" }}>
+                <Box sx={{ display: "flex", gap: "2px", alignItems: "center" }}>
                   <Typography
                     sx={{
                       fontSize: "12px",
@@ -152,35 +153,42 @@ export const CardDetailsModal: React.FC<CardDetailsModalProps> = ({
   coins,
 }) => {
 
-  console.log('card123: ', card)
-  if (card) {
+  /* @ts-ignore */
+  const currentCard = card?.card ? { ...card.card, ...card, description: card.card.description, paid: true } : card
+  /* @ts-ignore */
+  console.log('CURRENT CARD: ', currentCard)
+  console.log('SELECTED CARD: ', card)
+  if (currentCard) {
     return (
       <DetailsModal onClose={onClose} isView={isView} salary={0}>
-        {/* Монеты и прибыль */}
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2, paddingTop: 2 }}>
           <IconCoinBig width={45} height={45} />
           <Typography sx={{ fontFamily: 'Roboto, sans-serif', fontWeight: '800', fontSize: 30, color: "#C8D5D8", letterSpacing: "1px" }}>{coins}</Typography>
         </Box>
 
         <Divider sx={{ mb: 2, backgroundColor: 'rgba(0, 143, 109, 0.1)' }} />
 
-        {/* {card.} */}
-        {/* Информация о карточке */}
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <img
-            src={card?.urlPicture}
-            alt="card image"
+            src={currentCard?.urlPicture}
+            alt="currentCard image"
             style={{ width: 150, height: 150, objectFit: 'cover', borderRadius: 12 }}
           />
           <Box sx={{ ml: 3 }}>
             <Typography variant="h5" sx={{ fontWeight: 'bold', textTransform: 'capitalize', mb: 1 }}>
-              {card?.title}
+              {currentCard?.title}
             </Typography>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-              <YoutubeIcon sx={{ fill: "#b91f1f" }} />
-              <Typography variant="body2" sx={{ color: 'gray', textDecoration: 'underline', margin: "3px 0" }}>
-                Автор не указан
-              </Typography>
+
+              <a href={currentCard.urlUser} style={{ display: 'flex', flexDirection: 'row', gap: 2 }} target="_blank">
+
+                {currentCard?.urlPictureSocial === 'youtube' ? <YoutubeIcon sx={{ fill: "#b91f1f" }} /> : <img width={24} height={24} src={currentCard?.urlPictureSocial} />}
+
+                <Typography variant="body2" sx={{ color: 'gray', textDecoration: 'underline', margin: "3px 0" }}>
+                  {currentCard.urlUserTitle || 'Автор не указан'}
+                </Typography>
+              </a>
+
             </Box>
             <Box>
               <Typography variant="body2" sx={{ color: 'white', opacity: 0.6, marginTop: '15px' }}>
@@ -188,7 +196,7 @@ export const CardDetailsModal: React.FC<CardDetailsModalProps> = ({
               </Typography>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                  +{card?.salary}
+                  +{currentCard?.salary}
                 </Typography>
                 <img src={coinIcon} alt="coin" style={{ width: 20, height: 20 }} />
               </Box>
@@ -196,20 +204,18 @@ export const CardDetailsModal: React.FC<CardDetailsModalProps> = ({
           </Box>
         </Box>
 
-        {/* Описание карточки */}
         <Box sx={{ mt: "40px" }}>
           <Typography variant="body2" sx={{ color: 'white', opacity: 0.6, textAlign: 'center' }}>
-            {card?.description}
+            {currentCard?.description}
           </Typography>
         </Box>
-
-        {/* Кнопка */}
         <Button
           fullWidth
           variant="contained"
           color="primary"
           sx={{
             mt: "52px",
+            mb: "24px",
             height: 56,
             fontWeight: '600',
             letterSpacing: '1px',
@@ -222,12 +228,13 @@ export const CardDetailsModal: React.FC<CardDetailsModalProps> = ({
             boxShadow: "-2px -2px 2px rgba(0, 0, 0, 0.25) inset",
           }}
           onClick={() => {
-            card.paid ? onClickUpdateCard(card._id)
-              : onClickBuyCard(card._id)
+            currentCard.paid ? onClickUpdateCard(currentCard._id)
+              : onClickBuyCard(currentCard._id)
           }
           }
         >
-          {card.paid ? 'Улучшить' : 'Подписаться'}
+          {currentCard.paid ? `Улучшить - ${currentCard.upgradeCost}` : 'Подписаться'}
+          {!!currentCard.paid && <IconCoin width={26} height={26} />}
         </Button>
       </DetailsModal>
 

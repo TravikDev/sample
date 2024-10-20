@@ -1,9 +1,9 @@
 // Define a type for the slice state
-export interface Quest {
-    _id: string
-    userId: string
-    title: string
-    content: string
-    salary: number
-    date: string
+export type Quest = {
+    id: number,
+    isCompleted: boolean,
+    salary: number,
+    title: string,
+    url: string,
+    urlPicture: string,
 }

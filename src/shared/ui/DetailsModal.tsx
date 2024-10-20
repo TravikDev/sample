@@ -12,9 +12,10 @@ export interface DetailsModalProps {
 
 export const DetailsModal: React.FC<DetailsModalProps> = ({ onClose, isView, salary, children }) => {
 
-  console.log(salary)
+  // console.log(salary)
 
   return (
+
     <Modal
       open={isView}
       onClose={onClose}
@@ -22,41 +23,46 @@ export const DetailsModal: React.FC<DetailsModalProps> = ({ onClose, isView, sal
       sx={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}
     >
       <Slide direction="up" in={isView} timeout={500}>
-        <Box
-          sx={{
-            color: 'white',
-            position: 'relative',
-            width: '100%',
-            bgcolor: '#001313',
-            borderTop: '3px solid #026850',
-            borderRadius: '24px 24px 0 0',
-            boxShadow: 24,
-            p: 3,
-            pt: 4,
-            pb: 6,
-            animation: `${isView ? 'fadeIn' : 'fadeOut'} 0.5s`,
-          }}
-        >
-          {/* Кнопка закрытия */}
-          <IconButton
-            aria-label="close"
-            onClick={onClose}
+        <div style={{
+          color: 'white',
+          position: 'relative',
+          width: '100%',
+          backgroundColor: '#001313',
+          borderTop: '3px solid #026850',
+          borderRadius: '24px 24px 0 0',
+          boxShadow: '0 -4px 150px rgba(0, 69, 36, 0.9)',
+          padding: 25,
+          paddingTop: 4,
+          paddingBottom: 6,
+          animation: `${isView ? 'fadeIn' : 'fadeOut'} 0.5s`,
+        }}>
+          <Box
             sx={{
-              position: 'absolute',
-              right: 16,
-              top: 16,
-              color: 'black',
-              backgroundColor: 'rgba(98, 124, 108, 0.603)',
+
             }}
           >
-            <CloseIcon style={{ width: '20px', height: '20px' }} />
-          </IconButton>
+            {/* Кнопка закрытия */}
+            <IconButton
+              aria-label="close"
+              onClick={onClose}
+              sx={{
+                position: 'absolute',
+                right: 16,
+                top: 16,
+                color: 'black',
+                backgroundColor: 'rgba(98, 124, 108, 0.603)',
+              }}
+            >
+              <CloseIcon style={{ width: '20px', height: '20px' }} />
+            </IconButton>
 
-          {/* Изменяемый контент */}
-          {children}
-        </Box>
+            {/* Изменяемый контент */}
+            {children}
+          </Box>
+        </div>
       </Slide>
     </Modal>
+
   );
 };
 

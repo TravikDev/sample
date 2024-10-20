@@ -267,7 +267,7 @@ function FriendsView() {
   // console.log(count[1])
 
   return (
-    <div className="main-bg">
+    <Box className="main-bg" sx={{ height: '100%', overflowY: 'auto' }}>
       <Welcome />
       <Banner />
 
@@ -284,7 +284,7 @@ function FriendsView() {
         </Box>
       </Box> */}
       <Bonuses />
-      <Box sx={{ display: "flex", gap: 1, flexDirection: "column" }}>
+      <Box sx={{ display: "flex", gap: 1, flexDirection: "column", flex: 1, flexGrow: 1 }}>
 
 
         <FriendsList />
@@ -292,7 +292,7 @@ function FriendsView() {
         {/* <PostsList /> */}
       </Box>
       <Invites />
-    </div>
+    </Box>
   )
 }
 

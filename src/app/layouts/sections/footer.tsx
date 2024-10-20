@@ -189,8 +189,8 @@ const listMenu = [
 export const Footer = () => {
   const location = useLocation()
 
-  console.log(window.location.pathname)
-  console.log(location.pathname)
+  // console.log(window.location.pathname)
+  // console.log(location.pathname)
 
   // const profile = useNewSelector(selectProfile)
 
@@ -257,7 +257,7 @@ export const Footer = () => {
           <Link style={{ position: "relative" }} to={item.url} key={item.id}>
             {/* <img height={36} width={36} src={item.icon} alt={item.title} /> */}
             {item.url === window.location.pathname && (
-              <img src={Pick} style={{ position: "absolute", top: -20 }} />
+              <img src={Pick} style={{ position: "absolute", top: -20, left: -2 }} />
             )}
             {item.icon}
           </Link>

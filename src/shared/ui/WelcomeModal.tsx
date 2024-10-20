@@ -104,6 +104,7 @@ export const WelcomeModal: React.FC<DetailsModalProps> = ({
             wordWwrap: "break-word",
             textTransform: "none",
             padding: "16px 0",
+            marginBottom: '24px',
             boxShadow: "-2px -2px 2px rgba(0, 0, 0, 0.25) inset",
             background: "linear-gradient(45deg, #1d9988 0%, #5B5EF3 100%)",
           }}

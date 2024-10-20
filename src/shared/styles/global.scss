@@ -272,7 +272,7 @@ header {
 }
 
 .main-bg {
-  background: linear-gradient(360deg, #031B22 0%, #001315 100%);
+  background: linear-gradient(360deg, #031B22 0%, #001315 100%) center/cover;
 }
 
 .main-footer {
@@ -288,7 +288,8 @@ header {
 }
 
 body {
-  background-color: #333; /* Dark background for better visibility */
+  background-color: #333;
+  /* Dark background for better visibility */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -297,72 +298,97 @@ body {
 }
 
 .progress-container {
-  width: 300px;  /* Width of the progress bar */
-  height: 20px;  /* Height of the progress bar */
-  background-color: #444; /* Dark grey background */
+  width: 300px;
+  /* Width of the progress bar */
+  height: 20px;
+  /* Height of the progress bar */
+  background-color: #444;
+  /* Dark grey background */
   border-radius: 10px;
   position: relative;
   overflow: hidden;
 }
 
 .progress-bar {
-  width: 60%; /* Adjust width to represent progress */
+  width: 60%;
+  /* Adjust width to represent progress */
   height: 100%;
-  background: linear-gradient(90deg, rgba(0,255,0,1) 0%, rgba(173,255,47,1) 100%);
+  background: linear-gradient(90deg, rgba(0, 255, 0, 1) 0%, rgba(173, 255, 47, 1) 100%);
   position: relative;
-  border-radius: 10px 0 0 10px; /* Rounded corners on the left */
+  border-radius: 10px 0 0 10px;
+  /* Rounded corners on the left */
 }
 
 .glow-circle {
   position: absolute;
   top: 50%;
   left: 100%;
-  width: 30px;  /* Size of the glowing circle */
-  height: 30px; /* Size of the glowing circle */
-  background-color: rgba(173, 255, 47, 1); /* Inner circle color */
+  width: 30px;
+  /* Size of the glowing circle */
+  height: 30px;
+  /* Size of the glowing circle */
+  background-color: rgba(173, 255, 47, 1);
+  /* Inner circle color */
   border-radius: 100%;
-  box-shadow: 0 0 20px rgba(173, 255, 47, 0.8), 
-              0 0 40px rgba(173, 255, 47, 0.6), 
-              0 0 60px rgba(173, 255, 47, 0.4);
+  box-shadow: 0 0 20px rgba(173, 255, 47, 0.8),
+    0 0 40px rgba(173, 255, 47, 0.6),
+    0 0 60px rgba(173, 255, 47, 0.4);
   transform: translate(-50%, -50%);
-  pointer-events: none; /* Prevent interactions */
+  pointer-events: none;
+  /* Prevent interactions */
 }
 
 
 /* styles.css */
 .gradient-stroke-text {
-  font-size: 36px; /* Размер шрифта */
-  font-weight: 800; /* Жирный шрифт */
-  color: transparent; /* Прозрачный цвет текста */
-  background: linear-gradient(to right, #CBFD63, #03E4F8); /* Градиентный фон */
-  -webkit-background-clip: text; /* Клипинг фона для текста */
-  background-clip: text; /* Клипинг фона для текста */
-  position: relative; /* Позиционирование */
-  display: inline-block; /* Отображение */
+  font-size: 36px;
+  /* Размер шрифта */
+  font-weight: 800;
+  /* Жирный шрифт */
+  color: transparent;
+  /* Прозрачный цвет текста */
+  background: linear-gradient(to right, #CBFD63, #03E4F8);
+  /* Градиентный фон */
+  -webkit-background-clip: text;
+  /* Клипинг фона для текста */
+  background-clip: text;
+  /* Клипинг фона для текста */
+  position: relative;
+  /* Позиционирование */
+  display: inline-block;
+  /* Отображение */
 }
 
 .gradient-stroke-text::before {
-  content: attr(data-text); /* Дублирование текста */
+  content: attr(data-text);
+  /* Дублирование текста */
   position: absolute;
   top: 0;
   left: 0;
   z-index: -1;
-  color: #06353C; /* Цвет обводки */
+  color: #06353C;
+  /* Цвет обводки */
   background: none;
-  -webkit-text-stroke: 2px; /* Толщина обводки */
-  stroke: 2px; /* Толщина обводки */
-  text-shadow: 
-      -1px -1px 0 #06353C, 
-      1px -1px 0 #06353C, 
-      -1px 1px 0 #06353C, 
-      1px 1px 0 #06353C; /* Тени для эмуляции обводки */
+  -webkit-text-stroke: 2px;
+  /* Толщина обводки */
+  stroke: 2px;
+  /* Толщина обводки */
+  text-shadow:
+    -1px -1px 0 #06353C,
+    1px -1px 0 #06353C,
+    -1px 1px 0 #06353C,
+    1px 1px 0 #06353C;
+  /* Тени для эмуляции обводки */
 }
 
 .element-border {
   position: relative;
-  padding: 10px; /* Отступы для внутреннего содержимого */
-  border-radius: 20px; /* Скругленные углы */
-  background: white; /* Цвет фона элемента */
+  padding: 10px;
+  /* Отступы для внутреннего содержимого */
+  border-radius: 20px;
+  /* Скругленные углы */
+  background: white;
+  /* Цвет фона элемента */
   z-index: 1;
   // opacity: .8;
 }
@@ -370,12 +396,16 @@ body {
 .element-border::before {
   content: "";
   position: absolute;
-  top: 0; /* Толщина обводки */ //* -1
+  top: 0;
+  /* Толщина обводки */
+  //* -1
   left: -1px;
   right: -1px;
   bottom: -1px;
-  border-radius: 20px; /* Скругленные углы псевдоэлемента */
-  background: linear-gradient(180deg, #CDFE64AA, #06353CAA); /* Градиентная обводка */
+  border-radius: 20px;
+  /* Скругленные углы псевдоэлемента */
+  background: linear-gradient(180deg, #CDFE64AA, #06353CAA);
+  /* Градиентная обводка */
   z-index: -1;
 }
 
@@ -389,7 +419,8 @@ body {
   transform: translateY(100%);
   transition: transform 0.3s ease-in-out;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
-  z-index: 100; /* Чтобы слайдер был выше фона */
+  z-index: 100;
+  /* Чтобы слайдер был выше фона */
   border-top-right-radius: 30px;
   border-top-left-radius: 30px;
 }
@@ -412,7 +443,8 @@ body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  z-index: 101; /* Чтобы кнопка была выше фона и слайдера */
+  z-index: 101;
+  /* Чтобы кнопка была выше фона и слайдера */
 }
 
 .slider-background {
@@ -422,7 +454,8 @@ body {
   width: 100%;
   height: 20%;
   background: rgba(0, 0, 0, 0.3);
-  z-index: 99; /* Чтобы фон был ниже слайдера и кнопки */
+  z-index: 99;
+  /* Чтобы фон был ниже слайдера и кнопки */
 }
 
 .cardsCategories {
@@ -431,12 +464,17 @@ body {
 
 /* src/RectangularBlock.css */
 .card {
-  background-color: #0A2C36; /* Adjust color to match */
-  width: 300px; /* Adjust the width as needed */
-  height: 100px; /* Adjust the height as needed */
-  border-radius: 20px; /* General rounding */
+  background-color: #0A2C36;
+  /* Adjust color to match */
+  width: 300px;
+  /* Adjust the width as needed */
+  height: 100px;
+  /* Adjust the height as needed */
+  border-radius: 20px;
+  /* General rounding */
   clip-path: inset(20 px 20 px 50 px 20 px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* Subtle shadow */
 }
 
 
@@ -447,10 +485,14 @@ body {
   right: 0;
   width: 100%;
   height: 100%;
-  background-color: #4CAF50; /* Цвет фона, совпадает с основным блоком */
-  border-radius: 0 0 30px 0; /* Радиус только для правого нижнего угла */
-  clip-path: inset(0 0 0 0 round 20px 20px 0 0); /* Обрезаем углы, оставляя только радиус */
-  z-index: -1; /* Размещаем псевдоэлемент позади основного блока */
+  background-color: #4CAF50;
+  /* Цвет фона, совпадает с основным блоком */
+  border-radius: 0 0 30px 0;
+  /* Радиус только для правого нижнего угла */
+  clip-path: inset(0 0 0 0 round 20px 20px 0 0);
+  /* Обрезаем углы, оставляя только радиус */
+  z-index: -1;
+  /* Размещаем псевдоэлемент позади основного блока */
 }
 
 
@@ -464,7 +506,8 @@ body {
   transform: translateY(150%);
   transition: transform 0.3s ease-in-out;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
-  z-index: 200; /* Чтобы слайдер был выше фона */
+  z-index: 200;
+  /* Чтобы слайдер был выше фона */
   border-top-right-radius: 30px;
   border-top-left-radius: 30px;
 }
@@ -487,7 +530,8 @@ body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  z-index: 101; /* Чтобы кнопка была выше фона и слайдера */
+  z-index: 101;
+  /* Чтобы кнопка была выше фона и слайдера */
 }
 
 .slider2-background {
@@ -497,5 +541,6 @@ body {
   width: 100%;
   height: 20%;
   background: rgba(0, 0, 0, 0.3);
-  z-index: 99; /* Чтобы фон был ниже слайдера и кнопки */
+  z-index: 99;
+  /* Чтобы фон был ниже слайдера и кнопки */
 }

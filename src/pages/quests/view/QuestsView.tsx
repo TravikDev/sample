@@ -1,15 +1,9 @@
-// import GiftBox from "@/assets/giftBox.png"
-// import CoinBig from "@/assets/CoinBig.png"
-// import IconQuestsCal from "@/assets/Cal.png"
-
 import "@/shared/styles/global.scss"
 import {
   Avatar,
   Box,
-  // Button,
   Typography,
 } from "@mui/material"
-// import { IconFriendUser } from "@/assets/icons-react/IconFriendUser"
 import IconCoin from "@/assets/icons-react/Coin"
 import { useSelector } from "react-redux"
 import { QuestsLogo } from "@/assets/icons-react/QuestsLogo"
@@ -19,9 +13,19 @@ import IconPr from "@/assets/icons/tasks/Pr.png"
 import IconFr from "@/assets/icons/tasks/Fr.png"
 import IconYtb from "@/assets/icons/tasks/Ytb.png"
 import IconTg from "@/assets/icons/tasks/Tg.png"
-// import IconCal from "@/assets/icons/tasks/Cal.png"
 
-import { IconRightArrow } from "@/assets/icons-react/IconRightArrow"
+import { useEffect, useState } from "react"
+import { QuestCompleted } from "@/assets/icons-react/QuestCompleted"
+import { QuestArrow } from "@/assets/icons-react/QuestArrow"
+
+// @ts-ignore
+const userData = window.Telegram.WebApp.initDataUnsafe;
+// const userData = {
+//   user: {
+//     id: "6646659616",
+//     username: 'travikvlad'
+//   },
+// }
 
 const iconArray = [IconTg, IconYtb, IconFr, IconPr]
 
@@ -50,32 +54,6 @@ const Welcome = () => (
     </span>
   </Box>
 )
-
-// const Banner = () => (
-//     <Box sx={{ display: 'flex', padding: 4 }}>
-//         <Box sx={{ display: 'flex', flexDirection: 'row', gap: 4, justifyContent: 'center', backgroundColor: '#2E195F', width: '100%', borderRadius: '36px', height: 138 }}>
-//             <Box>
-
-//                 <img src={GiftBox} width={130} height={130} />
-//             </Box>
-//             <Box
-//                 sx={{ display: 'flex', flexDirection: 'column' }}
-//             >
-//                 <Box
-//                     sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 1, paddingTop: 2 }}
-//                 >
-//                     {/* <Typography sx={{ color: 'white', fontWeight: '700', fontSize: 42 }}>+1000</Typography> */}
-//                     <span style={{ color: 'white', fontWeight: '700', fontSize: 36, lineHeight: 0.1 }}>+&nbsp;1&nbsp;000</span>
-//                     <img src={CoinBig} width={32} height={32} />
-//                 </Box>
-//                 <Typography sx={{ color: 'white', fontWeight: '300', fontSize: 14, paddingLeft: 1 }}>для тебя и друга</Typography>
-
-//                 <Button sx={{ backgroundColor: '#74E5F2', borderRadius: 15, padding: '1px', marginInline: '1px', width: '70%', marginTop: 1 }}>Получить</Button>
-
-//             </Box>
-//         </Box>
-//     </Box>
-// )
 
 const Bonuses = ({ title }: { title: string }) => (
   <Box
@@ -119,345 +97,229 @@ const Bonuses = ({ title }: { title: string }) => (
         >
           {title}
         </Typography>
-        {/* <Typography sx={{ color: '#838D90', fontWeight: '500', fontSize: 14 }}>N друга</Typography> */}
       </Box>
-      {/* <span style={{ color: 'white', fontSize: '32px', fontWeight: 700 }}>Бонусы</span> */}
-      {/* <span style={{ color: 'white' }}>и получайте бонусы вместе!</span> */}
     </Box>
   </Box>
 )
 
-// const Invites = () => (
-//     <Box sx={{
-//         display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100%', alignItems: 'center',
-//         // paddingTop: '45px'
-//         // gap: 5,
-//         // paddingInline: 1,
-//     }}>
-//         <Box sx={{
-//             display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '80%', alignItems: 'center', gap: 4
-//         }}>
-//             <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', padding: 1, gap: 2 }}>
-//                 {/* <Typography sx={{ color: 'white', fontWeight: '500', fontSize: 18 }}>Ваши друзья</Typography> */}
-//                 {/* <Typography sx={{ color: '#838D90', fontWeight: '500', fontSize: 14 }}>N друга</Typography> */}
-//                 <Button variant="contained" sx={{ flex: 5, backgroundColor: '#008F6E' }}>Пригласить друга</Button>
-//                 <Button variant="contained" sx={{ flex: 1, backgroundColor: '#008F6E' }}>Пригласить друга</Button>
-//             </Box>
-//             {/* <span style={{ color: 'white', fontSize: '32px', fontWeight: 700 }}>Бонусы</span> */}
-//             {/* <span style={{ color: 'white' }}>и получайте бонусы вместе!</span> */}
-//         </Box>
-//     </Box>
-// )
-
-// const WeeklyEvents = ({ friends, title }: { friends: any, title: string }) => (<>
-
-//     <Box sx={{ display: 'flex', gap: 0, flexDirection: 'column' }}>
-//         <Bonuses title={title} />
-
-//         {friends.slice(0, 1).map((friend: any, idx: number) => (
-//             <>
-//                 <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', height: '95%' }}>
-//                     <div style={{ width: '80%', margin: 'auto', padding: 1, height: 64 }}
-//                     // className='element-border'
-//                     >
-//                         <div style={{ backgroundColor: '#182830', borderRadius: 20, height: 64, display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', }}>
-//                             <Box sx={{ margin: 1, display: 'flex', flexDirection: 'row', gap: 1 }}>
-//                                 <Avatar src={IconQuestsCal} />
-//                                 <Box>
-//                                     <Typography sx={{ fontSize: 14, color: 'white' }}>{friend.idTelegram}</Typography>
-//                                     {/* <img src={IconFriendUser} /> */}
-//                                     <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-//                                         <IconFriendUser />
-//                                         <Typography sx={{ fontSize: 14, color: '#838D90' }}>0</Typography>
-//                                     </Box>
-//                                 </Box>
-//                             </Box>
-
-//                             <Box
-//                                 sx={{ display: 'flex', flexDirection: 'row' }}
-//                             >
-//                                 <Typography sx={{ color: 'white' }}>+1000</Typography>
-//                                 <IconCoin
-//                                     width={25} height={25}
-//                                 />
-//                             </Box>
-
-//                         </div>
-//                     </div>
-//                     {/* <div style={{ width: '80%', margin: 'auto', padding: 1, height: 64 }} className='element-border'>
-//       <div style={{ backgroundColor: '#000', borderRadius: 20, height: 64 }}>ggg</div>
-//     </div> */}
-//                 </Box >
-//             </>
-
-//         ))}
-
-//         {/* <FriendsList /> */}
-//         {/* <PostAdd /> */}
-//         {/* <PostsList /> */}
-//     </Box>
-// </>
-// )
 
 const QuestsEvents = ({
+  setQuests,
   quests,
   title,
 }: {
+  setQuests: (val: any) => void,
   quests: Quest[]
   title: string
-}) => (
-  <>
+}) => {
+
+  console.log('QUESTS?: ', quests)
+  // @ts-ignore
+  // const [questsList, setQuestsList] = useState(quests)
+
+  const onClickQuest = async (idTelegram: string, idQuest: number) => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/users/quest/${idTelegram}/${idQuest}`,
+        {
+          method: 'POST',
+        })
+      if (!response.ok) {
+        throw new Error("Network response was not ok")
+      }
+      const jsonData = await response.json()
+      setQuests(jsonData.questsUsersJSON)
+
+    } catch (err) {
+    } finally {
+    }
+  }
+
+  return <>
     <Box sx={{ display: "flex", gap: 1, flexDirection: "column", marginBottom: '8px' }}>
       <Bonuses title={title} />
 
-      {quests.map((quest: Quest, idx: number) => (
+      {Array.isArray(quests) && quests.length > 0 && quests?.map((quest: Quest, idx: number) => (
         <>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              width: "100%",
-              height: "95%",
-            }}
-          >
-            <div
-              style={{ width: "80%", margin: "auto", padding: 1, height: 64 }}
-              // className='element-border'
-            >
-              <div
-                style={{
-                  backgroundColor: "#182830",
-                  borderRadius: 20,
-                  height: 64,
+          {
+            quest.isCompleted ? (
+              <Box
+                sx={{
                   display: "flex",
-                  flexDirection: "row",
+                  justifyContent: "space-between",
                   width: "100%",
-                  alignItems: "center",
-                  border: '2px rgba(205, 254, 100, 0.20) solid',
-                  borderBottom: 0,
+                  height: "95%",
                 }}
               >
-                <Box
-                  sx={{
-                    margin: 1,
-                    display: "flex",
-                    flexDirection: "row",
-                    gap: 1,
-                    alignItems: "center",
-                  }}
+                <div
+                  style={{ width: "80%", margin: "auto", padding: 1, height: 64 }}
                 >
-                  <Avatar src={iconArray[idx]} />
-                  <Box sx={{ display: "flex", flexDirection: "column" }}>
-                    <Typography
-                      sx={{ fontSize: 14, color: "white", fontWeight: 400 }}
+                  <div
+                    style={{
+                      backgroundColor: quest.isCompleted ? "#0D1D25" : "#182830",
+                      borderRadius: 20,
+                      height: 64,
+                      display: "flex",
+                      flexDirection: "row",
+                      width: "100%",
+                      alignItems: "center",
+                      border: '2px rgba(205, 254, 100, 0.20) solid',
+                      borderBottom: 0,
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        margin: 1,
+                        display: "flex",
+                        flexDirection: "row",
+                        gap: 1,
+                        width: '100%',
+                        justifyContent: 'space-between',
+                        alignItems: "center",
+                      }}
                     >
-                      {quest.title}
-                    </Typography>
+                      <Avatar src={iconArray[idx]} />
+                      <Box sx={{ display: "flex", flexDirection: "column" }}>
+                        <Typography
+                          sx={{ fontSize: 12, color: "white", fontWeight: 400 }}
+                        >
+                          {quest.title}
+                        </Typography>
 
-                    <Box sx={{ display: "flex", flexDirection: "row" }}>
-                      <IconCoin width={25} height={25} />
-                      <Typography sx={{ color: "white" }}>
-                        +{quest.salary}
-                      </Typography>
+                        <Box sx={{ display: "flex", flexDirection: "row" }}>
+                          <IconCoin width={25} height={25} />
+                          <Typography sx={{ color: "white" }}>
+                            +{quest.salary}
+                          </Typography>
+                        </Box>
+                      </Box>
+
+                      {quest.isCompleted ? <QuestCompleted /> : <QuestArrow />}
+
+
                     </Box>
-                  </Box>
-                  <IconRightArrow />
+                  </div>
+                </div>
 
-                  {/* <Box>
-                                    <img src={IconFriendUser} />
-                                    <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                                        <IconFriendUser />
-                                        <Typography sx={{ fontSize: 14, color: '#838D90' }}>0</Typography>
-                                    </Box>
-                                </Box> */}
-                </Box>
-              </div>
-            </div>
-            {/* <div style={{ width: '80%', margin: 'auto', padding: 1, height: 64 }} className='element-border'>
-      <div style={{ backgroundColor: '#000', borderRadius: 20, height: 64 }}>ggg</div>
-    </div> */}
-          </Box>
-        </>
-      ))}
+              </Box>
 
-      {/* <FriendsList /> */}
-      {/* <PostAdd /> */}
-      {/* <PostsList /> */}
+            ) : (
+
+              <a onClick={() => onClickQuest(userData.user.id, quest.id)} href={quest.url} target="_blank"
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "100%",
+                  height: "95%",
+                }}>
+                <div
+                  style={{ width: "80%", margin: "auto", padding: 1, height: 64 }}
+                >
+                  <div
+                    style={{
+                      backgroundColor: quest.isCompleted ? "#0D1D25" : "#182830",
+                      borderRadius: 20,
+                      height: 64,
+                      display: "flex",
+                      flexDirection: "row",
+                      width: "100%",
+                      alignItems: "center",
+                      border: '2px rgba(205, 254, 100, 0.20) solid',
+                      borderBottom: 0,
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        margin: 1,
+                        display: "flex",
+                        flexDirection: "row",
+                        gap: 1,
+                        width: '100%',
+                        justifyContent: 'space-between',
+                        alignItems: "center",
+                      }}
+                    >
+                      <Avatar src={iconArray[idx]} />
+                      <Box sx={{ display: "flex", flexDirection: "column" }}>
+                        <Typography
+                          sx={{ fontSize: 12, color: "white", fontWeight: 400 }}
+                        >
+                          {quest.title}
+                        </Typography>
+
+                        <Box sx={{ display: "flex", flexDirection: "row" }}>
+                          <IconCoin width={25} height={25} />
+                          <Typography sx={{ color: "white" }}>
+                            +{quest.salary}
+                          </Typography>
+                        </Box>
+                      </Box>
+
+                      {quest.isCompleted ? <QuestCompleted /> : <QuestArrow />}
+
+
+                    </Box>
+                  </div>
+                </div>
+
+              </a>
+            )
+          }
+        </>)
+      )}
     </Box>
   </>
-)
-
-// const QuestsAnotherEvents = ({
-//   quests,
-//   title,
-// }: {
-//   quests: Quest[]
-//   title: string
-// }) => (
-//   <>
-//     <Box sx={{ display: "flex", gap: 0, flexDirection: "column" }}>
-//       <Bonuses title={title} />
-
-//       {quests.map((quest: Quest) => (
-//         <>
-//           <Box
-//             sx={{
-//               display: "flex",
-//               justifyContent: "space-between",
-//               width: "100%",
-//               height: "95%",
-//             }}
-//           >
-//             <div
-//               style={{ width: "80%", margin: "auto", padding: 1, height: 64 }}
-//               // className='element-border'
-//             >
-//               <div
-//                 style={{
-//                   backgroundColor: "#182830",
-//                   borderRadius: 20,
-//                   height: 64,
-//                   display: "flex",
-//                   flexDirection: "row",
-//                   width: "100%",
-//                   alignItems: "center",
-//                   border: '2px rgba(205, 254, 100, 0.20) solid',
-//                   borderBottom: 0,
-//                 }}
-//               >
-//                 <Box
-//                   sx={{
-//                     margin: 1,
-//                     display: "flex",
-//                     flexDirection: "row",
-//                     gap: 1,
-//                     alignItems: "center",
-//                   }}
-//                 >
-//                   <Avatar src={IconCal} />
-//                   <Box sx={{ display: "flex", flexDirection: "column" }}>
-//                     <Typography
-//                       sx={{ fontSize: 14, color: "white", fontWeight: 400 }}
-//                     >
-//                       Забери ежедневную награду!
-//                     </Typography>
-
-//                     <Box sx={{ display: "flex", flexDirection: "row" }}>
-//                       <IconCoin width={25} height={25} />
-//                       <Typography sx={{ color: "white" }}>
-//                         +{quest.salary}
-//                       </Typography>
-//                     </Box>
-//                   </Box>
-//                   <IconRightArrow />
-//                   {/* <Box>
-//                                     <img src={IconFriendUser} />
-//                                     <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-//                                         <IconFriendUser />
-//                                         <Typography sx={{ fontSize: 14, color: '#838D90' }}>0</Typography>
-//                                     </Box>
-//                                 </Box> */}
-//                 </Box>
-//               </div>
-//             </div>
-//             {/* <div style={{ width: '80%', margin: 'auto', padding: 1, height: 64 }} className='element-border'>
-//       <div style={{ backgroundColor: '#000', borderRadius: 20, height: 64 }}>ggg</div>
-//     </div> */}
-//           </Box>
-//         </>
-//       ))}
-
-//       {/* <FriendsList /> */}
-//       {/* <PostAdd /> */}
-//       {/* <PostsList /> */}
-//     </Box>
-//   </>
-// )
+}
 
 function QuestsView() {
   const friends = useSelector((state: any) => state.quests)
-  const quests = useSelector((state: any) => state.quests)
+  // const quests = useSelector((state: any) => state.quests)
+
+  // @ts-ignore
+  const [quests, setQuests] = useState([])
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/users/telegram/${userData.user.id}`)
+        if (!response.ok) {
+          throw new Error("Network response was not ok")
+        }
+        const jsonData = await response.json()
+        setQuests(jsonData.questsUsersJSON)
+        return jsonData
+      } catch (err) {
+        // setError2(err)
+      } finally {
+        // setLoading(false)
+      }
+    }
+
+    getUser()
+
+  }, [])
 
   console.log("Quests: ", quests)
   console.log("FRIENDS: ", friends)
-  // The `state` arg is correctly typed as `RootState` already
-  // const posts = useNewSelector(selectAllPosts)
-  // const dispatch = useNewDispatch()
-
-  // console.log(count[1])
 
   return (
-    <div className="main-bg">
+    <Box className="main-bg" sx={{ height: '100%', overflowY: 'auto' }}>
       <Welcome />
-      {/* <Banner /> */}
-      {/* <Invites /> */}
-      {/* <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', margin: 'auto' }}>
-      <Box
-        sx={{ display: 'flex', flex: 5 }}
-      >
-        <Typography sx={{ color: 'white' }}>gg</Typography>
-      </Box>
-      <Box
-        sx={{ display: 'flex', flex: 1 }}
-      >
-        <Typography sx={{ color: 'white' }}>gg</Typography>
 
-      </Box>
-    </Box> */}
       <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
-      <Box sx={{ display: "flex", gap: 1, flexDirection: "column" }}>
-          {/* <Bonuses title={'Ежедневные задания'} />
+        <Box sx={{ display: "flex", gap: 1, flexDirection: "column" }}>
 
-
-                {friends.slice(0, 1).map((friend: any) => (
-                    <>
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', height: '95%' }}>
-                            <div style={{ width: '80%', margin: 'auto', padding: 1, height: 64 }} className='element-border'>
-                                <div style={{ backgroundColor: '#000', borderRadius: 20, height: 64, display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', }}>
-                                    <Box sx={{ margin: 1, display: 'flex', flexDirection: 'row', gap: 1 }}>
-                                        <Avatar src={IconQuestsCal} />
-                                        <Box>
-                                            <Typography sx={{ fontSize: 14, color: 'white' }}>{friend.idTelegram}</Typography>
-                                            <img src={IconFriendUser} />
-                                            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                                                <IconFriendUser />
-                                                <Typography sx={{ fontSize: 14, color: '#838D90' }}>0</Typography>
-                                            </Box>
-                                        </Box>
-                                    </Box>
-
-                                    <Box
-                                        sx={{ display: 'flex', flexDirection: 'row' }}
-                                    >
-                                        <Typography sx={{ color: 'white' }}>+1000</Typography>
-                                        <IconCoin
-                                            width={25} height={25}
-                                        />
-                                    </Box>
-
-                                </div>
-                            </div>
-                            <div style={{ width: '80%', margin: 'auto', padding: 1, height: 64 }} className='element-border'>
-              <div style={{ backgroundColor: '#000', borderRadius: 20, height: 64 }}>ggg</div>
-            </div>
-                        </Box >
-                    </>
-
-                ))} */}
-
-          {/* <FriendsList /> */}
-          {/* <PostAdd /> */}
-          {/* <PostsList /> */}
         </Box>
 
-        {/* {console.log(quests)} */}
-        {/* <QuestsAnotherEvents
-          quests={quests.slice(-1)}
-          title="Ежедневные награды"
-        /> */}
-        <QuestsEvents quests={quests} title="Список заданий" />
+        {Array.isArray(quests) && quests.length > 0 &&
+          <QuestsEvents
+            quests={quests}
+            title="Ежедневные награды"
+            setQuests={setQuests}
+          />
+        }
+        {/* <QuestsEvents quests={quests} title="Список заданий" setQuests={setQuests} /> */}
       </Box>
-    </div>
+    </Box>
   )
 }
 
