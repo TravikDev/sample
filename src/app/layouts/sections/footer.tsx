@@ -187,7 +187,7 @@ const listMenu = [
 // );
 
 export const Footer = () => {
-  const location = useLocation()
+  // const location = useLocation()
 
   // console.log(window.location.pathname)
   // console.log(location.pathname)

@@ -10,7 +10,7 @@ export interface DetailsModalProps {
   children?: React.ReactNode; // Изменяемый контент
 }
 
-export const DetailsModal: React.FC<DetailsModalProps> = ({ onClose, isView, salary, children }) => {
+export const DetailsModal: React.FC<DetailsModalProps> = ({ onClose, isView, children }) => {
 
   // console.log(salary)
 
