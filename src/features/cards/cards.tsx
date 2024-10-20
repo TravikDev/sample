@@ -1,4 +1,3 @@
-import { useState } from "react"
 import coinIcon from "@/assets/Coin.svg"
 import { CardDetailsModalProps } from "@/entities/cards/cards.dto"
 import IconCoinBig from "@/assets/icons-react/CoinBig"
