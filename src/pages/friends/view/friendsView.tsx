@@ -19,6 +19,12 @@ import { FriendsList } from "@/features/friends"
 
 // @ts-ignore
 const userData = window.Telegram.WebApp.initDataUnsafe;
+// const userData = {
+//   user: {
+//     id: "6646659616",
+//     username: 'travikvlad'
+//   },
+// }
 
 
 const Welcome = () => (

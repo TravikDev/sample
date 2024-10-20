@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 // import IconTrophy from "@/assets/icons/menu/trophy.png";
 // import { useNewSelector } from "@/shared/hooks/storeActions";
 // import { selectProfile } from "@/entities/profile/profileSlice";
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { Box, Button, List, Typography } from "@mui/material"
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import ChecklistRoundedIcon from '@mui/icons-material/ChecklistRounded';
@@ -187,12 +187,14 @@ const listMenu = [
 // );
 
 export const Footer = () => {
-  // const location = useLocation()
+  const location = useLocation()
 
   // console.log(window.location.pathname)
   // console.log(location.pathname)
 
   // const profile = useNewSelector(selectProfile)
+
+  console.log('URL: ', location)
 
   const [user, setUser] = useState<{ id: number; name: string }[]>([
     { id: 123, name: "string" },
@@ -256,7 +258,7 @@ export const Footer = () => {
         {listMenu.map((item) => (
           <Link style={{ position: "relative" }} to={item.url} key={item.id}>
             {/* <img height={36} width={36} src={item.icon} alt={item.title} /> */}
-            {item.url === window.location.pathname && (
+            {item.url === location.pathname && (
               <img src={Pick} style={{ position: "absolute", top: -20, left: -2 }} />
             )}
             {item.icon}
