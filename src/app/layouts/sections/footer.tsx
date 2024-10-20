@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 // import IconTrophy from "@/assets/icons/menu/trophy.png";
 // import { useNewSelector } from "@/shared/hooks/storeActions";
 // import { selectProfile } from "@/entities/profile/profileSlice";
-import { Link, useLocation } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { Box, Button, List, Typography } from "@mui/material"
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import ChecklistRoundedIcon from '@mui/icons-material/ChecklistRounded';
