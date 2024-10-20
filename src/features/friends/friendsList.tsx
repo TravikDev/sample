@@ -13,13 +13,13 @@ import IconCoin from "@/assets/icons-react/Coin"
 import GiftBox from "@/assets/giftBox.png"
 
 // @ts-ignore
-// const userData = window.Telegram.WebApp.initDataUnsafe;
-const userData = {
-	user: {
-		id: "6646659616",
-		username: 'travikvlad'
-	},
-}
+const userData = window.Telegram.WebApp.initDataUnsafe;
+// const userData = {
+// 	user: {
+// 		id: "6646659616",
+// 		username: 'travikvlad'
+// 	},
+// }
 
 export const FriendsList = () => {
 
