@@ -295,7 +295,7 @@ const App: React.FC = () => {
 
 
 
-    if (sessionStorage.getItem('isReady')) {
+    // if (sessionStorage.getItem('isReady')) {
 
       console.log('SECOND')
 
@@ -409,9 +409,9 @@ const App: React.FC = () => {
 
       }
 
-      sessionStorage.setItem('isReady', 'true');
+    //   sessionStorage.setItem('isReady', 'true');
 
-    }
+    // }
 
   }, [user]);
 
