@@ -31,7 +31,7 @@ store.dispatch(usersApiSlice.endpoints.getUsers.initiate());
 
 enableMocking().then(() => {
     ReactDOM.createRoot(document.getElementById('root')!).render(
-        <StrictMode>
+        // <StrictMode>
             <HelmetProvider>
                 <Provider store={store}>
                     {/* <ApiProvider api={apiSlice}> */}
@@ -41,6 +41,6 @@ enableMocking().then(() => {
                     {/* </ApiProvider> */}
                 </Provider>
             </HelmetProvider>
-        </StrictMode>,
+        // </StrictMode>,
     )
 })
