@@ -70,8 +70,8 @@ export const FriendsList = () => {
 					justifyContent: "space-around",
 					gap: "50px",
 					width: "100%",
-					"@media (min-width: 530px)": { gap: "100px" },
-					"@media (min-width: 700px)": { gap: "220px" },
+					// "@media (min-width: 530px)": { gap: "100px" },
+					// "@media (min-width: 700px)": { gap: "220px" },
 				}}
 			>
 				<Typography sx={{ color: "white", fontWeight: "500", fontSize: 18, letterSpacing: '0.5px', }}>

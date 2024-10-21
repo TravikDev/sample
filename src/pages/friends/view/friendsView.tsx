@@ -273,7 +273,7 @@ function FriendsView() {
   // console.log(count[1])
 
   return (
-    <Box className="main-bg" sx={{ height: '100%', overflowY: 'auto' }}>
+    <Box className="main-bg" sx={{ height: '100%' }}>
       <Welcome />
       <Banner />
 

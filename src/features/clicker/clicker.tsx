@@ -293,96 +293,57 @@ const App: React.FC = () => {
 
   useEffect(() => {
 
-    console.log('SECOND')
-
-    // ?tgWebAppStartParam=3334
-    const regex = /[\?&]tgWebAppStartParam=(\d+)/; // Регулярное выражение для поиска числа
-    const match = location.search.match(regex); // Ищем совпадение в строке параметров
 
 
+    if (!sessionStorage.getItem('isReady')) {
 
-    if (user && userProfile.idTelegram) {
-      if (match) {
-        // const startParamNumber = match[1]; // Извлекаем только число
-        // console.log(`Число из tgWebAppStartParam: ${startParamNumber}`);
+      console.log('SECOND')
 
-        // setReferral(startParamNumber)
-
-
-        let refExist = sessionStorage.getItem('ref');
-        if (!refExist) {
-          /* @ts-ignore */
-          sessionStorage.setItem('ref', userData.start_param);
-          /* @ts-ignore */
-          refExist = userData.start_param
-        }
-
-        // ---------------------- REGISTER!!!!
-
-        const fetchData = async () => {
-          try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/users/update/${refExist}`,
-              {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                  idTelegram: (userProfile.idTelegram).toString() || "0",
-                  username: userProfile?.username || 'Guest',
-                })
-              })
-            if (!response.ok) {
-              throw new Error("Network response was not ok")
-            }
-            const jsonData = await response.json()
-            // console.log(jsonData)
-            setData2(jsonData.user)
-            setWelcomeSalary(jsonData.salary)
-            // setProgress(jsonData.result?.energy)
-
-            setIsUserUpdated(true)
+      // ?tgWebAppStartParam=3334
+      const regex = /[\?&]tgWebAppStartParam=(\d+)/; // Регулярное выражение для поиска числа
+      const match = location.search.match(regex); // Ищем совпадение в строке параметров
 
 
-          } catch (err) {
-            setError2(err)
-          } finally {
-            setLoading(false)
+
+      if (user && userProfile.idTelegram) {
+        if (match) {
+          // const startParamNumber = match[1]; // Извлекаем только число
+          // console.log(`Число из tgWebAppStartParam: ${startParamNumber}`);
+
+          // setReferral(startParamNumber)
+
+
+          let refExist = sessionStorage.getItem('ref');
+          if (!refExist) {
+            /* @ts-ignore */
+            sessionStorage.setItem('ref', userData.start_param);
+            /* @ts-ignore */
+            refExist = userData.start_param
           }
-        }
-
-        fetchData()
-        /* @ts-ignore */
-        setUser(userData.user.id)
-
-        // }
-
-
-      } else {
-
-        if (userProfile.idTelegram) {
 
           // ---------------------- REGISTER!!!!
 
           const fetchData = async () => {
             try {
-              const response = await fetch(`${import.meta.env.VITE_API_URL}/users/update`,
+              const response = await fetch(`${import.meta.env.VITE_API_URL}/users/update/${refExist}`,
                 {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json',
                   },
                   body: JSON.stringify({
-                    idTelegram: (userData.user.id).toString() || "0",
-                    username: userData.user?.username || 'Guest',
+                    idTelegram: (userProfile.idTelegram).toString() || "0",
+                    username: userProfile?.username || 'Guest',
                   })
                 })
               if (!response.ok) {
                 throw new Error("Network response was not ok")
               }
               const jsonData = await response.json()
+              // console.log(jsonData)
               setData2(jsonData.user)
               setWelcomeSalary(jsonData.salary)
+              // setProgress(jsonData.result?.energy)
 
               setIsUserUpdated(true)
 
@@ -398,13 +359,59 @@ const App: React.FC = () => {
           /* @ts-ignore */
           setUser(userData.user.id)
 
-        }
+          // }
 
+
+        } else {
+
+          if (userProfile.idTelegram) {
+
+            // ---------------------- REGISTER!!!!
+
+            const fetchData = async () => {
+              try {
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/users/update`,
+                  {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      idTelegram: (userData.user.id).toString() || "0",
+                      username: userData.user?.username || 'Guest',
+                    })
+                  })
+                if (!response.ok) {
+                  throw new Error("Network response was not ok")
+                }
+                const jsonData = await response.json()
+                setData2(jsonData.user)
+                setWelcomeSalary(jsonData.salary)
+
+                setIsUserUpdated(true)
+
+
+              } catch (err) {
+                setError2(err)
+              } finally {
+                setLoading(false)
+              }
+            }
+
+            fetchData()
+            /* @ts-ignore */
+            setUser(userData.user.id)
+
+          }
+
+
+        }
 
       }
 
-    }
+      sessionStorage.setItem('isReady', 'true');
 
+    }
 
   }, [user]);
 
