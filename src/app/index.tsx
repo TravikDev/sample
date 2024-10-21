@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+// import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 // import { BaseLayout } from './layouts/baseLayout.tsx'
 import { Provider } from 'react-redux'
